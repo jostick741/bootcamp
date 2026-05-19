@@ -1,0 +1,11 @@
+default_scenario: medio
+simultaneidad:
+  bajo: 0.2
+  medio: 0.3
+  alto: 0.5
+forecast_horizons_anios:
+  - 5
+  - 10
+  - 15
+  - 20
+  - 30

@@ -1,0 +1,3641 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9f29cdc7068dfa904e45806804152968 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_9f29cdc7068dfa904e45806804152968" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9f29cdc7068dfa904e45806804152968 = L.map(
+                "map_9f29cdc7068dfa904e45806804152968",
+                {
+                    center: [4.5709, -74.2973],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_dde82570f4b3ae629867216955e95f9d = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_dde82570f4b3ae629867216955e95f9d.addTo(map_9f29cdc7068dfa904e45806804152968);
+        
+    
+            var marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_096a90472a3be94c86acffcb6322f8bc = L.marker(
+                [5.792, -75.7861],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_8a0c182650bf45c24af1ce50dce4cd07 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_453c72c670ecdbba5e59b53eec0a28b0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d8acf8a2d581c5121e771891252fa9ed = $(`<div id="html_d8acf8a2d581c5121e771891252fa9ed" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ANTIOQUIA<br>Municipio: JERICÓ<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 5.7920<br>Longitud usada: -75.7861<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_453c72c670ecdbba5e59b53eec0a28b0.setContent(html_d8acf8a2d581c5121e771891252fa9ed);
+            
+        
+
+        marker_096a90472a3be94c86acffcb6322f8bc.bindPopup(popup_453c72c670ecdbba5e59b53eec0a28b0)
+        ;
+
+        
+    
+    
+                marker_096a90472a3be94c86acffcb6322f8bc.setIcon(icon_8a0c182650bf45c24af1ce50dce4cd07);
+            
+    
+            var marker_1f71b361ccb4dc0559b78c7f4439e8dd = L.marker(
+                [4.6169, -74.3515],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_02f3c5bbbcafabd8277e768a634c8eba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_37697902abd2c5c6d4b9a1bf155fd6c0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ef75387ef46e9416fce89ca88c32fec8 = $(`<div id="html_ef75387ef46e9416fce89ca88c32fec8" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: CUNDINAMARCA<br>Municipio: SAN ANTONIO DEL TEQUENDAMA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.6169<br>Longitud usada: -74.3515<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_37697902abd2c5c6d4b9a1bf155fd6c0.setContent(html_ef75387ef46e9416fce89ca88c32fec8);
+            
+        
+
+        marker_1f71b361ccb4dc0559b78c7f4439e8dd.bindPopup(popup_37697902abd2c5c6d4b9a1bf155fd6c0)
+        ;
+
+        
+    
+    
+                marker_1f71b361ccb4dc0559b78c7f4439e8dd.setIcon(icon_02f3c5bbbcafabd8277e768a634c8eba);
+            
+    
+            var marker_a8104e81f546e3ce4bf7b88e97c0fe2b = L.marker(
+                [3.8772, -77.0263],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_2a7a39bd776324dd183245012415c261 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c64fc9947e86954c6a78c5d127c6fb5c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c6a7a51218850246f5c8a458bb44552d = $(`<div id="html_c6a7a51218850246f5c8a458bb44552d" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: BUENAVENTURA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 3.8772<br>Longitud usada: -77.0263<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_c64fc9947e86954c6a78c5d127c6fb5c.setContent(html_c6a7a51218850246f5c8a458bb44552d);
+            
+        
+
+        marker_a8104e81f546e3ce4bf7b88e97c0fe2b.bindPopup(popup_c64fc9947e86954c6a78c5d127c6fb5c)
+        ;
+
+        
+    
+    
+                marker_a8104e81f546e3ce4bf7b88e97c0fe2b.setIcon(icon_2a7a39bd776324dd183245012415c261);
+            
+    
+            var marker_769d58c62b714c06d2e6472fc5a1699d = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_a86713a821f5453f2adac4241401f6c4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_974aac3d358c9b7ee3e797f0e90ee2d3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d0ac0cba781d00662703d95de2b26ad6 = $(`<div id="html_d0ac0cba781d00662703d95de2b26ad6" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_974aac3d358c9b7ee3e797f0e90ee2d3.setContent(html_d0ac0cba781d00662703d95de2b26ad6);
+            
+        
+
+        marker_769d58c62b714c06d2e6472fc5a1699d.bindPopup(popup_974aac3d358c9b7ee3e797f0e90ee2d3)
+        ;
+
+        
+    
+    
+                marker_769d58c62b714c06d2e6472fc5a1699d.setIcon(icon_a86713a821f5453f2adac4241401f6c4);
+            
+    
+            var marker_6f8182f6c81f60fdbbb3b2c001f5cb0d = L.marker(
+                [6.3067, -73.3283],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_54ff430f002564a79a425afa986bff52 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_15dbeb28d9da47d9974327f72096a00c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6ebc671e1bffc1554d033c276038c869 = $(`<div id="html_6ebc671e1bffc1554d033c276038c869" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: SANTANDER<br>Municipio: GUAPOTÁ<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 6.3067<br>Longitud usada: -73.3283<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_15dbeb28d9da47d9974327f72096a00c.setContent(html_6ebc671e1bffc1554d033c276038c869);
+            
+        
+
+        marker_6f8182f6c81f60fdbbb3b2c001f5cb0d.bindPopup(popup_15dbeb28d9da47d9974327f72096a00c)
+        ;
+
+        
+    
+    
+                marker_6f8182f6c81f60fdbbb3b2c001f5cb0d.setIcon(icon_54ff430f002564a79a425afa986bff52);
+            
+    
+            var marker_c73bd9608435fb639372d40c5173374f = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_19b424a7568a64e19c3da193cf4e105f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c0355aa05028d9700b729ac5295c1069 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7863f52aa691c967766fec1db095d50d = $(`<div id="html_7863f52aa691c967766fec1db095d50d" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_c0355aa05028d9700b729ac5295c1069.setContent(html_7863f52aa691c967766fec1db095d50d);
+            
+        
+
+        marker_c73bd9608435fb639372d40c5173374f.bindPopup(popup_c0355aa05028d9700b729ac5295c1069)
+        ;
+
+        
+    
+    
+                marker_c73bd9608435fb639372d40c5173374f.setIcon(icon_19b424a7568a64e19c3da193cf4e105f);
+            
+    
+            var marker_85acd564406b23f3a49186b94debc53b = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_677f793a9ddbf69600db07478f824df8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e48ebf57d793caf2a14a30eb436bed16 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_402cbd1e8ea3b031380edd9200b454ee = $(`<div id="html_402cbd1e8ea3b031380edd9200b454ee" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_e48ebf57d793caf2a14a30eb436bed16.setContent(html_402cbd1e8ea3b031380edd9200b454ee);
+            
+        
+
+        marker_85acd564406b23f3a49186b94debc53b.bindPopup(popup_e48ebf57d793caf2a14a30eb436bed16)
+        ;
+
+        
+    
+    
+                marker_85acd564406b23f3a49186b94debc53b.setIcon(icon_677f793a9ddbf69600db07478f824df8);
+            
+    
+            var marker_6ac90ce9968625ff425493c2c02e72c6 = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_7442d95936dffc5a96266b565a0bdadc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cb0fd1b2405610e53877784c8fff15dd = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_60bd3de84fade1900ea73785e7520f3d = $(`<div id="html_60bd3de84fade1900ea73785e7520f3d" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_cb0fd1b2405610e53877784c8fff15dd.setContent(html_60bd3de84fade1900ea73785e7520f3d);
+            
+        
+
+        marker_6ac90ce9968625ff425493c2c02e72c6.bindPopup(popup_cb0fd1b2405610e53877784c8fff15dd)
+        ;
+
+        
+    
+    
+                marker_6ac90ce9968625ff425493c2c02e72c6.setIcon(icon_7442d95936dffc5a96266b565a0bdadc);
+            
+    
+            var marker_002200f7460cf7906557a9c617ce66ed = L.marker(
+                [5.0703, -75.5138],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_4b1a8c2712341cfcac7a5818464f0025 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_316f64255375f4552115c35abbe1565a = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f4fb8db7b3c54081b101cf08b9213866 = $(`<div id="html_f4fb8db7b3c54081b101cf08b9213866" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: CALDAS<br>Municipio: MANIZALES<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 5.0703<br>Longitud usada: -75.5138<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_316f64255375f4552115c35abbe1565a.setContent(html_f4fb8db7b3c54081b101cf08b9213866);
+            
+        
+
+        marker_002200f7460cf7906557a9c617ce66ed.bindPopup(popup_316f64255375f4552115c35abbe1565a)
+        ;
+
+        
+    
+    
+                marker_002200f7460cf7906557a9c617ce66ed.setIcon(icon_4b1a8c2712341cfcac7a5818464f0025);
+            
+    
+            var marker_af18f54cb13a41114d9aef9d7efaf9a9 = L.marker(
+                [4.5297, -75.6409],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_e59e30dcbc1467edb937ac212f0ff759 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_98a2571e2a1e76210336afea045a88b1 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2d329cb27ff18ea0eb8357318530af2b = $(`<div id="html_2d329cb27ff18ea0eb8357318530af2b" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: RISARALDA<br>Municipio: CALARCÁ<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.5297<br>Longitud usada: -75.6409<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_98a2571e2a1e76210336afea045a88b1.setContent(html_2d329cb27ff18ea0eb8357318530af2b);
+            
+        
+
+        marker_af18f54cb13a41114d9aef9d7efaf9a9.bindPopup(popup_98a2571e2a1e76210336afea045a88b1)
+        ;
+
+        
+    
+    
+                marker_af18f54cb13a41114d9aef9d7efaf9a9.setIcon(icon_e59e30dcbc1467edb937ac212f0ff759);
+            
+    
+            var marker_d62e8c90802ffcc27d37fe4b3abd6612 = L.marker(
+                [3.7238, -75.4832],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_ce5e98bfad1378025af0a892e8749d78 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_feca4ff24e30d4fbf9440ff870d6ef79 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4b45d7b08570d0a1cd56baedff528cc5 = $(`<div id="html_4b45d7b08570d0a1cd56baedff528cc5" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: TOLIMA<br>Municipio: CHAPARRAL<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 3.7238<br>Longitud usada: -75.4832<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_feca4ff24e30d4fbf9440ff870d6ef79.setContent(html_4b45d7b08570d0a1cd56baedff528cc5);
+            
+        
+
+        marker_d62e8c90802ffcc27d37fe4b3abd6612.bindPopup(popup_feca4ff24e30d4fbf9440ff870d6ef79)
+        ;
+
+        
+    
+    
+                marker_d62e8c90802ffcc27d37fe4b3abd6612.setIcon(icon_ce5e98bfad1378025af0a892e8749d78);
+            
+    
+            var marker_782edaace4667fbba2e50ee974539064 = L.marker(
+                [6.3778, -75.1411],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_4b922dc01192487dbc0e232a117eed76 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_85887d3975899823f1a07392e1b6ed18 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_eb45beb8e2455ecf588250c69f60f50e = $(`<div id="html_eb45beb8e2455ecf588250c69f60f50e" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ANTIOQUIA<br>Municipio: ALEJANDRÍA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 6.3778<br>Longitud usada: -75.1411<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_85887d3975899823f1a07392e1b6ed18.setContent(html_eb45beb8e2455ecf588250c69f60f50e);
+            
+        
+
+        marker_782edaace4667fbba2e50ee974539064.bindPopup(popup_85887d3975899823f1a07392e1b6ed18)
+        ;
+
+        
+    
+    
+                marker_782edaace4667fbba2e50ee974539064.setIcon(icon_4b922dc01192487dbc0e232a117eed76);
+            
+    
+            var marker_068a2ddb427dfae19dcc4e2ad2670410 = L.marker(
+                [4.7478, -73.5348],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_ffc614953a7e7332ba1f7a0376735278 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8a84011a5b72c25c58d0d2cc32f9019e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d1ab08f0da6782a4ce4191c12aa45bf3 = $(`<div id="html_d1ab08f0da6782a4ce4191c12aa45bf3" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: CUNDINAMARCA<br>Municipio: UBALÁ<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.7478<br>Longitud usada: -73.5348<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_8a84011a5b72c25c58d0d2cc32f9019e.setContent(html_d1ab08f0da6782a4ce4191c12aa45bf3);
+            
+        
+
+        marker_068a2ddb427dfae19dcc4e2ad2670410.bindPopup(popup_8a84011a5b72c25c58d0d2cc32f9019e)
+        ;
+
+        
+    
+    
+                marker_068a2ddb427dfae19dcc4e2ad2670410.setIcon(icon_ffc614953a7e7332ba1f7a0376735278);
+            
+    
+            var marker_8f50591845b431da70c984537810f43f = L.marker(
+                [4.0847, -76.1954],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_d5162ce59d1749a2fde69b735d251e30 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6767e838253cb7165eca744e5575a4ec = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d80e077e88d234af63d40c1215c2d4d1 = $(`<div id="html_d80e077e88d234af63d40c1215c2d4d1" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: TULUÁ<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.0847<br>Longitud usada: -76.1954<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_6767e838253cb7165eca744e5575a4ec.setContent(html_d80e077e88d234af63d40c1215c2d4d1);
+            
+        
+
+        marker_8f50591845b431da70c984537810f43f.bindPopup(popup_6767e838253cb7165eca744e5575a4ec)
+        ;
+
+        
+    
+    
+                marker_8f50591845b431da70c984537810f43f.setIcon(icon_d5162ce59d1749a2fde69b735d251e30);
+            
+    
+            var marker_c96925cd32ee19bb41c5e4e7702a6ed9 = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_68bd5013b81b9f1f84aea6d49a878686 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fa73189e4c8bc6bfa81694f304af1939 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a7d5ff7a3145b73de42c7fc24f9cec0e = $(`<div id="html_a7d5ff7a3145b73de42c7fc24f9cec0e" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_fa73189e4c8bc6bfa81694f304af1939.setContent(html_a7d5ff7a3145b73de42c7fc24f9cec0e);
+            
+        
+
+        marker_c96925cd32ee19bb41c5e4e7702a6ed9.bindPopup(popup_fa73189e4c8bc6bfa81694f304af1939)
+        ;
+
+        
+    
+    
+                marker_c96925cd32ee19bb41c5e4e7702a6ed9.setIcon(icon_68bd5013b81b9f1f84aea6d49a878686);
+            
+    
+            var marker_2d02492593ee953cc9c372fe04d7418b = L.marker(
+                [6.5547, -73.1331],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_691a96cdf3b6fe9ab211e88874b9c931 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b829fed4fa34da2d18c02a0211396b9e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_05b8b2cfaea3d80307848a2d41204507 = $(`<div id="html_05b8b2cfaea3d80307848a2d41204507" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: SANTANDER<br>Municipio: SAN GIL<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 6.5547<br>Longitud usada: -73.1331<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_b829fed4fa34da2d18c02a0211396b9e.setContent(html_05b8b2cfaea3d80307848a2d41204507);
+            
+        
+
+        marker_2d02492593ee953cc9c372fe04d7418b.bindPopup(popup_b829fed4fa34da2d18c02a0211396b9e)
+        ;
+
+        
+    
+    
+                marker_2d02492593ee953cc9c372fe04d7418b.setIcon(icon_691a96cdf3b6fe9ab211e88874b9c931);
+            
+    
+            var marker_74d8d86a2466d827989ec0564cdf612b = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_9ed3b841de4f349e5f4e9244c4d0d42d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0bbf82ea075d4f7ff8d35f0d5c3e7251 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c042ae8af529af6c55f7af49d3545260 = $(`<div id="html_c042ae8af529af6c55f7af49d3545260" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_0bbf82ea075d4f7ff8d35f0d5c3e7251.setContent(html_c042ae8af529af6c55f7af49d3545260);
+            
+        
+
+        marker_74d8d86a2466d827989ec0564cdf612b.bindPopup(popup_0bbf82ea075d4f7ff8d35f0d5c3e7251)
+        ;
+
+        
+    
+    
+                marker_74d8d86a2466d827989ec0564cdf612b.setIcon(icon_9ed3b841de4f349e5f4e9244c4d0d42d);
+            
+    
+            var marker_3575e22f03fff189ca7d888dfdaa8b35 = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_6ddc52c78e0bb2e1da81d3b583a68b51 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d86ac5002cfaca3664628e0cf2d16853 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_21756f24a8f95a55c55e73796c167ffa = $(`<div id="html_21756f24a8f95a55c55e73796c167ffa" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d86ac5002cfaca3664628e0cf2d16853.setContent(html_21756f24a8f95a55c55e73796c167ffa);
+            
+        
+
+        marker_3575e22f03fff189ca7d888dfdaa8b35.bindPopup(popup_d86ac5002cfaca3664628e0cf2d16853)
+        ;
+
+        
+    
+    
+                marker_3575e22f03fff189ca7d888dfdaa8b35.setIcon(icon_6ddc52c78e0bb2e1da81d3b583a68b51);
+            
+    
+            var marker_2ef5b560063a580c9a35b04735961ff2 = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_31a8faec2966634fa72aa7897a346d34 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3e0ee94d403938e96b16267bac31470e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c4d1b823f6a12fed5a3992690b4d0e5f = $(`<div id="html_c4d1b823f6a12fed5a3992690b4d0e5f" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_3e0ee94d403938e96b16267bac31470e.setContent(html_c4d1b823f6a12fed5a3992690b4d0e5f);
+            
+        
+
+        marker_2ef5b560063a580c9a35b04735961ff2.bindPopup(popup_3e0ee94d403938e96b16267bac31470e)
+        ;
+
+        
+    
+    
+                marker_2ef5b560063a580c9a35b04735961ff2.setIcon(icon_31a8faec2966634fa72aa7897a346d34);
+            
+    
+            var marker_699a7879a445310f5c9fba112aed8ee4 = L.marker(
+                [5.2043, -75.7912],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_a8adb3c5d937bfba369c62219589ef4d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d13fc3ebc626be1a598f137c07621272 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e5971237e98a3b5df43000703ed0ec9b = $(`<div id="html_e5971237e98a3b5df43000703ed0ec9b" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: CALDAS<br>Municipio: ANSERMA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 5.2043<br>Longitud usada: -75.7912<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d13fc3ebc626be1a598f137c07621272.setContent(html_e5971237e98a3b5df43000703ed0ec9b);
+            
+        
+
+        marker_699a7879a445310f5c9fba112aed8ee4.bindPopup(popup_d13fc3ebc626be1a598f137c07621272)
+        ;
+
+        
+    
+    
+                marker_699a7879a445310f5c9fba112aed8ee4.setIcon(icon_a8adb3c5d937bfba369c62219589ef4d);
+            
+    
+            var marker_7b063fa11805505f58d3c8f590a65219 = L.marker(
+                [4.8133, -75.6961],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_3c300547ec842a6513588362276c966b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2b7ba4b722512b6e687eb9f9722e8e6c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1237543f455bf5f57b5688fb9e1436a6 = $(`<div id="html_1237543f455bf5f57b5688fb9e1436a6" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: RISARALDA<br>Municipio: PEREIRA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.8133<br>Longitud usada: -75.6961<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_2b7ba4b722512b6e687eb9f9722e8e6c.setContent(html_1237543f455bf5f57b5688fb9e1436a6);
+            
+        
+
+        marker_7b063fa11805505f58d3c8f590a65219.bindPopup(popup_2b7ba4b722512b6e687eb9f9722e8e6c)
+        ;
+
+        
+    
+    
+                marker_7b063fa11805505f58d3c8f590a65219.setIcon(icon_3c300547ec842a6513588362276c966b);
+            
+    
+            var marker_44081a7c3aac9944845febb65ea36ce5 = L.marker(
+                [4.0108, -75.6053],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_ec28206b3dc4460839e528fce315960e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f4939ee92d09a681fa17689e5b2fe0bb = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0abeab9ea8f2ff71098bcf9c16eaa627 = $(`<div id="html_0abeab9ea8f2ff71098bcf9c16eaa627" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: TOLIMA<br>Municipio: RONCESVALLES<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.0108<br>Longitud usada: -75.6053<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_f4939ee92d09a681fa17689e5b2fe0bb.setContent(html_0abeab9ea8f2ff71098bcf9c16eaa627);
+            
+        
+
+        marker_44081a7c3aac9944845febb65ea36ce5.bindPopup(popup_f4939ee92d09a681fa17689e5b2fe0bb)
+        ;
+
+        
+    
+    
+                marker_44081a7c3aac9944845febb65ea36ce5.setIcon(icon_ec28206b3dc4460839e528fce315960e);
+            
+    
+            var marker_055c848d3d30d2a86b2170256547694e = L.marker(
+                [6.9108, -75.0775],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_b22eff52719de3dcb55309a794ad5565 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ff1a977890d7310f7afe11cd3d1ff11b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e0d7d6b6e5c1b05e4722355b84c87b1a = $(`<div id="html_e0d7d6b6e5c1b05e4722355b84c87b1a" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ANTIOQUIA<br>Municipio: AMALFI<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 6.9108<br>Longitud usada: -75.0775<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_ff1a977890d7310f7afe11cd3d1ff11b.setContent(html_e0d7d6b6e5c1b05e4722355b84c87b1a);
+            
+        
+
+        marker_055c848d3d30d2a86b2170256547694e.bindPopup(popup_ff1a977890d7310f7afe11cd3d1ff11b)
+        ;
+
+        
+    
+    
+                marker_055c848d3d30d2a86b2170256547694e.setIcon(icon_b22eff52719de3dcb55309a794ad5565);
+            
+    
+            var marker_53e29f39b27a0635486ba55e22d44fa8 = L.marker(
+                [4.7908, -73.6645],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_c53fd042642f151688243dd42200936c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_639ffd56e6fad3035e71ce89b3e109c6 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1e345ee6e7febb6e270f0b202e3b9318 = $(`<div id="html_1e345ee6e7febb6e270f0b202e3b9318" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: CUNDINAMARCA<br>Municipio: JUNÍN<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.7908<br>Longitud usada: -73.6645<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_639ffd56e6fad3035e71ce89b3e109c6.setContent(html_1e345ee6e7febb6e270f0b202e3b9318);
+            
+        
+
+        marker_53e29f39b27a0635486ba55e22d44fa8.bindPopup(popup_639ffd56e6fad3035e71ce89b3e109c6)
+        ;
+
+        
+    
+    
+                marker_53e29f39b27a0635486ba55e22d44fa8.setIcon(icon_c53fd042642f151688243dd42200936c);
+            
+    
+            var marker_958b11fafd92c82473b73c135901a8e8 = L.marker(
+                [2.9538, -76.6964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_f4799b3a9661e5c7f78ec172e1d72a13 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d4dc160289458eaacf463bb860592355 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6915b5f189a0f3e1efa57aba4c2430c3 = $(`<div id="html_6915b5f189a0f3e1efa57aba4c2430c3" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: SUÁREZ<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 2.9538<br>Longitud usada: -76.6964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d4dc160289458eaacf463bb860592355.setContent(html_6915b5f189a0f3e1efa57aba4c2430c3);
+            
+        
+
+        marker_958b11fafd92c82473b73c135901a8e8.bindPopup(popup_d4dc160289458eaacf463bb860592355)
+        ;
+
+        
+    
+    
+                marker_958b11fafd92c82473b73c135901a8e8.setIcon(icon_f4799b3a9661e5c7f78ec172e1d72a13);
+            
+    
+            var marker_2ed4228c9664b2009e4bb8f14dc5c174 = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_e4e04e27733841bae4bf0918943c701b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_964404f7c7043344ad88097f3f34f75e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_372e43756da9bc503fcfdf0d3432d788 = $(`<div id="html_372e43756da9bc503fcfdf0d3432d788" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_964404f7c7043344ad88097f3f34f75e.setContent(html_372e43756da9bc503fcfdf0d3432d788);
+            
+        
+
+        marker_2ed4228c9664b2009e4bb8f14dc5c174.bindPopup(popup_964404f7c7043344ad88097f3f34f75e)
+        ;
+
+        
+    
+    
+                marker_2ed4228c9664b2009e4bb8f14dc5c174.setIcon(icon_e4e04e27733841bae4bf0918943c701b);
+            
+    
+            var marker_eb17d13a88385238d01ba1a1f4207e9a = L.marker(
+                [7.1193, -73.1227],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_88aac0eaeb550c1ec041c80b468998b6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_636fba0a7110dca31525ccc269701be1 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a9bc65defbe98d9606e9ba8170dbdcbb = $(`<div id="html_a9bc65defbe98d9606e9ba8170dbdcbb" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: SANTANDER<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 7.1193<br>Longitud usada: -73.1227<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_636fba0a7110dca31525ccc269701be1.setContent(html_a9bc65defbe98d9606e9ba8170dbdcbb);
+            
+        
+
+        marker_eb17d13a88385238d01ba1a1f4207e9a.bindPopup(popup_636fba0a7110dca31525ccc269701be1)
+        ;
+
+        
+    
+    
+                marker_eb17d13a88385238d01ba1a1f4207e9a.setIcon(icon_88aac0eaeb550c1ec041c80b468998b6);
+            
+    
+            var marker_e3a96ccf59e2799484579fec198c2233 = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_79793b86022147b4048e01fe41305cc0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9d4c19ab18dccc54b28c8395a3e3affa = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_07cd978d056021638fc10296d2f9f57e = $(`<div id="html_07cd978d056021638fc10296d2f9f57e" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_9d4c19ab18dccc54b28c8395a3e3affa.setContent(html_07cd978d056021638fc10296d2f9f57e);
+            
+        
+
+        marker_e3a96ccf59e2799484579fec198c2233.bindPopup(popup_9d4c19ab18dccc54b28c8395a3e3affa)
+        ;
+
+        
+    
+    
+                marker_e3a96ccf59e2799484579fec198c2233.setIcon(icon_79793b86022147b4048e01fe41305cc0);
+            
+    
+            var marker_a51adb6583da762e8b6fe69130507b34 = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_f3c015d3eeb6df3649167c52515d7948 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d9f179a294345ad902b3a941ab62b691 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8b5da352943b8d4a14d611caea0d4ee0 = $(`<div id="html_8b5da352943b8d4a14d611caea0d4ee0" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d9f179a294345ad902b3a941ab62b691.setContent(html_8b5da352943b8d4a14d611caea0d4ee0);
+            
+        
+
+        marker_a51adb6583da762e8b6fe69130507b34.bindPopup(popup_d9f179a294345ad902b3a941ab62b691)
+        ;
+
+        
+    
+    
+                marker_a51adb6583da762e8b6fe69130507b34.setIcon(icon_f3c015d3eeb6df3649167c52515d7948);
+            
+    
+            var marker_5e64636b20d804078c8144bd53d2fa0d = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_1045f7f4f13ff5a4963b0c779471620a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_193d4d200e9627406ded4c611d8279e9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_b1d6f77b882135cae8b061fce0c55de5 = $(`<div id="html_b1d6f77b882135cae8b061fce0c55de5" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_193d4d200e9627406ded4c611d8279e9.setContent(html_b1d6f77b882135cae8b061fce0c55de5);
+            
+        
+
+        marker_5e64636b20d804078c8144bd53d2fa0d.bindPopup(popup_193d4d200e9627406ded4c611d8279e9)
+        ;
+
+        
+    
+    
+                marker_5e64636b20d804078c8144bd53d2fa0d.setIcon(icon_1045f7f4f13ff5a4963b0c779471620a);
+            
+    
+            var marker_b8c82f5173f46c1bb3f33fcd4a128c5e = L.marker(
+                [5.3884, -75.2042],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_88b89859ef94d7aace560430177a3ae4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a5104e7f2ab6d2db6334d28bea428bea = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_3c0af981fd4324ee10523bc8ca0e7c47 = $(`<div id="html_3c0af981fd4324ee10523bc8ca0e7c47" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: CALDAS<br>Municipio: PENSILVANIA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 5.3884<br>Longitud usada: -75.2042<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_a5104e7f2ab6d2db6334d28bea428bea.setContent(html_3c0af981fd4324ee10523bc8ca0e7c47);
+            
+        
+
+        marker_b8c82f5173f46c1bb3f33fcd4a128c5e.bindPopup(popup_a5104e7f2ab6d2db6334d28bea428bea)
+        ;
+
+        
+    
+    
+                marker_b8c82f5173f46c1bb3f33fcd4a128c5e.setIcon(icon_88b89859ef94d7aace560430177a3ae4);
+            
+    
+            var marker_b658076c8365b72d9647fee04a6360ef = L.marker(
+                [4.5339, -75.6811],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_f9aa1ce16c138d75442556b6410fcac6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b0bf1c6ff0bf4c6512f92cfd72d34e45 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_733b7075efd6645ecb35c20187af9288 = $(`<div id="html_733b7075efd6645ecb35c20187af9288" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: RISARALDA<br>Municipio: ARMENIA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.5339<br>Longitud usada: -75.6811<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_b0bf1c6ff0bf4c6512f92cfd72d34e45.setContent(html_733b7075efd6645ecb35c20187af9288);
+            
+        
+
+        marker_b658076c8365b72d9647fee04a6360ef.bindPopup(popup_b0bf1c6ff0bf4c6512f92cfd72d34e45)
+        ;
+
+        
+    
+    
+                marker_b658076c8365b72d9647fee04a6360ef.setIcon(icon_f9aa1ce16c138d75442556b6410fcac6);
+            
+    
+            var marker_84c565e03a0c119f1b07b50f1bb58dcf = L.marker(
+                [4.2397, -75.2394],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_613ec9a585100a1c3fc961f8b3d4d663 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_881399b619c3217048222ca22b70824f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7bd3dc62de7688ccf226a4579d25ff14 = $(`<div id="html_7bd3dc62de7688ccf226a4579d25ff14" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: TOLIMA<br>Municipio: ROVIRA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.2397<br>Longitud usada: -75.2394<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_881399b619c3217048222ca22b70824f.setContent(html_7bd3dc62de7688ccf226a4579d25ff14);
+            
+        
+
+        marker_84c565e03a0c119f1b07b50f1bb58dcf.bindPopup(popup_881399b619c3217048222ca22b70824f)
+        ;
+
+        
+    
+    
+                marker_84c565e03a0c119f1b07b50f1bb58dcf.setIcon(icon_613ec9a585100a1c3fc961f8b3d4d663);
+            
+    
+            var marker_8744c0565387adb56df32b6c63f03cdf = L.marker(
+                [6.2442, -75.5812],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_35f755a9cbe98dbbff38b7238bb5d235 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5038430df64d0a4bdffa91404b2ad170 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8a5f08abf0b9bf27d67780528a1f0b01 = $(`<div id="html_8a5f08abf0b9bf27d67780528a1f0b01" style="width: 100.0%; height: 100.0%;"><b>Hidráulica</b><br>Departamento: ANTIOQUIA<br>Municipio: MEDELLÍN<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 6.2442<br>Longitud usada: -75.5812<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_5038430df64d0a4bdffa91404b2ad170.setContent(html_8a5f08abf0b9bf27d67780528a1f0b01);
+            
+        
+
+        marker_8744c0565387adb56df32b6c63f03cdf.bindPopup(popup_5038430df64d0a4bdffa91404b2ad170)
+        ;
+
+        
+    
+    
+                marker_8744c0565387adb56df32b6c63f03cdf.setIcon(icon_35f755a9cbe98dbbff38b7238bb5d235);
+            
+    
+            var marker_5b02d7e865bb75d1ea3eafda29cda9d2 = L.marker(
+                [3.4516, -76.532],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_043946456d32acb58defcc71f35d1214 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d21e415dec4007181aa0d3cfee96bf32 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0615a2a17e9b252f796f2508796a77aa = $(`<div id="html_0615a2a17e9b252f796f2508796a77aa" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 3.4516<br>Longitud usada: -76.5320<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d21e415dec4007181aa0d3cfee96bf32.setContent(html_0615a2a17e9b252f796f2508796a77aa);
+            
+        
+
+        marker_5b02d7e865bb75d1ea3eafda29cda9d2.bindPopup(popup_d21e415dec4007181aa0d3cfee96bf32)
+        ;
+
+        
+    
+    
+                marker_5b02d7e865bb75d1ea3eafda29cda9d2.setIcon(icon_043946456d32acb58defcc71f35d1214);
+            
+    
+            var marker_b7e046ec021e1d2f78750b14aeeaba5a = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_5518e81fa8e604a3a87380b090b57182 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7adb4b69034c3a0b05604bd9f5190b2f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_33adf2fc5f5cfcfa2dc9c44878c4dd9a = $(`<div id="html_33adf2fc5f5cfcfa2dc9c44878c4dd9a" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_7adb4b69034c3a0b05604bd9f5190b2f.setContent(html_33adf2fc5f5cfcfa2dc9c44878c4dd9a);
+            
+        
+
+        marker_b7e046ec021e1d2f78750b14aeeaba5a.bindPopup(popup_7adb4b69034c3a0b05604bd9f5190b2f)
+        ;
+
+        
+    
+    
+                marker_b7e046ec021e1d2f78750b14aeeaba5a.setIcon(icon_5518e81fa8e604a3a87380b090b57182);
+            
+    
+            var marker_0d11f44122c6f726085c861f23d1a00b = L.marker(
+                [7.1193, -73.1227],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_aecd2539359d51beff0c8f775f4010a5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fe435efb9644e0dc6f382ecaad3fcfc3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0ac09661bc59939f2883d28f88db3515 = $(`<div id="html_0ac09661bc59939f2883d28f88db3515" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: SANTANDER<br>Municipio: BUCARAMANGA<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 7.1193<br>Longitud usada: -73.1227<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_fe435efb9644e0dc6f382ecaad3fcfc3.setContent(html_0ac09661bc59939f2883d28f88db3515);
+            
+        
+
+        marker_0d11f44122c6f726085c861f23d1a00b.bindPopup(popup_fe435efb9644e0dc6f382ecaad3fcfc3)
+        ;
+
+        
+    
+    
+                marker_0d11f44122c6f726085c861f23d1a00b.setIcon(icon_aecd2539359d51beff0c8f775f4010a5);
+            
+    
+            var marker_c34ce18d37c3215ab2488ab26d9c0edb = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_143922201f8b349364edf9de73a31c7a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a9fcf2db94f91cc1540a2ee0cac3de67 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_98e14d0f2a8a86dbb34cc1cfe756e817 = $(`<div id="html_98e14d0f2a8a86dbb34cc1cfe756e817" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_a9fcf2db94f91cc1540a2ee0cac3de67.setContent(html_98e14d0f2a8a86dbb34cc1cfe756e817);
+            
+        
+
+        marker_c34ce18d37c3215ab2488ab26d9c0edb.bindPopup(popup_a9fcf2db94f91cc1540a2ee0cac3de67)
+        ;
+
+        
+    
+    
+                marker_c34ce18d37c3215ab2488ab26d9c0edb.setIcon(icon_143922201f8b349364edf9de73a31c7a);
+            
+    
+            var marker_7c59bf23582e408d5223ade2a149c493 = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_720702a23ec8c8a3e20718dc03135a6e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0e4630d4814d5121825e048fca967232 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a90e05f0f0cf97eba07ee03df92a824b = $(`<div id="html_a90e05f0f0cf97eba07ee03df92a824b" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_0e4630d4814d5121825e048fca967232.setContent(html_a90e05f0f0cf97eba07ee03df92a824b);
+            
+        
+
+        marker_7c59bf23582e408d5223ade2a149c493.bindPopup(popup_0e4630d4814d5121825e048fca967232)
+        ;
+
+        
+    
+    
+                marker_7c59bf23582e408d5223ade2a149c493.setIcon(icon_720702a23ec8c8a3e20718dc03135a6e);
+            
+    
+            var marker_f11df94afb1a0d44a24f4fdb0ec38100 = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_9b914d19d84cd870eef81aea7765cf66 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d1ccb66369e57b3bd7271cbfa93e5605 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7c1546d96b139c5df32944e52f790863 = $(`<div id="html_7c1546d96b139c5df32944e52f790863" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d1ccb66369e57b3bd7271cbfa93e5605.setContent(html_7c1546d96b139c5df32944e52f790863);
+            
+        
+
+        marker_f11df94afb1a0d44a24f4fdb0ec38100.bindPopup(popup_d1ccb66369e57b3bd7271cbfa93e5605)
+        ;
+
+        
+    
+    
+                marker_f11df94afb1a0d44a24f4fdb0ec38100.setIcon(icon_9b914d19d84cd870eef81aea7765cf66);
+            
+    
+            var marker_35257a416a080400c5f791891ba4a37b = L.marker(
+                [5.4631, -74.6544],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_9f000d38d73799cdf5aeb076e098c5b1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d98df5484ddfa33a6ec9955536481153 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a5910dc21dab1274d93801fde86b3ff2 = $(`<div id="html_a5910dc21dab1274d93801fde86b3ff2" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CALDAS<br>Municipio: PUERTO SALGAR<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 5.4631<br>Longitud usada: -74.6544<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d98df5484ddfa33a6ec9955536481153.setContent(html_a5910dc21dab1274d93801fde86b3ff2);
+            
+        
+
+        marker_35257a416a080400c5f791891ba4a37b.bindPopup(popup_d98df5484ddfa33a6ec9955536481153)
+        ;
+
+        
+    
+    
+                marker_35257a416a080400c5f791891ba4a37b.setIcon(icon_9f000d38d73799cdf5aeb076e098c5b1);
+            
+    
+            var marker_9243464f2d2d138dc5bc7c70befb5d7d = L.marker(
+                [4.8143, -75.6946],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_d17eacf77f99cd45a904dfb86b2c5a3e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6c5ffe64c34ffc50feaae39962eafe2d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_bd36df1b1d2104f613a53ac4b4235723 = $(`<div id="html_bd36df1b1d2104f613a53ac4b4235723" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: RISARALDA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.8143<br>Longitud usada: -75.6946<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_6c5ffe64c34ffc50feaae39962eafe2d.setContent(html_bd36df1b1d2104f613a53ac4b4235723);
+            
+        
+
+        marker_9243464f2d2d138dc5bc7c70befb5d7d.bindPopup(popup_6c5ffe64c34ffc50feaae39962eafe2d)
+        ;
+
+        
+    
+    
+                marker_9243464f2d2d138dc5bc7c70befb5d7d.setIcon(icon_d17eacf77f99cd45a904dfb86b2c5a3e);
+            
+    
+            var marker_a72459a027e3324fb8fa83a658fa6bdd = L.marker(
+                [4.4389, -75.2322],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_116ee72261a3915d927a6c2ceb96077c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bf682ba59346f12fcdbd397b8022e491 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_23ab5349d329de675078ed8daf188294 = $(`<div id="html_23ab5349d329de675078ed8daf188294" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: TOLIMA<br>Municipio: IBAGUÉ<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.4389<br>Longitud usada: -75.2322<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_bf682ba59346f12fcdbd397b8022e491.setContent(html_23ab5349d329de675078ed8daf188294);
+            
+        
+
+        marker_a72459a027e3324fb8fa83a658fa6bdd.bindPopup(popup_bf682ba59346f12fcdbd397b8022e491)
+        ;
+
+        
+    
+    
+                marker_a72459a027e3324fb8fa83a658fa6bdd.setIcon(icon_116ee72261a3915d927a6c2ceb96077c);
+            
+    
+            var marker_5a96a52b51a741239caccb9f4fe06c0d = L.marker(
+                [6.1919, -74.5867],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_c322c205dd0ab6dbed3da00df69c6621 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_45e9225530a2e3b26eab46880413e8b1 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c15d0b4dcde160e7894a690b2db9d0ec = $(`<div id="html_c15d0b4dcde160e7894a690b2db9d0ec" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ANTIOQUIA<br>Municipio: PUERTO NARE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 6.1919<br>Longitud usada: -74.5867<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_45e9225530a2e3b26eab46880413e8b1.setContent(html_c15d0b4dcde160e7894a690b2db9d0ec);
+            
+        
+
+        marker_5a96a52b51a741239caccb9f4fe06c0d.bindPopup(popup_45e9225530a2e3b26eab46880413e8b1)
+        ;
+
+        
+    
+    
+                marker_5a96a52b51a741239caccb9f4fe06c0d.setIcon(icon_c322c205dd0ab6dbed3da00df69c6621);
+            
+    
+            var marker_4d81172d47c5d41ae66bf794e78d2381 = L.marker(
+                [4.5794, -74.2168],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_1650de72b76f0443c0b9cb862363ff9a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_27600dd5828b28c49e3f2cac25a401d3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c7371d00839326dad21205ba73ea2283 = $(`<div id="html_c7371d00839326dad21205ba73ea2283" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CUNDINAMARCA<br>Municipio: SOACHA<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.5794<br>Longitud usada: -74.2168<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_27600dd5828b28c49e3f2cac25a401d3.setContent(html_c7371d00839326dad21205ba73ea2283);
+            
+        
+
+        marker_4d81172d47c5d41ae66bf794e78d2381.bindPopup(popup_27600dd5828b28c49e3f2cac25a401d3)
+        ;
+
+        
+    
+    
+                marker_4d81172d47c5d41ae66bf794e78d2381.setIcon(icon_1650de72b76f0443c0b9cb862363ff9a);
+            
+    
+            var marker_7d74b742067f827439254994d377e2a5 = L.marker(
+                [3.4516, -76.532],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_da6c2a340bfca69daf6a5bd473f62281 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6a637d648d2c019150bdfb9c94bca67b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_56f400bc566099410719934ac147b7df = $(`<div id="html_56f400bc566099410719934ac147b7df" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 3.4516<br>Longitud usada: -76.5320<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_6a637d648d2c019150bdfb9c94bca67b.setContent(html_56f400bc566099410719934ac147b7df);
+            
+        
+
+        marker_7d74b742067f827439254994d377e2a5.bindPopup(popup_6a637d648d2c019150bdfb9c94bca67b)
+        ;
+
+        
+    
+    
+                marker_7d74b742067f827439254994d377e2a5.setIcon(icon_da6c2a340bfca69daf6a5bd473f62281);
+            
+    
+            var marker_74e287cae7106ec9227e9d6accaf64ee = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_7bc91658d0661952b8c1fe806a3ffbc6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_38aa3a32d344cefd27a7715d14da380f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d1603c340d665f79a4f06259ff76686e = $(`<div id="html_d1603c340d665f79a4f06259ff76686e" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_38aa3a32d344cefd27a7715d14da380f.setContent(html_d1603c340d665f79a4f06259ff76686e);
+            
+        
+
+        marker_74e287cae7106ec9227e9d6accaf64ee.bindPopup(popup_38aa3a32d344cefd27a7715d14da380f)
+        ;
+
+        
+    
+    
+                marker_74e287cae7106ec9227e9d6accaf64ee.setIcon(icon_7bc91658d0661952b8c1fe806a3ffbc6);
+            
+    
+            var marker_0997577ca4a2db0e035967c74720515b = L.marker(
+                [7.4773, -73.9234],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_7672cf3c587137cd393ab0dca914746e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8592df3a8bd370c9641fa30920fec9f2 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_abf11b23e26c2eb29e95a4b870b21618 = $(`<div id="html_abf11b23e26c2eb29e95a4b870b21618" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: SANTANDER<br>Municipio: SAN PABLO<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 7.4773<br>Longitud usada: -73.9234<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_8592df3a8bd370c9641fa30920fec9f2.setContent(html_abf11b23e26c2eb29e95a4b870b21618);
+            
+        
+
+        marker_0997577ca4a2db0e035967c74720515b.bindPopup(popup_8592df3a8bd370c9641fa30920fec9f2)
+        ;
+
+        
+    
+    
+                marker_0997577ca4a2db0e035967c74720515b.setIcon(icon_7672cf3c587137cd393ab0dca914746e);
+            
+    
+            var marker_d2edfd8a92974721217f8d063986d8d9 = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_fa1e04993e93a1b81cf1221b963d3df0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3c65dbd90788a019878914fefe202f37 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_05de680a5c42088cc503c736b3e757c5 = $(`<div id="html_05de680a5c42088cc503c736b3e757c5" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_3c65dbd90788a019878914fefe202f37.setContent(html_05de680a5c42088cc503c736b3e757c5);
+            
+        
+
+        marker_d2edfd8a92974721217f8d063986d8d9.bindPopup(popup_3c65dbd90788a019878914fefe202f37)
+        ;
+
+        
+    
+    
+                marker_d2edfd8a92974721217f8d063986d8d9.setIcon(icon_fa1e04993e93a1b81cf1221b963d3df0);
+            
+    
+            var marker_2f041b0f23bcc3523e70267c5af53272 = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_0eb2376282f9aee911c5c5376ea738f2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_53854b096ca4e5a874cada9cdedca370 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6fefff28311add736a0184c984184ced = $(`<div id="html_6fefff28311add736a0184c984184ced" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_53854b096ca4e5a874cada9cdedca370.setContent(html_6fefff28311add736a0184c984184ced);
+            
+        
+
+        marker_2f041b0f23bcc3523e70267c5af53272.bindPopup(popup_53854b096ca4e5a874cada9cdedca370)
+        ;
+
+        
+    
+    
+                marker_2f041b0f23bcc3523e70267c5af53272.setIcon(icon_0eb2376282f9aee911c5c5376ea738f2);
+            
+    
+            var marker_40aa7b0778d0178202e6f533d6675a1d = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_c1d429a029b8be01791b86f58807852f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d7b4b61cf3eee70a03cf488cf306dd68 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_68e669d4453f3246cb161e765febe1c8 = $(`<div id="html_68e669d4453f3246cb161e765febe1c8" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d7b4b61cf3eee70a03cf488cf306dd68.setContent(html_68e669d4453f3246cb161e765febe1c8);
+            
+        
+
+        marker_40aa7b0778d0178202e6f533d6675a1d.bindPopup(popup_d7b4b61cf3eee70a03cf488cf306dd68)
+        ;
+
+        
+    
+    
+                marker_40aa7b0778d0178202e6f533d6675a1d.setIcon(icon_c1d429a029b8be01791b86f58807852f);
+            
+    
+            var marker_4a52ef44cb5198ba470b728e17490429 = L.marker(
+                [5.0703, -75.5138],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_1c82b34d75e8953d6a6b429fb3d4eb98 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b4b8647de725d7f41ce10babb9d8461c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_67cb2ce0bae5c73509de2b220a9fa3c6 = $(`<div id="html_67cb2ce0bae5c73509de2b220a9fa3c6" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CALDAS<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 5.0703<br>Longitud usada: -75.5138<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_b4b8647de725d7f41ce10babb9d8461c.setContent(html_67cb2ce0bae5c73509de2b220a9fa3c6);
+            
+        
+
+        marker_4a52ef44cb5198ba470b728e17490429.bindPopup(popup_b4b8647de725d7f41ce10babb9d8461c)
+        ;
+
+        
+    
+    
+                marker_4a52ef44cb5198ba470b728e17490429.setIcon(icon_1c82b34d75e8953d6a6b429fb3d4eb98);
+            
+    
+            var marker_ea5bd13b5b300504ed1ad32d24dc59e1 = L.marker(
+                [4.8143, -75.6946],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_54bd445cdcd14a974ce23d69bd0562d2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4d1b207996d850baaa67df69570da632 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d4986ec4ece29beb652543439cb09fff = $(`<div id="html_d4986ec4ece29beb652543439cb09fff" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: RISARALDA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.8143<br>Longitud usada: -75.6946<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_4d1b207996d850baaa67df69570da632.setContent(html_d4986ec4ece29beb652543439cb09fff);
+            
+        
+
+        marker_ea5bd13b5b300504ed1ad32d24dc59e1.bindPopup(popup_4d1b207996d850baaa67df69570da632)
+        ;
+
+        
+    
+    
+                marker_ea5bd13b5b300504ed1ad32d24dc59e1.setIcon(icon_54bd445cdcd14a974ce23d69bd0562d2);
+            
+    
+            var marker_532eccd1b36a8afd7710ae34a866097f = L.marker(
+                [4.4389, -75.2322],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_98a33d5da8579eebdef4b4dbdec7a69d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_50511a03300dda6bb0cee37a72581f68 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9beebf383dab66aeaed015c1271fcb1e = $(`<div id="html_9beebf383dab66aeaed015c1271fcb1e" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: TOLIMA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.4389<br>Longitud usada: -75.2322<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_50511a03300dda6bb0cee37a72581f68.setContent(html_9beebf383dab66aeaed015c1271fcb1e);
+            
+        
+
+        marker_532eccd1b36a8afd7710ae34a866097f.bindPopup(popup_50511a03300dda6bb0cee37a72581f68)
+        ;
+
+        
+    
+    
+                marker_532eccd1b36a8afd7710ae34a866097f.setIcon(icon_98a33d5da8579eebdef4b4dbdec7a69d);
+            
+    
+            var marker_93f309d20540b45e60eb7d41daf7fde8 = L.marker(
+                [7.588, -75.4007],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_f32f6a19999f71113e12a89b7427bcbb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bc946596ae239a4b90ceb3d0eac54115 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1444e06ee0ccadaaebf8232b14ce54f9 = $(`<div id="html_1444e06ee0ccadaaebf8232b14ce54f9" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ANTIOQUIA<br>Municipio: TARAZÁ<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 7.5880<br>Longitud usada: -75.4007<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_bc946596ae239a4b90ceb3d0eac54115.setContent(html_1444e06ee0ccadaaebf8232b14ce54f9);
+            
+        
+
+        marker_93f309d20540b45e60eb7d41daf7fde8.bindPopup(popup_bc946596ae239a4b90ceb3d0eac54115)
+        ;
+
+        
+    
+    
+                marker_93f309d20540b45e60eb7d41daf7fde8.setIcon(icon_f32f6a19999f71113e12a89b7427bcbb);
+            
+    
+            var marker_fb2599a290f7f19d588249a34c07d321 = L.marker(
+                [4.711, -74.0721],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_7df314f7aa1f7a0c88fddb44d838ecbc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b0a10c1a8d39283390c44aee633b3277 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2f8698a31fbc4c8e6621650c5d305419 = $(`<div id="html_2f8698a31fbc4c8e6621650c5d305419" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CUNDINAMARCA<br>Municipio: BOGOTÁ D.C.<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.7110<br>Longitud usada: -74.0721<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_b0a10c1a8d39283390c44aee633b3277.setContent(html_2f8698a31fbc4c8e6621650c5d305419);
+            
+        
+
+        marker_fb2599a290f7f19d588249a34c07d321.bindPopup(popup_b0a10c1a8d39283390c44aee633b3277)
+        ;
+
+        
+    
+    
+                marker_fb2599a290f7f19d588249a34c07d321.setIcon(icon_7df314f7aa1f7a0c88fddb44d838ecbc);
+            
+    
+            var marker_a134c9ae86951558a55ae5feffeda8f7 = L.marker(
+                [3.4516, -76.532],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_5b2f584625d13a3816f70ccbb4b89500 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fe864e16aaf4412bdfb5757b2497d703 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4b44288d47c1e3c1e039bd3ddf75d845 = $(`<div id="html_4b44288d47c1e3c1e039bd3ddf75d845" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 3.4516<br>Longitud usada: -76.5320<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_fe864e16aaf4412bdfb5757b2497d703.setContent(html_4b44288d47c1e3c1e039bd3ddf75d845);
+            
+        
+
+        marker_a134c9ae86951558a55ae5feffeda8f7.bindPopup(popup_fe864e16aaf4412bdfb5757b2497d703)
+        ;
+
+        
+    
+    
+                marker_a134c9ae86951558a55ae5feffeda8f7.setIcon(icon_5b2f584625d13a3816f70ccbb4b89500);
+            
+    
+            var marker_8ba3b0aea05300c4ee18c487af187de8 = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_bad95a8ba4e78c9c45dfc9c564a29001 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c5c709ab5d791677e33a7c1cabe0efad = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0bdb85570e4c2b0f025b5516753ff038 = $(`<div id="html_0bdb85570e4c2b0f025b5516753ff038" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_c5c709ab5d791677e33a7c1cabe0efad.setContent(html_0bdb85570e4c2b0f025b5516753ff038);
+            
+        
+
+        marker_8ba3b0aea05300c4ee18c487af187de8.bindPopup(popup_c5c709ab5d791677e33a7c1cabe0efad)
+        ;
+
+        
+    
+    
+                marker_8ba3b0aea05300c4ee18c487af187de8.setIcon(icon_bad95a8ba4e78c9c45dfc9c564a29001);
+            
+    
+            var marker_d4c94cb53d6775c6fab7937531cf901f = L.marker(
+                [7.0682, -73.1698],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_a46c1087a9cce1f48f6daa04acbfacd8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bcd8632978e669ffcd477a5ef6c6184d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_919ee015799b9856bc5e805eccde5369 = $(`<div id="html_919ee015799b9856bc5e805eccde5369" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: SANTANDER<br>Municipio: GIRÓN<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 7.0682<br>Longitud usada: -73.1698<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_bcd8632978e669ffcd477a5ef6c6184d.setContent(html_919ee015799b9856bc5e805eccde5369);
+            
+        
+
+        marker_d4c94cb53d6775c6fab7937531cf901f.bindPopup(popup_bcd8632978e669ffcd477a5ef6c6184d)
+        ;
+
+        
+    
+    
+                marker_d4c94cb53d6775c6fab7937531cf901f.setIcon(icon_a46c1087a9cce1f48f6daa04acbfacd8);
+            
+    
+            var marker_3ba5bec714ce5451b9570e882b74ce8c = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_9b4ea4851c9ffd9db6f82acf8b20d9e2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8cd8e106d40f751a90bd4b893434341a = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_abd0696e25fbab407e96e3310454ca3f = $(`<div id="html_abd0696e25fbab407e96e3310454ca3f" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_8cd8e106d40f751a90bd4b893434341a.setContent(html_abd0696e25fbab407e96e3310454ca3f);
+            
+        
+
+        marker_3ba5bec714ce5451b9570e882b74ce8c.bindPopup(popup_8cd8e106d40f751a90bd4b893434341a)
+        ;
+
+        
+    
+    
+                marker_3ba5bec714ce5451b9570e882b74ce8c.setIcon(icon_9b4ea4851c9ffd9db6f82acf8b20d9e2);
+            
+    
+            var marker_fda3d2adc0d34a51e204393f492ed04b = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_c4b04a025715b6c5602f6373eab288df = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9b5c2be8b6726195e1057de87861e808 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_67913e93eaf1d6095f3ef9f555deb921 = $(`<div id="html_67913e93eaf1d6095f3ef9f555deb921" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_9b5c2be8b6726195e1057de87861e808.setContent(html_67913e93eaf1d6095f3ef9f555deb921);
+            
+        
+
+        marker_fda3d2adc0d34a51e204393f492ed04b.bindPopup(popup_9b5c2be8b6726195e1057de87861e808)
+        ;
+
+        
+    
+    
+                marker_fda3d2adc0d34a51e204393f492ed04b.setIcon(icon_c4b04a025715b6c5602f6373eab288df);
+            
+    
+            var marker_dfd962d535338910c268ff38810517da = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_d48edae37cab3bd68665229d1b16fb5e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f31671460441a0e6ea2877e7900e55ca = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_080dbcc55d280de612a2fc7be0d74563 = $(`<div id="html_080dbcc55d280de612a2fc7be0d74563" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_f31671460441a0e6ea2877e7900e55ca.setContent(html_080dbcc55d280de612a2fc7be0d74563);
+            
+        
+
+        marker_dfd962d535338910c268ff38810517da.bindPopup(popup_f31671460441a0e6ea2877e7900e55ca)
+        ;
+
+        
+    
+    
+                marker_dfd962d535338910c268ff38810517da.setIcon(icon_d48edae37cab3bd68665229d1b16fb5e);
+            
+    
+            var marker_dfcb22b3ebe3d9f2f35cedc47196ad0f = L.marker(
+                [5.0703, -75.5138],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_2b892b8f74253ed1fa12d8e5ca83de70 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9988207f79f5a4b29282c8962065a330 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1a398d51e97386031dee80ece42a082a = $(`<div id="html_1a398d51e97386031dee80ece42a082a" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CALDAS<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 5.0703<br>Longitud usada: -75.5138<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_9988207f79f5a4b29282c8962065a330.setContent(html_1a398d51e97386031dee80ece42a082a);
+            
+        
+
+        marker_dfcb22b3ebe3d9f2f35cedc47196ad0f.bindPopup(popup_9988207f79f5a4b29282c8962065a330)
+        ;
+
+        
+    
+    
+                marker_dfcb22b3ebe3d9f2f35cedc47196ad0f.setIcon(icon_2b892b8f74253ed1fa12d8e5ca83de70);
+            
+    
+            var marker_6cd639e25fbf2058925ae3a7cbb029f6 = L.marker(
+                [4.8143, -75.6946],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_40049f39aaaa4d29a6af687394f463d1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c5640bd333767610eba232efd52cc7e9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_979174e27c016c1bb5c7ddac7323da02 = $(`<div id="html_979174e27c016c1bb5c7ddac7323da02" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: RISARALDA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.8143<br>Longitud usada: -75.6946<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_c5640bd333767610eba232efd52cc7e9.setContent(html_979174e27c016c1bb5c7ddac7323da02);
+            
+        
+
+        marker_6cd639e25fbf2058925ae3a7cbb029f6.bindPopup(popup_c5640bd333767610eba232efd52cc7e9)
+        ;
+
+        
+    
+    
+                marker_6cd639e25fbf2058925ae3a7cbb029f6.setIcon(icon_40049f39aaaa4d29a6af687394f463d1);
+            
+    
+            var marker_cebae9038923c719bb9c56372020e052 = L.marker(
+                [4.4389, -75.2322],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_df1418c018d0fb84457633fd042fa7b2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5e75f04673019bb9686c73eeacf702d8 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_61a22a4ae1049cd2851842b1b97a1fcd = $(`<div id="html_61a22a4ae1049cd2851842b1b97a1fcd" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: TOLIMA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.4389<br>Longitud usada: -75.2322<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_5e75f04673019bb9686c73eeacf702d8.setContent(html_61a22a4ae1049cd2851842b1b97a1fcd);
+            
+        
+
+        marker_cebae9038923c719bb9c56372020e052.bindPopup(popup_5e75f04673019bb9686c73eeacf702d8)
+        ;
+
+        
+    
+    
+                marker_cebae9038923c719bb9c56372020e052.setIcon(icon_df1418c018d0fb84457633fd042fa7b2);
+            
+    
+            var marker_333b2c4910f6d6f6cf68b4d6ec5f145a = L.marker(
+                [6.2442, -75.5812],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_4d83f514d7f956002cda764c5c17967a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e772ab4177348741f3c0bc5440c7c8f2 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f92278476a08edab91c30f32ac097c0b = $(`<div id="html_f92278476a08edab91c30f32ac097c0b" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ANTIOQUIA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 6.2442<br>Longitud usada: -75.5812<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_e772ab4177348741f3c0bc5440c7c8f2.setContent(html_f92278476a08edab91c30f32ac097c0b);
+            
+        
+
+        marker_333b2c4910f6d6f6cf68b4d6ec5f145a.bindPopup(popup_e772ab4177348741f3c0bc5440c7c8f2)
+        ;
+
+        
+    
+    
+                marker_333b2c4910f6d6f6cf68b4d6ec5f145a.setIcon(icon_4d83f514d7f956002cda764c5c17967a);
+            
+    
+            var marker_4d61c94ce466f6a85670fbc3dead52f9 = L.marker(
+                [4.711, -74.0721],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_4a3b66db98f6746a5a944fc65aabf1e0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f8288ebe9543264705b52914824e3f39 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c7e614f91e3b0fb3238b33282ea58896 = $(`<div id="html_c7e614f91e3b0fb3238b33282ea58896" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CUNDINAMARCA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.7110<br>Longitud usada: -74.0721<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_f8288ebe9543264705b52914824e3f39.setContent(html_c7e614f91e3b0fb3238b33282ea58896);
+            
+        
+
+        marker_4d61c94ce466f6a85670fbc3dead52f9.bindPopup(popup_f8288ebe9543264705b52914824e3f39)
+        ;
+
+        
+    
+    
+                marker_4d61c94ce466f6a85670fbc3dead52f9.setIcon(icon_4a3b66db98f6746a5a944fc65aabf1e0);
+            
+    
+            var marker_43506bf7139c3dc8c3d9b8bbfcb8c054 = L.marker(
+                [3.4516, -76.532],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_1c34d22d01afd00f1f09e81efbf94fc2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_03bf117cca4472fe8defd7c3cd77b2b9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_fd491f3ca5ec95f634ba1a51f5faa82e = $(`<div id="html_fd491f3ca5ec95f634ba1a51f5faa82e" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 3.4516<br>Longitud usada: -76.5320<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_03bf117cca4472fe8defd7c3cd77b2b9.setContent(html_fd491f3ca5ec95f634ba1a51f5faa82e);
+            
+        
+
+        marker_43506bf7139c3dc8c3d9b8bbfcb8c054.bindPopup(popup_03bf117cca4472fe8defd7c3cd77b2b9)
+        ;
+
+        
+    
+    
+                marker_43506bf7139c3dc8c3d9b8bbfcb8c054.setIcon(icon_1c34d22d01afd00f1f09e81efbf94fc2);
+            
+    
+            var marker_f0e5cd48151336382d4e58568bf5f498 = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_2f9947ec893d0291535b36eb527f8dc1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_10318279d001121d6854f0c65824eb30 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_48d1a28789f43e113f91ad002a30b306 = $(`<div id="html_48d1a28789f43e113f91ad002a30b306" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_10318279d001121d6854f0c65824eb30.setContent(html_48d1a28789f43e113f91ad002a30b306);
+            
+        
+
+        marker_f0e5cd48151336382d4e58568bf5f498.bindPopup(popup_10318279d001121d6854f0c65824eb30)
+        ;
+
+        
+    
+    
+                marker_f0e5cd48151336382d4e58568bf5f498.setIcon(icon_2f9947ec893d0291535b36eb527f8dc1);
+            
+    
+            var marker_ab90eb4c0e7ac2f70d11bda0ce66d588 = L.marker(
+                [7.1193, -73.1227],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_200a206bdb766abdc7d682c1ddce5902 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d898dba90134a855dc3a72d31310e173 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9c48f90fb31f533c6d972698fe045eb2 = $(`<div id="html_9c48f90fb31f533c6d972698fe045eb2" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: SANTANDER<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 7.1193<br>Longitud usada: -73.1227<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d898dba90134a855dc3a72d31310e173.setContent(html_9c48f90fb31f533c6d972698fe045eb2);
+            
+        
+
+        marker_ab90eb4c0e7ac2f70d11bda0ce66d588.bindPopup(popup_d898dba90134a855dc3a72d31310e173)
+        ;
+
+        
+    
+    
+                marker_ab90eb4c0e7ac2f70d11bda0ce66d588.setIcon(icon_200a206bdb766abdc7d682c1ddce5902);
+            
+    
+            var marker_c5122bbf1dad7edaaf8d3f752a92d71f = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_43eaac3281294b7559bb3de364f81900 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_802f0428c9525262938901b5c7a9ec73 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_34cd3203b3449110c91fbd2b72b56c42 = $(`<div id="html_34cd3203b3449110c91fbd2b72b56c42" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_802f0428c9525262938901b5c7a9ec73.setContent(html_34cd3203b3449110c91fbd2b72b56c42);
+            
+        
+
+        marker_c5122bbf1dad7edaaf8d3f752a92d71f.bindPopup(popup_802f0428c9525262938901b5c7a9ec73)
+        ;
+
+        
+    
+    
+                marker_c5122bbf1dad7edaaf8d3f752a92d71f.setIcon(icon_43eaac3281294b7559bb3de364f81900);
+            
+    
+            var marker_9b932a1fc07e6686de6c3b552c72d795 = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_2efe5ed5ddb706dcb4dc6d5f6d57c1dd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d76aab912f14814d5d3efb90d4ecaf90 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2cd319f7fef87e647b284a480347eeaa = $(`<div id="html_2cd319f7fef87e647b284a480347eeaa" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_d76aab912f14814d5d3efb90d4ecaf90.setContent(html_2cd319f7fef87e647b284a480347eeaa);
+            
+        
+
+        marker_9b932a1fc07e6686de6c3b552c72d795.bindPopup(popup_d76aab912f14814d5d3efb90d4ecaf90)
+        ;
+
+        
+    
+    
+                marker_9b932a1fc07e6686de6c3b552c72d795.setIcon(icon_2efe5ed5ddb706dcb4dc6d5f6d57c1dd);
+            
+    
+            var marker_bb8b3d4d0506b0b954679e1b059ecbcb = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_5a87399c08628af42ecd8e428eacf388 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_eab72959262d58a11d9bd0b098b741a3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_937a88fa66eca151a01453ee49bf6d12 = $(`<div id="html_937a88fa66eca151a01453ee49bf6d12" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_eab72959262d58a11d9bd0b098b741a3.setContent(html_937a88fa66eca151a01453ee49bf6d12);
+            
+        
+
+        marker_bb8b3d4d0506b0b954679e1b059ecbcb.bindPopup(popup_eab72959262d58a11d9bd0b098b741a3)
+        ;
+
+        
+    
+    
+                marker_bb8b3d4d0506b0b954679e1b059ecbcb.setIcon(icon_5a87399c08628af42ecd8e428eacf388);
+            
+    
+            var marker_805211c9f35ba7b2c7a31272deffd9ed = L.marker(
+                [5.0703, -75.5138],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_10ecaa62ed04d8e922687e1d7069e4c8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9effb77baeb44b48676fdaa82711e088 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f3e1b8c4dafc8c0dad9ecaa74827f8a7 = $(`<div id="html_f3e1b8c4dafc8c0dad9ecaa74827f8a7" style="width: 100.0%; height: 100.0%;"><b>Térmica</b><br>Departamento: CALDAS<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Media<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 5.0703<br>Longitud usada: -75.5138<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_9effb77baeb44b48676fdaa82711e088.setContent(html_f3e1b8c4dafc8c0dad9ecaa74827f8a7);
+            
+        
+
+        marker_805211c9f35ba7b2c7a31272deffd9ed.bindPopup(popup_9effb77baeb44b48676fdaa82711e088)
+        ;
+
+        
+    
+    
+                marker_805211c9f35ba7b2c7a31272deffd9ed.setIcon(icon_10ecaa62ed04d8e922687e1d7069e4c8);
+            
+    
+            var marker_0817973a530b06be27a23e6f27a2a976 = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_3138c17f6655a1a3b8a974a038eb19ba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ce2643427f55413a01ecfe26aad05056 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c956c1b2c1e7e55a00176a88135ebf0a = $(`<div id="html_c956c1b2c1e7e55a00176a88135ebf0a" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_ce2643427f55413a01ecfe26aad05056.setContent(html_c956c1b2c1e7e55a00176a88135ebf0a);
+            
+        
+
+        marker_0817973a530b06be27a23e6f27a2a976.bindPopup(popup_ce2643427f55413a01ecfe26aad05056)
+        ;
+
+        
+    
+    
+                marker_0817973a530b06be27a23e6f27a2a976.setIcon(icon_3138c17f6655a1a3b8a974a038eb19ba);
+            
+    
+            var marker_330861ea5ec9cdafca52a52c47385f29 = L.marker(
+                [4.142, -73.6266],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_afbb9065aa4165d1df358a00b5b234f0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4e93faeb2708beac7e48e3ef2d7fdc77 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2f22c485389e1b9b2ee2153aa42698a3 = $(`<div id="html_2f22c485389e1b9b2ee2153aa42698a3" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: META<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.1420<br>Longitud usada: -73.6266<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_4e93faeb2708beac7e48e3ef2d7fdc77.setContent(html_2f22c485389e1b9b2ee2153aa42698a3);
+            
+        
+
+        marker_330861ea5ec9cdafca52a52c47385f29.bindPopup(popup_4e93faeb2708beac7e48e3ef2d7fdc77)
+        ;
+
+        
+    
+    
+                marker_330861ea5ec9cdafca52a52c47385f29.setIcon(icon_afbb9065aa4165d1df358a00b5b234f0);
+            
+    
+            var marker_2085287ea065b044f9e19f2cb40e0cfa = L.marker(
+                [11.451, -72.809],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_2230aeb20fb860d760700f79c9b285b1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ef7acf03227b403d877dd8d13064be3b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7eafd5e1b7ea938832b368089a236cf2 = $(`<div id="html_7eafd5e1b7ea938832b368089a236cf2" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: LA GUAJIRA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 11.4510<br>Longitud usada: -72.8090<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_ef7acf03227b403d877dd8d13064be3b.setContent(html_7eafd5e1b7ea938832b368089a236cf2);
+            
+        
+
+        marker_2085287ea065b044f9e19f2cb40e0cfa.bindPopup(popup_ef7acf03227b403d877dd8d13064be3b)
+        ;
+
+        
+    
+    
+                marker_2085287ea065b044f9e19f2cb40e0cfa.setIcon(icon_2230aeb20fb860d760700f79c9b285b1);
+            
+    
+            var marker_4c364529703da30d5b724c68d31b0c1f = L.marker(
+                [5.0703, -75.5138],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_3e9d4f0ac7531a4cfd8e446e94bd1f21 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_367f180fc8301e5a7e8417a49d125a07 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_28bcda97924d2a0425f7047a3b7cc4fd = $(`<div id="html_28bcda97924d2a0425f7047a3b7cc4fd" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: CALDAS<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 5.0703<br>Longitud usada: -75.5138<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_367f180fc8301e5a7e8417a49d125a07.setContent(html_28bcda97924d2a0425f7047a3b7cc4fd);
+            
+        
+
+        marker_4c364529703da30d5b724c68d31b0c1f.bindPopup(popup_367f180fc8301e5a7e8417a49d125a07)
+        ;
+
+        
+    
+    
+                marker_4c364529703da30d5b724c68d31b0c1f.setIcon(icon_3e9d4f0ac7531a4cfd8e446e94bd1f21);
+            
+    
+            var marker_d0dc15b11379b5a747d5b48635009aae = L.marker(
+                [4.8143, -75.6946],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_9aec147cc6c4732080b1b8f7d5654be2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ed589624b9debad8c821e79d7302e6e9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_740db2a5c41a7fd7c03de69a43e8e00e = $(`<div id="html_740db2a5c41a7fd7c03de69a43e8e00e" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: RISARALDA<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 4.8143<br>Longitud usada: -75.6946<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_ed589624b9debad8c821e79d7302e6e9.setContent(html_740db2a5c41a7fd7c03de69a43e8e00e);
+            
+        
+
+        marker_d0dc15b11379b5a747d5b48635009aae.bindPopup(popup_ed589624b9debad8c821e79d7302e6e9)
+        ;
+
+        
+    
+    
+                marker_d0dc15b11379b5a747d5b48635009aae.setIcon(icon_9aec147cc6c4732080b1b8f7d5654be2);
+            
+    
+            var marker_8501acecd7e6745eb7b6416658bc639a = L.marker(
+                [4.2891, -74.898],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_04695d65a636b58b7d34b6346bb5fe8d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0fdd157bf31f5282d8b9e9f20b5d2e21 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e984859c21827d7a50ef215a427652d2 = $(`<div id="html_e984859c21827d7a50ef215a427652d2" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: TOLIMA<br>Municipio: COELLO<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.2891<br>Longitud usada: -74.8980<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_0fdd157bf31f5282d8b9e9f20b5d2e21.setContent(html_e984859c21827d7a50ef215a427652d2);
+            
+        
+
+        marker_8501acecd7e6745eb7b6416658bc639a.bindPopup(popup_0fdd157bf31f5282d8b9e9f20b5d2e21)
+        ;
+
+        
+    
+    
+                marker_8501acecd7e6745eb7b6416658bc639a.setIcon(icon_04695d65a636b58b7d34b6346bb5fe8d);
+            
+    
+            var marker_f2a0519dc307bf699737e93ea097df8b = L.marker(
+                [7.0283, -74.6939],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_6e35a64247856e028bc2f8b6d87839f1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_084a63ae0aff6ee9ac4eca6b134b0ef1 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ffc68a8f5fb532c484606e52a30780c0 = $(`<div id="html_ffc68a8f5fb532c484606e52a30780c0" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: ANTIOQUIA<br>Municipio: REMEDIOS<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 7.0283<br>Longitud usada: -74.6939<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_084a63ae0aff6ee9ac4eca6b134b0ef1.setContent(html_ffc68a8f5fb532c484606e52a30780c0);
+            
+        
+
+        marker_f2a0519dc307bf699737e93ea097df8b.bindPopup(popup_084a63ae0aff6ee9ac4eca6b134b0ef1)
+        ;
+
+        
+    
+    
+                marker_f2a0519dc307bf699737e93ea097df8b.setIcon(icon_6e35a64247856e028bc2f8b6d87839f1);
+            
+    
+            var marker_569cf9a3d2093afd6f161651d79d9f83 = L.marker(
+                [4.6327, -74.4635],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_bcfd95dfce58cddf0eeef81de1ff64f6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3c82fb50beae180cd4e38b9d5c334849 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7ab8afcfae4d002277bd862c972d9a04 = $(`<div id="html_7ab8afcfae4d002277bd862c972d9a04" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: CUNDINAMARCA<br>Municipio: LA MESA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 4.6327<br>Longitud usada: -74.4635<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_3c82fb50beae180cd4e38b9d5c334849.setContent(html_7ab8afcfae4d002277bd862c972d9a04);
+            
+        
+
+        marker_569cf9a3d2093afd6f161651d79d9f83.bindPopup(popup_3c82fb50beae180cd4e38b9d5c334849)
+        ;
+
+        
+    
+    
+                marker_569cf9a3d2093afd6f161651d79d9f83.setIcon(icon_bcfd95dfce58cddf0eeef81de1ff64f6);
+            
+    
+            var marker_179e81540376dfad89a89c9c91f56b3a = L.marker(
+                [3.5394, -76.3036],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_75852e98619c226165125526749b03a7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cb8b55e7442dcf86c57852fcf7d5ec5c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c1b64a66606dd4b8f16983c6fe008226 = $(`<div id="html_c1b64a66606dd4b8f16983c6fe008226" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: VALLE DEL CAUCA<br>Municipio: PALMIRA<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_municipal_referenciada<br>Latitud usada: 3.5394<br>Longitud usada: -76.3036<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_cb8b55e7442dcf86c57852fcf7d5ec5c.setContent(html_c1b64a66606dd4b8f16983c6fe008226);
+            
+        
+
+        marker_179e81540376dfad89a89c9c91f56b3a.bindPopup(popup_cb8b55e7442dcf86c57852fcf7d5ec5c)
+        ;
+
+        
+    
+    
+                marker_179e81540376dfad89a89c9c91f56b3a.setIcon(icon_75852e98619c226165125526749b03a7);
+            
+    
+            var marker_cb3bf3e29d7d46f787a41af232a200bb = L.marker(
+                [10.9639, -74.7964],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_ea4157cc6be911852791ef665972569e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ca550b77eae022faa5a9c652e9be028b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_814b6e37ec18f3769bf4ee8b15b2c3ce = $(`<div id="html_814b6e37ec18f3769bf4ee8b15b2c3ce" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: ATLANTICO<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.9639<br>Longitud usada: -74.7964<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_ca550b77eae022faa5a9c652e9be028b.setContent(html_814b6e37ec18f3769bf4ee8b15b2c3ce);
+            
+        
+
+        marker_cb3bf3e29d7d46f787a41af232a200bb.bindPopup(popup_ca550b77eae022faa5a9c652e9be028b)
+        ;
+
+        
+    
+    
+                marker_cb3bf3e29d7d46f787a41af232a200bb.setIcon(icon_ea4157cc6be911852791ef665972569e);
+            
+    
+            var marker_e4e44ef8b7b75e5198a9d5766e6f86e7 = L.marker(
+                [7.1193, -73.1227],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_18095becbe6cd7a2d496cbf6522dc975 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3dfa1d2e546d617476951eed5f61c647 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4c09b19d264045e3e6dd878bc24b29c0 = $(`<div id="html_4c09b19d264045e3e6dd878bc24b29c0" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: SANTANDER<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 7.1193<br>Longitud usada: -73.1227<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_3dfa1d2e546d617476951eed5f61c647.setContent(html_4c09b19d264045e3e6dd878bc24b29c0);
+            
+        
+
+        marker_e4e44ef8b7b75e5198a9d5766e6f86e7.bindPopup(popup_3dfa1d2e546d617476951eed5f61c647)
+        ;
+
+        
+    
+    
+                marker_e4e44ef8b7b75e5198a9d5766e6f86e7.setIcon(icon_18095becbe6cd7a2d496cbf6522dc975);
+            
+    
+            var marker_c557e936ca8f1fbdaa59d42166cece27 = L.marker(
+                [10.391, -75.4794],
+                {
+}
+            ).addTo(marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206);
+        
+    
+            var icon_5c3606ce8465df691016ba1f4579d153 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flash",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c114485f521ebecde8d34aebbf408390 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6cde27e26a9b6110a27b11e046841f0f = $(`<div id="html_6cde27e26a9b6110a27b11e046841f0f" style="width: 100.0%; height: 100.0%;"><b>Solar</b><br>Departamento: BOLIVAR<br>Municipio: NO DISPONIBLE EN LA FUENTE<br>Prioridad energetica: Alta<br>Tipo de ubicacion: coordenada_aproximada_departamental<br>Latitud usada: 10.3910<br>Longitud usada: -75.4794<br><span style='color:#666;'>La fuente no trae municipio ni coordenada exacta de planta.</span></div>`)[0];
+                popup_c114485f521ebecde8d34aebbf408390.setContent(html_6cde27e26a9b6110a27b11e046841f0f);
+            
+        
+
+        marker_c557e936ca8f1fbdaa59d42166cece27.bindPopup(popup_c114485f521ebecde8d34aebbf408390)
+        ;
+
+        
+    
+    
+                marker_c557e936ca8f1fbdaa59d42166cece27.setIcon(icon_5c3606ce8465df691016ba1f4579d153);
+            
+    
+            marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206.addTo(map_9f29cdc7068dfa904e45806804152968);
+        
+    
+            var feature_group_4a5b5ae7e1f891ef7478d2ed56083674 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_2e8f6785e7aae987ca9bdad7ce1a539e = L.circleMarker(
+                [6.54715, -75.23105],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_ad6eca048b7bea226c575b621d10e8a5 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9a0ef14b0f2767aa35a653026e0ed6dc = $(`<div id="html_9a0ef14b0f2767aa35a653026e0ed6dc" style="width: 100.0%; height: 100.0%;"><b>ANTIOQUIA</b><br>Indice: 0.855<br>Ranking: 1<br>Categoria: ALTA<br>Demanda futura: 48868.40</div>`)[0];
+                popup_ad6eca048b7bea226c575b621d10e8a5.setContent(html_9a0ef14b0f2767aa35a653026e0ed6dc);
+            
+        
+
+        circle_marker_2e8f6785e7aae987ca9bdad7ce1a539e.bindPopup(popup_ad6eca048b7bea226c575b621d10e8a5)
+        ;
+
+        
+    
+    
+            var circle_marker_4a325c2bc1dd701076a1b35ab9423d4c = L.circleMarker(
+                [4.684228571428571, -74.05361428571429],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_52d0ef1a4ebb43e42f01fbabd9e460a4 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f9bbd0d9d5c0d76fe8f5e6ac15bd536c = $(`<div id="html_f9bbd0d9d5c0d76fe8f5e6ac15bd536c" style="width: 100.0%; height: 100.0%;"><b>CUNDINAMARCA</b><br>Indice: 0.445<br>Ranking: 3<br>Categoria: MEDIA<br>Demanda futura: 26403.87</div>`)[0];
+                popup_52d0ef1a4ebb43e42f01fbabd9e460a4.setContent(html_f9bbd0d9d5c0d76fe8f5e6ac15bd536c);
+            
+        
+
+        circle_marker_4a325c2bc1dd701076a1b35ab9423d4c.bindPopup(popup_52d0ef1a4ebb43e42f01fbabd9e460a4)
+        ;
+
+        
+    
+    
+            var circle_marker_3fce8b535c80f0bb3f9b21d54a172d34 = L.circleMarker(
+                [6.9855125000000005, -73.255675],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_ddb3d0ff3ccc311a26aed514fc49aaa7 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a3d5b4cf1270e36c7e7229cf6a4452a9 = $(`<div id="html_a3d5b4cf1270e36c7e7229cf6a4452a9" style="width: 100.0%; height: 100.0%;"><b>SANTANDER</b><br>Indice: 0.194<br>Ranking: 4<br>Categoria: BAJA<br>Demanda futura: 4405.96</div>`)[0];
+                popup_ddb3d0ff3ccc311a26aed514fc49aaa7.setContent(html_a3d5b4cf1270e36c7e7229cf6a4452a9);
+            
+        
+
+        circle_marker_3fce8b535c80f0bb3f9b21d54a172d34.bindPopup(popup_ddb3d0ff3ccc311a26aed514fc49aaa7)
+        ;
+
+        
+    
+    
+            var circle_marker_0c105fc5e22c4a0203b56c030e3532d1 = L.circleMarker(
+                [3.5326875, -76.5437125],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_8ad471f879cc9e2f984728cb5c981634 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_b35ab25bbfd281821b6066ff0d3d6290 = $(`<div id="html_b35ab25bbfd281821b6066ff0d3d6290" style="width: 100.0%; height: 100.0%;"><b>VALLE DEL CAUCA</b><br>Indice: 0.193<br>Ranking: 5<br>Categoria: BAJA<br>Demanda futura: 4100.11</div>`)[0];
+                popup_8ad471f879cc9e2f984728cb5c981634.setContent(html_b35ab25bbfd281821b6066ff0d3d6290);
+            
+        
+
+        circle_marker_0c105fc5e22c4a0203b56c030e3532d1.bindPopup(popup_8ad471f879cc9e2f984728cb5c981634)
+        ;
+
+        
+    
+    
+            var circle_marker_3bec8e0388ec0c503d47a6a5d33cf7aa = L.circleMarker(
+                [5.1759125, -75.40235],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_f873025a3c24c04d66eb0ef7452db2fb = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_fa68dc620385139c7e1790b2a0654838 = $(`<div id="html_fa68dc620385139c7e1790b2a0654838" style="width: 100.0%; height: 100.0%;"><b>CALDAS</b><br>Indice: 0.140<br>Ranking: 6<br>Categoria: BAJA<br>Demanda futura: 964.83</div>`)[0];
+                popup_f873025a3c24c04d66eb0ef7452db2fb.setContent(html_fa68dc620385139c7e1790b2a0654838);
+            
+        
+
+        circle_marker_3bec8e0388ec0c503d47a6a5d33cf7aa.bindPopup(popup_f873025a3c24c04d66eb0ef7452db2fb)
+        ;
+
+        
+    
+    
+            var circle_marker_8ba329bd44611c84402d0620c30880dd = L.circleMarker(
+                [10.391, -75.4794],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_5ffb7c349dc2e01fe8215fed28c6ac05 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7bf0d0773f5b37b5ce1e6c988072fcc7 = $(`<div id="html_7bf0d0773f5b37b5ce1e6c988072fcc7" style="width: 100.0%; height: 100.0%;"><b>BOLIVAR</b><br>Indice: 0.120<br>Ranking: 7<br>Categoria: BAJA<br>Demanda futura: 1513.88</div>`)[0];
+                popup_5ffb7c349dc2e01fe8215fed28c6ac05.setContent(html_7bf0d0773f5b37b5ce1e6c988072fcc7);
+            
+        
+
+        circle_marker_8ba329bd44611c84402d0620c30880dd.bindPopup(popup_5ffb7c349dc2e01fe8215fed28c6ac05)
+        ;
+
+        
+    
+    
+            var circle_marker_b24b1192d709b90d10a9123c2da7ea66 = L.circleMarker(
+                [4.142, -73.6266],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_c801f4567efbf8c2ce94632f63a01d0d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4ee503c52e7670e37f6fe624e3002f12 = $(`<div id="html_4ee503c52e7670e37f6fe624e3002f12" style="width: 100.0%; height: 100.0%;"><b>META</b><br>Indice: 0.106<br>Ranking: 8<br>Categoria: BAJA<br>Demanda futura: 1018.00</div>`)[0];
+                popup_c801f4567efbf8c2ce94632f63a01d0d.setContent(html_4ee503c52e7670e37f6fe624e3002f12);
+            
+        
+
+        circle_marker_b24b1192d709b90d10a9123c2da7ea66.bindPopup(popup_c801f4567efbf8c2ce94632f63a01d0d)
+        ;
+
+        
+    
+    
+            var circle_marker_c15dab964228c5644af63c1388cc3ee9 = L.circleMarker(
+                [4.225728571428571, -75.27464285714287],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_97930539f50e1756724cc3cd15981b53 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_661b611a43b2431665251328fd1a9008 = $(`<div id="html_661b611a43b2431665251328fd1a9008" style="width: 100.0%; height: 100.0%;"><b>TOLIMA</b><br>Indice: 0.105<br>Ranking: 9<br>Categoria: BAJA<br>Demanda futura: 986.22</div>`)[0];
+                popup_97930539f50e1756724cc3cd15981b53.setContent(html_661b611a43b2431665251328fd1a9008);
+            
+        
+
+        circle_marker_c15dab964228c5644af63c1388cc3ee9.bindPopup(popup_97930539f50e1756724cc3cd15981b53)
+        ;
+
+        
+    
+    
+            var circle_marker_cdc8adb0986d02041e3e351c72f1026c = L.circleMarker(
+                [10.9639, -74.7964],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_45f45c9260220b5267e6e9ccc23e40e9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_399c334a3c6cce5c1c9254ccefc6c807 = $(`<div id="html_399c334a3c6cce5c1c9254ccefc6c807" style="width: 100.0%; height: 100.0%;"><b>ATLANTICO</b><br>Indice: 0.102<br>Ranking: 10<br>Categoria: BAJA<br>Demanda futura: 660.32</div>`)[0];
+                popup_45f45c9260220b5267e6e9ccc23e40e9.setContent(html_399c334a3c6cce5c1c9254ccefc6c807);
+            
+        
+
+        circle_marker_cdc8adb0986d02041e3e351c72f1026c.bindPopup(popup_45f45c9260220b5267e6e9ccc23e40e9)
+        ;
+
+        
+    
+    
+            var circle_marker_6b8cd034ca74a08a34b53e8d6ff25cef = L.circleMarker(
+                [4.733442857142857, -75.68521428571428],
+                {"bubblingMouseEvents": true, "color": "#1a9850", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4a5b5ae7e1f891ef7478d2ed56083674);
+        
+    
+        var popup_cb03b79e5a2ffbd126640fd20e675764 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_913dbaa859d4b04e55f2a14ba842d493 = $(`<div id="html_913dbaa859d4b04e55f2a14ba842d493" style="width: 100.0%; height: 100.0%;"><b>RISARALDA</b><br>Indice: 0.093<br>Ranking: 11<br>Categoria: BAJA<br>Demanda futura: 1187.48</div>`)[0];
+                popup_cb03b79e5a2ffbd126640fd20e675764.setContent(html_913dbaa859d4b04e55f2a14ba842d493);
+            
+        
+
+        circle_marker_6b8cd034ca74a08a34b53e8d6ff25cef.bindPopup(popup_cb03b79e5a2ffbd126640fd20e675764)
+        ;
+
+        
+    
+    
+            feature_group_4a5b5ae7e1f891ef7478d2ed56083674.addTo(map_9f29cdc7068dfa904e45806804152968);
+        
+    
+            var layer_control_4e57cda54914df74e016b3434c43a1b8_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_dde82570f4b3ae629867216955e95f9d,
+                },
+                overlays :  {
+                    "Infraestructura generacion aproximada" : marker_cluster_d70b45a8741cae1ada14ac0f4dc1f206,
+                    "Prioridad territorial" : feature_group_4a5b5ae7e1f891ef7478d2ed56083674,
+                },
+            };
+            let layer_control_4e57cda54914df74e016b3434c43a1b8 = L.control.layers(
+                layer_control_4e57cda54914df74e016b3434c43a1b8_layers.base_layers,
+                layer_control_4e57cda54914df74e016b3434c43a1b8_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_9f29cdc7068dfa904e45806804152968);
+
+        
+</script>
+</html>

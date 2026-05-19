@@ -1,0 +1,13 @@
+{
+  "modelo_temporal_puro": {
+    "mae": 29.68809523809524,
+    "rmse": 69.33531695880374,
+    "r2": 0.35435388463270545
+  },
+  "modelo_hibrido_energetico": {
+    "mae": 28.02222222222221,
+    "rmse": 59.421713136390565,
+    "r2": 0.5257843648989666
+  },
+  "selected_model": "modelo_hibrido_energetico"
+}

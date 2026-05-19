@@ -1,0 +1,35 @@
+id,tipo_generacion,departamento,municipio,latitud,longitud,metodo_asignacion
+1,Hidráulica,Antioquia,JERICÓ,5.792,-75.7861,candidato_por_tipo_departamento_y_orden
+2,Hidráulica,Cundinamarca,SAN ANTONIO DEL TEQUENDAMA,4.6169,-74.3515,candidato_por_tipo_departamento_y_orden
+3,Hidráulica,Valle del Cauca,BUENAVENTURA,3.8772,-77.0263,candidato_por_tipo_departamento_y_orden
+5,Hidráulica,Santander,GUAPOTÁ,6.3067,-73.3283,candidato_por_tipo_departamento_y_orden
+9,Hidráulica,Caldas,MANIZALES,5.0703,-75.5138,candidato_por_tipo_departamento_y_orden
+10,Hidráulica,Risaralda,CALARCÁ,4.5297,-75.6409,candidato_por_tipo_departamento_y_orden
+11,Hidráulica,Tolima,CHAPARRAL,3.7238,-75.4832,candidato_por_tipo_departamento_y_orden
+12,Hidráulica,Antioquia,ALEJANDRÍA,6.3778,-75.1411,candidato_por_tipo_departamento_y_orden
+13,Hidráulica,Cundinamarca,UBALÁ,4.7478,-73.5348,candidato_por_tipo_departamento_y_orden
+14,Hidráulica,Valle del Cauca,TULUÁ,4.0847,-76.1954,candidato_por_tipo_departamento_y_orden
+16,Hidráulica,Santander,SAN GIL,6.5547,-73.1331,candidato_por_tipo_departamento_y_orden
+20,Hidráulica,Caldas,ANSERMA,5.2043,-75.7912,candidato_por_tipo_departamento_y_orden
+21,Hidráulica,Risaralda,PEREIRA,4.8133,-75.6961,candidato_por_tipo_departamento_y_orden
+22,Hidráulica,Tolima,RONCESVALLES,4.0108,-75.6053,candidato_por_tipo_departamento_y_orden
+23,Hidráulica,Antioquia,AMALFI,6.9108,-75.0775,candidato_por_tipo_departamento_y_orden
+24,Hidráulica,Cundinamarca,JUNÍN,4.7908,-73.6645,candidato_por_tipo_departamento_y_orden
+25,Hidráulica,Valle del Cauca,SUÁREZ,2.9538,-76.6964,candidato_por_tipo_departamento_y_orden
+31,Hidráulica,Caldas,PENSILVANIA,5.3884,-75.2042,candidato_por_tipo_departamento_y_orden
+32,Hidráulica,Risaralda,ARMENIA,4.5339,-75.6811,candidato_por_tipo_departamento_y_orden
+33,Hidráulica,Tolima,ROVIRA,4.2397,-75.2394,candidato_por_tipo_departamento_y_orden
+34,Hidráulica,Antioquia,MEDELLÍN,6.2442,-75.5812,candidato_por_tipo_departamento_y_orden
+37,Térmica,Santander,BUCARAMANGA,7.1193,-73.1227,candidato_por_tipo_departamento_y_orden
+41,Térmica,Caldas,PUERTO SALGAR,5.4631,-74.6544,candidato_por_tipo_departamento_y_orden
+43,Térmica,Tolima,IBAGUÉ,4.4389,-75.2322,candidato_por_tipo_departamento_y_orden
+44,Térmica,Antioquia,PUERTO NARE,6.1919,-74.5867,candidato_por_tipo_departamento_y_orden
+45,Térmica,Cundinamarca,SOACHA,4.5794,-74.2168,candidato_por_tipo_departamento_y_orden
+48,Térmica,Santander,SAN PABLO,7.4773,-73.9234,candidato_por_tipo_departamento_y_orden
+55,Térmica,Antioquia,TARAZÁ,7.588,-75.4007,candidato_por_tipo_departamento_y_orden
+56,Térmica,Cundinamarca,BOGOTÁ D.C.,4.711,-74.0721,candidato_por_tipo_departamento_y_orden
+59,Térmica,Santander,GIRÓN,7.0682,-73.1698,candidato_por_tipo_departamento_y_orden
+80,Solar,Tolima,COELLO,4.2891,-74.898,candidato_por_tipo_departamento_y_orden
+81,Solar,Antioquia,REMEDIOS,7.0283,-74.6939,candidato_por_tipo_departamento_y_orden
+82,Solar,Cundinamarca,LA MESA,4.6327,-74.4635,candidato_por_tipo_departamento_y_orden
+83,Solar,Valle del Cauca,PALMIRA,3.5394,-76.3036,candidato_por_tipo_departamento_y_orden

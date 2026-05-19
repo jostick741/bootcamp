@@ -1,0 +1,87 @@
+id,tipo_generacion,departamento,municipio,latitud,longitud
+1,Hidráulica,Antioquia,JERICÓ,5.792,-75.7861
+2,Hidráulica,Cundinamarca,SAN ANTONIO DEL TEQUENDAMA,4.6169,-74.3515
+3,Hidráulica,Valle del Cauca,BUENAVENTURA,3.8772,-77.0263
+4,Hidráulica,Atlántico,,,
+5,Hidráulica,Santander,GUAPOTÁ,6.3067,-73.3283
+6,Hidráulica,Bolívar,,,
+7,Hidráulica,Meta,,,
+8,Hidráulica,La Guajira,,,
+9,Hidráulica,Caldas,MANIZALES,5.0703,-75.5138
+10,Hidráulica,Risaralda,CALARCÁ,4.5297,-75.6409
+11,Hidráulica,Tolima,CHAPARRAL,3.7238,-75.4832
+12,Hidráulica,Antioquia,ALEJANDRÍA,6.3778,-75.1411
+13,Hidráulica,Cundinamarca,UBALÁ,4.7478,-73.5348
+14,Hidráulica,Valle del Cauca,TULUÁ,4.0847,-76.1954
+15,Hidráulica,Atlántico,,,
+16,Hidráulica,Santander,SAN GIL,6.5547,-73.1331
+17,Hidráulica,Bolívar,,,
+18,Hidráulica,Meta,,,
+19,Hidráulica,La Guajira,,,
+20,Hidráulica,Caldas,ANSERMA,5.2043,-75.7912
+21,Hidráulica,Risaralda,PEREIRA,4.8133,-75.6961
+22,Hidráulica,Tolima,RONCESVALLES,4.0108,-75.6053
+23,Hidráulica,Antioquia,AMALFI,6.9108,-75.0775
+24,Hidráulica,Cundinamarca,JUNÍN,4.7908,-73.6645
+25,Hidráulica,Valle del Cauca,SUÁREZ,2.9538,-76.6964
+26,Hidráulica,Atlántico,,,
+27,Hidráulica,Santander,,,
+28,Hidráulica,Bolívar,,,
+29,Hidráulica,Meta,,,
+30,Hidráulica,La Guajira,,,
+31,Hidráulica,Caldas,PENSILVANIA,5.3884,-75.2042
+32,Hidráulica,Risaralda,ARMENIA,4.5339,-75.6811
+33,Hidráulica,Tolima,ROVIRA,4.2397,-75.2394
+34,Hidráulica,Antioquia,MEDELLÍN,6.2442,-75.5812
+35,Térmica,Valle del Cauca,,,
+36,Térmica,Atlántico,,,
+37,Térmica,Santander,BUCARAMANGA,7.1193,-73.1227
+38,Térmica,Bolívar,,,
+39,Térmica,Meta,,,
+40,Térmica,La Guajira,,,
+41,Térmica,Caldas,PUERTO SALGAR,5.4631,-74.6544
+42,Térmica,Risaralda,,,
+43,Térmica,Tolima,IBAGUÉ,4.4389,-75.2322
+44,Térmica,Antioquia,PUERTO NARE,6.1919,-74.5867
+45,Térmica,Cundinamarca,SOACHA,4.5794,-74.2168
+46,Térmica,Valle del Cauca,,,
+47,Térmica,Atlántico,,,
+48,Térmica,Santander,SAN PABLO,7.4773,-73.9234
+49,Térmica,Bolívar,,,
+50,Térmica,Meta,,,
+51,Térmica,La Guajira,,,
+52,Térmica,Caldas,,,
+53,Térmica,Risaralda,,,
+54,Térmica,Tolima,,,
+55,Térmica,Antioquia,TARAZÁ,7.588,-75.4007
+56,Térmica,Cundinamarca,BOGOTÁ D.C.,4.711,-74.0721
+57,Térmica,Valle del Cauca,,,
+58,Térmica,Atlántico,,,
+59,Térmica,Santander,GIRÓN,7.0682,-73.1698
+60,Térmica,Bolívar,,,
+61,Térmica,Meta,,,
+62,Térmica,La Guajira,,,
+63,Térmica,Caldas,,,
+64,Térmica,Risaralda,,,
+65,Térmica,Tolima,,,
+66,Térmica,Antioquia,,,
+67,Térmica,Cundinamarca,,,
+68,Térmica,Valle del Cauca,,,
+69,Térmica,Atlántico,,,
+70,Térmica,Santander,,,
+71,Térmica,Bolívar,,,
+72,Térmica,Meta,,,
+73,Térmica,La Guajira,,,
+74,Térmica,Caldas,,,
+75,Solar,Bolívar,,,
+76,Solar,Meta,,,
+77,Solar,La Guajira,,,
+78,Solar,Caldas,,,
+79,Solar,Risaralda,,,
+80,Solar,Tolima,COELLO,4.2891,-74.898
+81,Solar,Antioquia,REMEDIOS,7.0283,-74.6939
+82,Solar,Cundinamarca,LA MESA,4.6327,-74.4635
+83,Solar,Valle del Cauca,PALMIRA,3.5394,-76.3036
+84,Solar,Atlántico,,,
+85,Solar,Santander,,,
+86,Solar,Bolívar,,,

@@ -1,0 +1,6 @@
+weights:
+  demanda: 0.40
+  crecimiento_ev: 0.30
+  soporte_generacion: 0.10
+  soporte_hidraulico: 0.15
+  cobertura_hidraulica: 0.05

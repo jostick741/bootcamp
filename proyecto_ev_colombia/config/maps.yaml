@@ -1,0 +1,19 @@
+base_map:
+  center_lat: 4.5709
+  center_lon: -74.2973
+  zoom_start: 6
+  tiles: cartodbpositron
+boundaries:
+  adm1_geojson_url: https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/COL/ADM1/geoBoundaries-COL-ADM1.geojson
+outputs:
+  priority_map: mapa_prioridad.html
+  demand_map: mapa_demanda.html
+  hydraulic_map: mapa_hidraulicas.html
+  pressure_choropleth_map: mapa_presion_energetica.html
+  future_demand_choropleth_map: mapa_demanda_futura.html
+  territorial_priority_choropleth_map: mapa_prioridad_territorial.html
+visual:
+  heat_radius: 25
+  heat_blur: 18
+  marker_cluster_generation_color: blue
+  marker_cluster_hydraulic_color: green

@@ -1,0 +1,16 @@
+pandas
+numpy
+pyyaml
+requests
+sqlalchemy
+psycopg2-binary
+openpyxl
+jupyterlab
+notebook
+geopandas
+geopy
+folium
+scikit-learn
+xgboost
+matplotlib
+seaborn
