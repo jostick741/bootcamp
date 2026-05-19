@@ -29,6 +29,36 @@ def add_map_context_panel(
     base_map.get_root().html.add_child(Element(panel_html))
 
 
+def add_symbol_legend_panel(
+    base_map: folium.Map,
+    title: str,
+    items: list[tuple[str, str]],
+    position: str = "topright",
+) -> None:
+    if not items:
+        return
+
+    position_css = {
+        "topright": "top: 22px; right: 24px;",
+        "bottomleft": "bottom: 24px; left: 24px;",
+        "bottomright": "bottom: 24px; right: 24px;",
+    }.get(position, "top: 22px; right: 24px;")
+
+    legend_items = "".join(
+        f"<div style=\"display:flex; align-items:center; gap:8px; margin-bottom:6px;\">"
+        f"<span style=\"display:inline-block; width:12px; height:12px; border-radius:999px; background:{color}; border:1px solid rgba(0,0,0,0.18);\"></span>"
+        f"<span>{label}</span></div>"
+        for label, color in items
+    )
+    legend_html = f"""
+    <div style="position: fixed; {position_css} z-index: 9999; width: 260px; background: rgba(255,255,255,0.96); border: 1px solid #d2d2d2; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.16); padding: 12px 14px; font-family: Arial, sans-serif;">
+      <div style="font-size: 14px; font-weight: 700; color: #222; margin-bottom: 8px;">{title}</div>
+      <div style="font-size: 12px; color: #444; line-height: 1.4;">{legend_items}</div>
+    </div>
+    """
+    base_map.get_root().html.add_child(Element(legend_html))
+
+
 def _format_metric_value(value, unit_suffix: str, decimals: int = 2) -> str:
     numeric_value = float(value or 0)
     formatted_value = f"{numeric_value:,.{decimals}f}".replace(",", "X").replace(".", ",").replace("X", ".")
@@ -43,6 +73,51 @@ def make_base_map() -> folium.Map:
         zoom_start=config.get("zoom_start", 6),
         tiles=config.get("tiles", "cartodbpositron"),
     )
+
+
+def _display_department_label(label_text: str) -> str:
+    cleaned = str(label_text).strip().upper()
+    replacements = {
+        "ARCHIPIELAGO DE SAN ANDRES, PROVIDENCIA": "SAN ANDRES",
+        "ARCHIPIELAGO DE SAN ANDRES, PROVIDENCIA Y SANTA CATALINA": "SAN ANDRES",
+        "BOGOTA D.C.": "BOGOTA",
+        "VALLE DEL CAUCA": "VALLE",
+        "NORTE DE SANTANDER": "N. SANTANDER",
+    }
+    return replacements.get(cleaned, cleaned)
+
+
+def add_department_labels(
+    base_map: folium.Map,
+    geo_df,
+    label_column: str = "departamento",
+    layer_name: str = "Etiquetas departamentales",
+) -> None:
+    if geo_df is None or geo_df.empty or label_column not in geo_df.columns:
+        return
+
+    labels_group = folium.FeatureGroup(name=layer_name, show=True)
+    labels_df = geo_df.dropna(subset=[label_column]).copy()
+    if labels_df.empty:
+        return
+
+    label_points = labels_df.geometry.representative_point()
+    for (_, row), point in zip(labels_df.iterrows(), label_points):
+        label_text = _display_department_label(row[label_column])
+        if not label_text:
+            continue
+        folium.Marker(
+            location=[point.y, point.x],
+            icon=folium.DivIcon(
+                html=(
+                    "<div style=\"font-size: 9px; font-weight: 700; color: #243447; letter-spacing: 0.02em; "
+                    "text-shadow: 0 0 3px rgba(255,255,255,0.95), 0 0 6px rgba(255,255,255,0.95); "
+                    "white-space: nowrap; pointer-events: none;\">"
+                    f"{label_text}</div>"
+                )
+            ),
+        ).add_to(labels_group)
+    labels_group.add_to(base_map)
 
 
 
@@ -106,6 +181,7 @@ def add_priority_choropleth(base_map: folium.Map, boundaries_gdf, priority_df) -
         popup=popup,
         tooltip=tooltip,
     ).add_to(base_map)
+    add_department_labels(base_map, merged)
     colormap.add_to(base_map)
 
 
@@ -190,6 +266,7 @@ def add_metric_choropleth(
     )
     geojson.add_to(base_map)
 
+    add_department_labels(base_map, display_gdf)
     colormap.add_to(base_map)
 
 
@@ -220,6 +297,13 @@ def add_year_slider_choropleth(
 
         metric_max = float(metrics_df[metric_column].max()) if metric_column in metrics_df.columns else 0.0
         metric_max = max(metric_max, 1.0)
+
+        historical_years = sorted(
+            int(year)
+            for year in metrics_df.loc[metrics_df["cantidad_ev_historica"] > 0, "anio"].dropna().unique()
+        )
+        max_historical_year = historical_years[-1] if historical_years else years[0]
+        projected_years = [year for year in years if year > max_historical_year]
 
         department_metrics: dict[str, dict[str, dict[str, float]]] = {}
         for record in metrics_df.to_dict(orient="records"):
@@ -262,22 +346,27 @@ def add_year_slider_choropleth(
         map_name = base_map.get_name()
         layer_name = boundaries_layer.get_name()
         years_json = json.dumps(years)
+        projected_years_json = json.dumps(projected_years)
         metrics_json = json.dumps(department_metrics, ensure_ascii=True)
         metric_key_json = json.dumps(metric_column)
         metric_label_json = json.dumps(metric_label)
+        metric_unit_json = json.dumps(metric_unit)
 
-        control_html = """
-        <div id="year-slider-control" style="position: fixed; left: 24px; bottom: 24px; z-index: 9999; width: 340px; background: rgba(255,255,255,0.96); border: 1px solid #cfcfcf; border-radius: 10px; box-shadow: 0 3px 14px rgba(0,0,0,0.18); padding: 14px 16px; font-family: Arial, sans-serif;">
-            <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Evolucion anual de la demanda</div>
-            <div style="font-size: 13px; color: #555; margin-bottom: 10px;">Anio seleccionado: <span id="year-slider-value"></span></div>
-            <input id="year-slider-input" type="range" min="0" max="0" step="1" value="0" style="width: 100%;">
+        control_html = f"""
+        <div id="year-slider-control" style="position: fixed; left: 24px; top: 180px; z-index: 9999; width: 360px; background: rgba(255,255,255,0.97); border: 1px solid #cfcfcf; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.18); padding: 14px 16px; font-family: Arial, sans-serif;">
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Mapa temporal: demanda por anio</div>
+            <div style="font-size: 13px; color: #555; margin-bottom: 10px;">Este es el unico mapa del atlas que cambia por anio. Si quieres ver proyecciones, usa estos botones.</div>
+            <div style="margin-top: 4px; font-size: 12px; color: #555;"><b>Anos proyectados visibles:</b></div>
+            <div id="projected-year-buttons" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div>
+            <div style="margin-top: 12px; font-size: 12px; color: #555;">Anio seleccionado: <b><span id="year-slider-value"></span></b></div>
+            <input id="year-slider-input" type="range" min="0" max="0" step="1" value="0" style="width: 100%; margin-top: 8px;">
             <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; color: #666;">
                 <span id="year-slider-min"></span>
                 <span id="year-slider-max"></span>
             </div>
             <div style="margin-top: 10px; font-size: 12px; color: #555;">Unidad visualizada: {metric_unit}. El color muestra el total departamental del anio seleccionado.</div>
         </div>
-        <div id="year-hover-info" style="position: fixed; right: 24px; bottom: 24px; z-index: 9999; width: 320px; background: rgba(255,255,255,0.96); border: 1px solid #cfcfcf; border-radius: 10px; box-shadow: 0 3px 14px rgba(0,0,0,0.18); padding: 14px 16px; font-family: Arial, sans-serif;">
+        <div id="year-hover-info" style="position: fixed; right: 24px; top: 180px; z-index: 9999; width: 320px; background: rgba(255,255,255,0.96); border: 1px solid #cfcfcf; border-radius: 10px; box-shadow: 0 3px 14px rgba(0,0,0,0.18); padding: 14px 16px; font-family: Arial, sans-serif;">
             <div style="font-size: 15px; font-weight: 700; margin-bottom: 8px;">Resumen departamental</div>
             <div style="font-size: 13px; color: #555;">Pasa el cursor sobre un departamento para ver el cambio anual.</div>
         </div>
@@ -290,9 +379,11 @@ def add_year_slider_choropleth(
             var mapObject = {map_name};
             var demandLayer = {layer_name};
             var availableYears = {years_json};
+            var projectedYears = {projected_years_json};
             var departmentMetrics = {metrics_json};
             var selectedMetricKey = {metric_key_json};
             var selectedMetricLabel = {metric_label_json};
+            var selectedMetricUnit = {metric_unit_json};
             var metricMax = {metric_max};
             var palette = ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
             var currentYear = availableYears[availableYears.length - 1];
@@ -301,6 +392,7 @@ def add_year_slider_choropleth(
             var yearMin = document.getElementById("year-slider-min");
             var yearMax = document.getElementById("year-slider-max");
             var infoPanel = document.getElementById("year-hover-info");
+            var projectedYearButtons = document.getElementById("projected-year-buttons");
 
             function formatNumber(value, maximumFractionDigits) {{
                 return new Intl.NumberFormat("es-CO", {{
@@ -349,10 +441,39 @@ def add_year_slider_choropleth(
                 return '' +
                     '<div style="font-size: 15px; font-weight: 700; margin-bottom: 8px;">' + department + '</div>' +
                     '<div style="font-size: 13px; margin-bottom: 6px;">Anio: <b>' + currentYear + '</b></div>' +
-                        '<div style="font-size: 13px; margin-bottom: 6px;">' + selectedMetricLabel + ': <b>' + formatNumber(metricRecord[selectedMetricKey], 2) + ' {metric_unit}</b></div>' +
+                        '<div style="font-size: 13px; margin-bottom: 6px;">' + selectedMetricLabel + ': <b>' + formatNumber(metricRecord[selectedMetricKey], 2) + ' ' + selectedMetricUnit + '</b></div>' +
                         '<div style="font-size: 13px; margin-bottom: 6px;">Consumo energetico: <b>' + formatNumber(metricRecord.consumo_energetico, 2) + ' kWh</b></div>' +
                         '<div style="font-size: 13px; margin-bottom: 6px;">EV modelados: <b>' + formatNumber(metricRecord.cantidad_ev_modelada, 0) + ' vehiculos</b></div>' +
-                        '<div style="font-size: 13px; margin-bottom: 6px; color: ' + increaseColor + ';">Aumento vs anio previo: <b>' + formatNumber(increase, 2) + ' {metric_unit}</b> (' + formatNumber(increasePct, 2) + '%)</div>';
+                        '<div style="font-size: 13px; margin-bottom: 6px; color: ' + increaseColor + ';">Aumento vs anio previo: <b>' + formatNumber(increase, 2) + ' ' + selectedMetricUnit + '</b> (' + formatNumber(increasePct, 2) + '%)</div>';
+            }}
+
+            function syncProjectedYearButtons() {{
+                if (!projectedYearButtons) {{
+                    return;
+                }}
+                projectedYearButtons.innerHTML = '';
+                if (!projectedYears.length) {{
+                    projectedYearButtons.innerHTML = '<span style="font-size: 12px; color: #777;">No hay anos proyectados visibles.</span>';
+                    return;
+                }}
+                projectedYears.forEach(function(year) {{
+                    var button = document.createElement('button');
+                    button.type = 'button';
+                    button.textContent = String(year);
+                    button.style.border = '1px solid #c96b2c';
+                    button.style.borderRadius = '999px';
+                    button.style.padding = '4px 10px';
+                    button.style.fontSize = '12px';
+                    button.style.cursor = 'pointer';
+                    button.style.background = year === currentYear ? '#c96b2c' : '#fff7ef';
+                    button.style.color = year === currentYear ? '#ffffff' : '#7a3d12';
+                    button.addEventListener('click', function() {{
+                        currentYear = year;
+                        slider.value = String(availableYears.indexOf(year));
+                        updateMapForYear();
+                    }});
+                    projectedYearButtons.appendChild(button);
+                }});
             }}
 
             function buildPopupHtml(department) {{
@@ -361,6 +482,7 @@ def add_year_slider_choropleth(
 
             function updateMapForYear() {{
                 yearValue.textContent = currentYear;
+                syncProjectedYearButtons();
                 infoPanel.innerHTML = buildInfoHtml(null);
                 demandLayer.eachLayer(function(layer) {{
                     layer.setStyle(getFeatureStyle(layer.feature));
@@ -379,6 +501,7 @@ def add_year_slider_choropleth(
             demandLayer.eachLayer(function(layer) {{
                 var department = layer.feature.properties.departamento;
                 layer.bindPopup(buildPopupHtml(department), {{maxWidth: 300}});
+                layer.bindTooltip(department, {{sticky: true, direction: 'center', className: 'department-map-label'}});
                 layer.on('mouseover', function(event) {{
                     event.target.setStyle({{weight: 2, color: '#111'}});
                     infoPanel.innerHTML = buildInfoHtml(department);
@@ -402,11 +525,12 @@ def add_year_slider_choropleth(
         </script>
         """
         base_map.get_root().html.add_child(Element(control_script))
+        add_department_labels(base_map, boundaries_gdf)
 
 
 
 def add_priority_markers(base_map: folium.Map, priority_gdf) -> None:
-    feature_group = folium.FeatureGroup(name="Prioridad territorial", show=True)
+    feature_group = folium.FeatureGroup(name="Prioridad territorial", show=False)
     for _, row in priority_gdf.iterrows():
         popup_html = (
             f"<b>{row['departamento']}</b><br>"
