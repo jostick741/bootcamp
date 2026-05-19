@@ -4,6 +4,7 @@ pyyaml
 requests
 sqlalchemy
 psycopg2-binary
+pymysql
 openpyxl
 jupyterlab
 notebook

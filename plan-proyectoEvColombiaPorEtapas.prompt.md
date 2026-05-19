@@ -20,24 +20,28 @@ La prioridad es mantener simplicidad metodologica. El valor del proyecto esta en
 | Componente | Tecnologia recomendada |
 | --- | --- |
 | Datos iniciales | Excel o CSV |
-| Integracion opcional | PostgreSQL |
+| Integracion operativa | MySQL local |
 | IA | Python |
 | GIS analitico | GeoPandas y Folium |
 | Visualizacion cartografica | QGIS |
 
-**Rol real de SQL y PostgreSQL**
+**Rol real de SQL y MySQL**
 
-SQL no es el objetivo del proyecto. Es una herramienta de soporte para centralizar y consultar datos si hace falta. El nucleo analitico del proyecto sigue estando en Python, porque ahi viven el forecasting, el modelo energetico, el GIS analitico y el analisis multicriterio.
+SQL no es el objetivo del proyecto, pero si es la fuente operativa oficial del pipeline. Los Excel se usan como insumo inicial de carga y trazabilidad. Despues de esa carga, el nucleo analitico en Python lee desde MySQL las tablas `vehiculos_ev` y `activos_hidraulicos`, porque ahi viven el forecasting, el modelo energetico, el GIS analitico y el analisis multicriterio.
 
 **Pipeline analitico oficial**
 
-Datos EV historicos  
+Excel crudos  
+↓  
+Carga SQL oficial  
+↓  
+Datos EV historicos desde `vehiculos_ev`  
 ↓  
 Forecast de crecimiento EV  
 ↓  
 Modelo energetico  
 ↓  
-GIS territorial con PARATEC  
+GIS territorial con `activos_hidraulicos`  
 ↓  
 Priorizacion territorial
 
@@ -53,13 +57,14 @@ Priorizacion territorial
 1. Mantener `proyecto_ev_colombia/` con `data/raw`, `data/processed`, `notebooks`, `models`, `maps`, `requirements.txt` y `main.py`.
 2. Configurar entorno local en macOS con `venv`, `pip`, VS Code y JupyterLab.
 3. Copiar a `data/raw/` solo las dos fuentes oficiales del flujo base: [proyecto_ev_colombia/data/raw/datos_abiertos_EV_colombia_realista.xlsx](proyecto_ev_colombia/data/raw/datos_abiertos_EV_colombia_realista.xlsx) y [proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx](proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx). Los demas archivos quedan como respaldo metodologico, no como dependencia del pipeline principal.
-4. Perfilar por separado ambas fuentes: columnas, tipos, nulos, granularidad temporal, granularidad geografica y variables energeticas.
-5. Normalizar variables criticas: `anio`, `departamento`, `tipo_vehiculo`, `cantidad_ev`, `kwh_promedio`, `potencia_carga`, `simultaneidad`, `latitud` y `longitud`.
-6. Generar tablas procesadas separadas para tiempo, energia y geografia en `data/processed/`.
+4. Cargar esas dos fuentes a MySQL local en la base `proyecto_ev_colombia`, usando como tablas oficiales `vehiculos_ev` y `activos_hidraulicos`.
+5. Perfilar por separado ambas fuentes y validar su version ya cargada en SQL: columnas, tipos, nulos, granularidad temporal, granularidad geografica y variables energeticas.
+6. Normalizar variables criticas: `anio`, `departamento`, `tipo_vehiculo`, `cantidad_ev`, `kwh_promedio`, `potencia_carga`, `simultaneidad`, `latitud` y `longitud`.
+7. Generar tablas procesadas separadas para tiempo, energia y geografia en `data/processed/` leyendo desde SQL, no desde Excel directo.
 
 **ETAPA 1: Modelo temporal**
 1. Objetivo: predecir crecimiento futuro de EV por departamento y tipo de vehiculo.
-2. Entradas minimas: `anio`, `departamento`, `tipo_vehiculo`, `cantidad_ev`.
+2. Entradas minimas: `anio`, `departamento`, `tipo_vehiculo`, `cantidad_ev`, tomadas desde la tabla `vehiculos_ev`.
 3. Unidad recomendada: departamento-anio-tipo de vehiculo.
 4. Metodo recomendado: empezar con baseline defendible y simple; luego comparar con modelos como `RandomForestRegressor` si el historico lo permite.
 5. Ingenieria de variables: rezagos, tasas de crecimiento y tendencia temporal, solo si el dato lo soporta.
@@ -78,7 +83,7 @@ Priorizacion territorial
 
 **ETAPA 3: GIS y priorizacion territorial**
 1. Objetivo: traducir resultados temporales y energeticos a decisiones espaciales.
-2. Entradas: `departamento`, coordenadas y salidas de las etapas 1 y 2, junto con la capa hidraulica de [proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx](proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx).
+2. Entradas: `departamento`, coordenadas y salidas de las etapas 1 y 2, junto con la tabla `activos_hidraulicos`, cargada originalmente desde [proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx](proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx).
 3. Metodo recomendado: empezar con mapas coropleticos por departamento y complementar con puntos de activos hidraulicos si hay coordenadas disponibles.
 4. Herramientas: `folium` para reproducibilidad y QGIS para afinado cartografico.
 5. Resultado esperado: mapa de demanda energetica proyectada, mapa de activos hidraulicos y mapa de prioridad territorial considerando la demanda EV y el soporte hidraulico observado.
@@ -108,6 +113,14 @@ Priorizacion territorial
 | `capacidad_hidraulica` | MW o equivalente | [proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx](proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx) | Homologar unidad y completar nulos si es viable | Contexto de oferta energetica |
 | `tipo_activo_hidraulico` | categorica | [proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx](proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx) | Homologar categorias | Segmentacion de activos |
 
+**Base de datos operativa**
+
+- motor actual: MySQL local
+- base oficial: `proyecto_ev_colombia`
+- tablas fuente oficiales: `vehiculos_ev` y `activos_hidraulicos`
+- rol de los Excel: insumo inicial de carga y trazabilidad
+- rol de SQL: fuente operativa para ETAPA 1, ETAPA 2 y ETAPA 3
+
 **Relevant files**
 - [proyecto_ev_colombia/data/raw/datos_abiertos_EV_colombia_realista.xlsx](proyecto_ev_colombia/data/raw/datos_abiertos_EV_colombia_realista.xlsx): dataset maestro del flujo temporal y energetico.
 - [proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx](proyecto_ev_colombia/data/raw/PARATEC_Phidráulica_18-05-2026.xlsx): capa hidraulica oficial para GIS y soporte energetico territorial.
@@ -120,11 +133,13 @@ Priorizacion territorial
 
 **Verification**
 1. Confirmar que `datos_abiertos_EV_colombia_realista.xlsx` contiene o permite derivar las variables minimas de ETAPA 1 y ETAPA 2.
-2. Validar que la ETAPA 1 use particion temporal y entregue proyecciones por departamento y tipo de vehiculo.
-3. Validar que la ETAPA 2 diferencie correctamente entre `consumo_energetico` y `demanda_futura`.
-4. Confirmar que ETAPA 1, ETAPA 2 y ETAPA 3 usan la misma unidad territorial y temporal cuando se agregan resultados.
-5. Verificar que la capa PARATEC pueda alinearse espacialmente con la unidad geografica usada en GIS.
-6. Probar en macOS la ejecucion completa del entorno y al menos un mapa exportado.
+2. Confirmar que la base `proyecto_ev_colombia` existe en MySQL y que contiene `vehiculos_ev` y `activos_hidraulicos`.
+3. Validar que ETAPA 1, ETAPA 2 y ETAPA 3 lean desde SQL y no desde Excel directo.
+4. Validar que la ETAPA 1 use particion temporal y entregue proyecciones por departamento y tipo de vehiculo.
+5. Validar que la ETAPA 2 diferencie correctamente entre `consumo_energetico` y `demanda_futura`.
+6. Confirmar que ETAPA 1, ETAPA 2 y ETAPA 3 usan la misma unidad territorial y temporal cuando se agregan resultados.
+7. Verificar que la capa PARATEC pueda alinearse espacialmente con la unidad geografica usada en GIS.
+8. Probar en macOS la ejecucion completa del entorno y al menos un mapa exportado.
 
 **Decisions**
 - El flujo oficial es: ETAPA 1 temporal, ETAPA 2 energetica y ETAPA 3 GIS con PARATEC.
@@ -132,5 +147,25 @@ Priorizacion territorial
 - ETAPA 2 debe ser predominantemente tecnica o hibrida.
 - La ETAPA 3 usa PARATEC como soporte espacial y energetico oficial del flujo base.
 - `infraestructura_generacion_86_registros.xlsx` queda fuera del alcance base y solo se reincorpora si se pide ampliar el analisis a solar y termica.
-- PostgreSQL, si se usa, queda restringido a integracion y almacenamiento; no es el centro del proyecto.
+- MySQL local `proyecto_ev_colombia` es la fuente operativa oficial del pipeline.
+- Los Excel quedan como insumo inicial de carga, no como fuente de lectura principal del modelo.
 - El dashboard queda fuera del alcance inicial.
+
+**Estado actual del proyecto**
+
+1. La base MySQL local `proyecto_ev_colombia` ya existe.
+2. Las tablas oficiales `vehiculos_ev` y `activos_hidraulicos` ya fueron cargadas correctamente.
+3. El pipeline principal ya fue reorientado para leer desde SQL en vez de leer los Excel directos.
+4. La capa de `infraestructura_generacion_86_registros.xlsx` ya no hace parte del flujo base oficial.
+5. La documentacion base del proyecto ya fue actualizada para reflejar el flujo SQL-first con MySQL.
+
+**Pendientes inmediatos para continuar**
+
+1. Ejecutar una corrida completa end-to-end con `main.py` sobre MySQL y verificar regeneracion de `forecast_ev.csv`, `demanda_energetica.csv`, `priorizacion_territorial.csv` y mapas HTML.
+2. Corregir nombres heredados del flujo anterior en el codigo, especialmente el flag `--load-postgres` en `main.py`, para que no siga describiendo una arquitectura que ya no es la oficial.
+3. Actualizar referencias viejas a PostgreSQL dentro de notebooks y archivos auxiliares para que no contradigan la arquitectura actual.
+4. Mantener sincronizados los dos archivos de plan (`plan-proyectoEvColombiaPorEtapas.prompt.md` y `planProyectoEvColombiaPorEtapas.prompt.md`) mientras ambos sigan existiendo.
+
+**Siguiente accion recomendada**
+
+La siguiente accion correcta es ejecutar el pipeline completo contra MySQL local y usar esa corrida como validacion oficial del nuevo flujo. Si esa corrida falla, el siguiente trabajo debe limitarse a reparar exactamente el punto de ruptura antes de seguir con limpieza de nombres o notebooks.

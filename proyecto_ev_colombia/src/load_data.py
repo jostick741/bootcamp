@@ -6,11 +6,12 @@ import re
 import unicodedata
 
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
+from sqlalchemy.engine import make_url
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
-DEFAULT_DATABASE_URL = "postgresql://postgres:password@localhost/proyecto_ev_colombia"
+DEFAULT_DATABASE_URL = "mysql+pymysql://root@127.0.0.1/proyecto_ev_colombia"
 
 DATASETS = {
     "vehiculos_ev": {
@@ -59,6 +60,32 @@ SQL_LOAD_TABLES = ["vehiculos_ev", "activos_hidraulicos"]
 def get_engine():
     database_url = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
     return create_engine(database_url)
+
+
+def ensure_database_exists() -> None:
+    database_url = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
+    url = make_url(database_url)
+    database_name = url.database
+    if not database_name:
+        return
+
+    if url.get_backend_name() == "mysql":
+        server_engine = create_engine(url.set(database="mysql"))
+        with server_engine.begin() as connection:
+            connection.execute(text(f"CREATE DATABASE IF NOT EXISTS `{database_name}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"))
+        server_engine.dispose()
+        return
+
+    if url.get_backend_name() == "postgresql":
+        server_engine = create_engine(url.set(database="postgres"))
+        with server_engine.begin() as connection:
+            exists = connection.execute(
+                text("SELECT 1 FROM pg_database WHERE datname = :database_name"),
+                {"database_name": database_name},
+            ).scalar()
+            if not exists:
+                connection.execute(text(f'CREATE DATABASE "{database_name}"'))
+        server_engine.dispose()
 
 
 def read_sql_source_table(table_name: str) -> pd.DataFrame:
@@ -202,6 +229,7 @@ def load_excel_to_table(engine, table_name: str, dataset_config: dict[str, objec
 
 
 def main() -> None:
+    ensure_database_exists()
     engine = get_engine()
     for table_name in SQL_LOAD_TABLES:
         dataset_config = DATASETS[table_name]

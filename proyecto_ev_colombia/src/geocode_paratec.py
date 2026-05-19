@@ -19,7 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 CACHE_PATH = PROCESSED_DIR / "paratec_geocoding_cache.json"
 OUTPUT_PATH = PROCESSED_DIR / "activos_hidraulicos_geocoded.csv"
-DEFAULT_DATABASE_URL = "postgresql://postgres:password@localhost/proyecto_ev_colombia"
+DEFAULT_DATABASE_URL = "mysql+pymysql://root@127.0.0.1/proyecto_ev_colombia"
 DEFAULT_USER_AGENT = "proyecto_ev_colombia_paratec_geocoder"
 
 
