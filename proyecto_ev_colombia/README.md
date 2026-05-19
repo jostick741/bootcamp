@@ -19,7 +19,7 @@ El flujo base usa solo dos fuentes oficiales:
 
 1. Carga de Excel crudos a SQL.
 2. ETAPA 1: forecast EV por `anio + departamento + tipo_vehiculo`.
-3. ETAPA 2: calculo de `consumo_energetico` y `demanda_futura`.
+3. ETAPA 2: calculo de `consumo_energetico` y `demanda_futura`, con sensibilidad por escenarios de simultaneidad.
 4. ETAPA 3: priorizacion territorial con soporte hidraulico de PARATEC.
 5. Exportacion de tablas procesadas y mapas HTML.
 
@@ -45,7 +45,7 @@ La carga SQL crea la base si no existe y reemplaza estas tablas en cada ejecucio
 - `main.py`: orquestacion principal
 - `src/load_data.py`: carga de Excel a SQL y acceso a tablas fuente
 - `src/build_phase_tables.py`: construccion de ETAPA 1, ETAPA 2 y ETAPA 3
-- `src/train_temporal_baseline.py`: entrenamiento del baseline temporal
+- `src/train_temporal_baseline.py`: entrenamiento del baseline temporal, comparacion de modelos y forecast futuro por tendencia de grupo
 - `src/gis/loaders.py`: carga geoespacial para mapas
 - `src/maps/generate_maps.py`: exportacion de mapas HTML
 - `config/scenarios.yaml`: escenarios de simultaneidad y horizontes
@@ -83,7 +83,7 @@ python3 main.py --forecast-horizons 5 10 15 20 30
 Notas:
 
 - `main.py` copia archivos crudos a `data/raw/`, carga SQL y luego corre el pipeline.
-- el flag `--load-postgres` quedo como legado de la version anterior y ya no define el flujo principal.
+- la carga SQL forma parte del flujo principal y se ejecuta antes del pipeline analitico.
 
 ## Salidas principales
 
@@ -94,8 +94,10 @@ Tablas en `data/processed/`:
 - `forecast_ev.csv`
 - `etapa2_energetico.csv`
 - `demanda_energetica.csv`
+- `demanda_energetica_escenarios.csv`
 - `etapa3_gis.csv`
 - `priorizacion_territorial.csv`
+- `validacion_etapa3.csv`
 - `priorizacion_territorial.geojson`
 
 Mapas en `maps/`:
@@ -125,7 +127,11 @@ python3 -m py_compile src/load_data.py src/build_phase_tables.py src/gis/loaders
 
 ## Estado metodologico
 
-- ETAPA 1 usa forecasting supervisado con baseline temporal.
+- ETAPA 1 usa backtest supervisado para comparar baseline temporal puro, baseline hibrido y proyeccion tendencial por grupo.
+- El forecast futuro oficial de ETAPA 1 usa `proyeccion_tendencial_grupo` para que los horizontes `5, 10, 15, 20, 30` años no queden planos.
 - ETAPA 2 usa un calculo tecnico parametrizado, no una caja negra pura.
-- ETAPA 3 prioriza por demanda EV y soporte hidraulico territorial.
+- ETAPA 2 exporta una tabla base y una tabla de sensibilidad por escenarios `bajo`, `medio` y `alto` en `demanda_energetica_escenarios.csv`.
+- `consumo_energetico` y `consumo_energetico_kwh` representan energia agregada; `demanda_futura` y `demanda_futura_kw` representan potencia agregada bajo la simultaneidad aplicada.
+- ETAPA 3 prioriza por demanda EV, crecimiento proyectado y brecha de soporte hidraulico territorial.
+- `validacion_etapa3.csv` resume pesos, brechas hidraulicas, banderas de consistencia territorial y observaciones del ranking final.
 - La salida territorial debe interpretarse como priorizacion preliminar por departamento, no como ubicacion exacta de estacion.

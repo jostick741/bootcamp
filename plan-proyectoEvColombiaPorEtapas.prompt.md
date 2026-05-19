@@ -66,7 +66,7 @@ Priorizacion territorial
 1. Objetivo: predecir crecimiento futuro de EV por departamento y tipo de vehiculo.
 2. Entradas minimas: `anio`, `departamento`, `tipo_vehiculo`, `cantidad_ev`, tomadas desde la tabla `vehiculos_ev`.
 3. Unidad recomendada: departamento-anio-tipo de vehiculo.
-4. Metodo recomendado: empezar con baseline defendible y simple; luego comparar con modelos como `RandomForestRegressor` si el historico lo permite.
+4. Metodo recomendado: usar backtest temporal para comparar un baseline temporal puro, un baseline hibrido con variables energeticas y una proyeccion tendencial por grupo. Para los horizontes futuros, la salida oficial debe usar la proyeccion tendencial por grupo, porque permite extrapolar en el tiempo sin dejar forecast plano por horizonte.
 5. Ingenieria de variables: rezagos, tasas de crecimiento y tendencia temporal, solo si el dato lo soporta.
 6. Salidas: tabla proyectada de EV por territorio y horizonte, metricas y artefactos reproducibles.
 7. Riesgo principal: si la historia temporal es corta, conviene presentar el resultado como proyeccion por escenarios o tendencias defendibles, no como forecasting fuerte.
@@ -158,14 +158,16 @@ Priorizacion territorial
 3. El pipeline principal ya fue reorientado para leer desde SQL en vez de leer los Excel directos.
 4. La capa de `infraestructura_generacion_86_registros.xlsx` ya no hace parte del flujo base oficial.
 5. La documentacion base del proyecto ya fue actualizada para reflejar el flujo SQL-first con MySQL.
+6. La corrida completa end-to-end con `main.py --forecast-horizons 5 10 15 20 30` ya se ejecuto correctamente y regenero tablas procesadas y mapas HTML.
+7. La ETAPA 1 ya quedo cerrada operativamente: genera backtest, comparacion de modelos, metricas y forecast futuro con variacion real por horizonte.
+8. La ETAPA 2 ya quedo cerrada operativamente: separa energia y potencia, conserva la tabla base del escenario operativo y exporta sensibilidad por escenarios `bajo`, `medio` y `alto`.
+9. La ETAPA 3 ya quedo cerrada operativamente: el ranking territorial ahora prioriza demanda y brecha hidraulica, y exporta `validacion_etapa3.csv` para trazabilidad metodologica.
 
 **Pendientes inmediatos para continuar**
 
-1. Ejecutar una corrida completa end-to-end con `main.py` sobre MySQL y verificar regeneracion de `forecast_ev.csv`, `demanda_energetica.csv`, `priorizacion_territorial.csv` y mapas HTML.
-2. Corregir nombres heredados del flujo anterior en el codigo, especialmente el flag `--load-postgres` en `main.py`, para que no siga describiendo una arquitectura que ya no es la oficial.
-3. Actualizar referencias viejas a PostgreSQL dentro de notebooks y archivos auxiliares para que no contradigan la arquitectura actual.
-4. Mantener sincronizados los dos archivos de plan (`plan-proyectoEvColombiaPorEtapas.prompt.md` y `planProyectoEvColombiaPorEtapas.prompt.md`) mientras ambos sigan existiendo.
+1. Mantener sincronizados los dos archivos de plan (`plan-proyectoEvColombiaPorEtapas.prompt.md` y `planProyectoEvColombiaPorEtapas.prompt.md`) si el segundo vuelve a existir o se restaura.
+2. Si se quiere ampliar el alcance, el siguiente paso ya no es cerrar etapas base sino extender el modelo con capas adicionales o dashboard.
 
 **Siguiente accion recomendada**
 
-La siguiente accion correcta es ejecutar el pipeline completo contra MySQL local y usar esa corrida como validacion oficial del nuevo flujo. Si esa corrida falla, el siguiente trabajo debe limitarse a reparar exactamente el punto de ruptura antes de seguir con limpieza de nombres o notebooks.
+La siguiente accion correcta es hacer una corrida final completa con `main.py` y revisar visualmente los mapas exportados como verificacion de cierre del pipeline base, porque ETAPA 1, ETAPA 2 y ETAPA 3 ya quedaron operativas sobre el flujo SQL-first con MySQL.

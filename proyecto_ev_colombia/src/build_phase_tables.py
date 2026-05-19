@@ -8,12 +8,22 @@ import pandas as pd
 
 try:
     from .load_data import read_sql_source_table
-    from .project_config import get_forecast_horizons, get_simultaneidad, get_weights
+    from .project_config import (
+        get_forecast_horizons,
+        get_simultaneidad,
+        get_simultaneidad_scenarios,
+        get_weights,
+    )
     from .territorial import normalize_department_series
     from .train_temporal_baseline import run_baseline
 except ImportError:
     from load_data import read_sql_source_table
-    from project_config import get_forecast_horizons, get_simultaneidad, get_weights
+    from project_config import (
+        get_forecast_horizons,
+        get_simultaneidad,
+        get_simultaneidad_scenarios,
+        get_weights,
+    )
     from territorial import normalize_department_series
     from train_temporal_baseline import run_baseline
 
@@ -143,7 +153,48 @@ def build_energy_table(temporal_df: pd.DataFrame, simultaneidad: float) -> pd.Da
     energy_df["demanda_futura"] = (
         energy_df["cantidad_ev_modelada"] * energy_df["potencia_carga"] * energy_df["simultaneidad"]
     )
+    energy_df["consumo_energetico_kwh"] = energy_df["consumo_energetico"]
+    energy_df["demanda_futura_kw"] = energy_df["demanda_futura"]
     return energy_df
+
+
+def build_energy_sensitivity_table(
+    energy_df: pd.DataFrame,
+    simultaneidad_scenarios: dict[str, float],
+) -> pd.DataFrame:
+    scenario_frames: list[pd.DataFrame] = []
+    base_columns = [
+        "anio",
+        "anio_base",
+        "horizonte_anios",
+        "departamento",
+        "tipo_vehiculo",
+        "cantidad_ev",
+        "cantidad_ev_modelada",
+        "fuente_cantidad_ev",
+        "kwh_promedio",
+        "potencia_carga",
+        "consumo_wh_km",
+        "consumo_energetico",
+        "consumo_energetico_kwh",
+    ]
+
+    for scenario_name, scenario_simultaneidad in simultaneidad_scenarios.items():
+        scenario_df = energy_df[base_columns].copy()
+        scenario_df["escenario_simultaneidad"] = scenario_name
+        scenario_df["simultaneidad"] = float(scenario_simultaneidad)
+        scenario_df["demanda_futura"] = (
+            scenario_df["cantidad_ev_modelada"]
+            * scenario_df["potencia_carga"]
+            * scenario_df["simultaneidad"]
+        )
+        scenario_df["demanda_futura_kw"] = scenario_df["demanda_futura"]
+        scenario_frames.append(scenario_df)
+
+    if not scenario_frames:
+        return pd.DataFrame()
+
+    return pd.concat(scenario_frames, ignore_index=True, sort=False)
 
 
 def load_hydraulic_layer() -> pd.DataFrame:
@@ -206,12 +257,14 @@ def build_gis_table(
     gis_df["criterio_crecimiento_ev"] = min_max_scale(gis_df["cantidad_ev_modelada"])
     gis_df["criterio_soporte_hidraulico"] = min_max_scale(gis_df["capacidad_hidraulica_total"])
     gis_df["criterio_cobertura_hidraulica"] = min_max_scale(gis_df["total_activos_hidraulicos"])
+    gis_df["criterio_brecha_soporte_hidraulico"] = 1 - gis_df["criterio_soporte_hidraulico"]
+    gis_df["criterio_brecha_cobertura_hidraulica"] = 1 - gis_df["criterio_cobertura_hidraulica"]
 
     gis_df["indice_prioridad_territorial"] = (
         weights["demanda"] * gis_df["criterio_demanda"]
         + weights["crecimiento_ev"] * gis_df["criterio_crecimiento_ev"]
-        + weights["soporte_hidraulico"] * gis_df["criterio_soporte_hidraulico"]
-        + weights["cobertura_hidraulica"] * gis_df["criterio_cobertura_hidraulica"]
+        + weights["soporte_hidraulico"] * gis_df["criterio_brecha_soporte_hidraulico"]
+        + weights["cobertura_hidraulica"] * gis_df["criterio_brecha_cobertura_hidraulica"]
     )
     gis_df["ranking_prioridad"] = gis_df["indice_prioridad_territorial"].rank(
         ascending=False,
@@ -222,6 +275,24 @@ def build_gis_table(
     gis_df.loc[gis_df["indice_prioridad_territorial"] >= 0.66, "categoria_prioridad"] = "ALTA"
     gis_df.loc[gis_df["indice_prioridad_territorial"] < 0.33, "categoria_prioridad"] = "BAJA"
     gis_df["anio_escenario"] = target_year
+    gis_df["escenario_energetico_base"] = "medio"
+
+    gis_df["observacion_prioridad"] = "Prioridad balanceada"
+    gis_df.loc[
+        (gis_df["criterio_demanda"] >= 0.66)
+        & (gis_df["criterio_brecha_soporte_hidraulico"] >= 0.66),
+        "observacion_prioridad",
+    ] = "Alta demanda proyectada y brecha de soporte hidraulico"
+    gis_df.loc[
+        (gis_df["criterio_demanda"] >= 0.66)
+        & (gis_df["criterio_brecha_cobertura_hidraulica"] >= 0.66),
+        "observacion_prioridad",
+    ] = "Alta demanda proyectada y baja cobertura hidraulica"
+    gis_df.loc[
+        (gis_df["criterio_demanda"] < 0.33)
+        & (gis_df["criterio_crecimiento_ev"] < 0.33),
+        "observacion_prioridad",
+    ] = "Presion territorial baja en el escenario base"
 
     gis_df = gis_df.sort_values(
         ["ranking_prioridad", "departamento"],
@@ -230,18 +301,71 @@ def build_gis_table(
     return gis_df
 
 
+def build_gis_validation_table(gis_df: pd.DataFrame, weights: dict[str, float]) -> pd.DataFrame:
+    validation_df = gis_df.copy()
+    validation_df["peso_demanda"] = float(weights["demanda"])
+    validation_df["peso_crecimiento_ev"] = float(weights["crecimiento_ev"])
+    validation_df["peso_brecha_soporte_hidraulico"] = float(weights["soporte_hidraulico"])
+    validation_df["peso_brecha_cobertura_hidraulica"] = float(weights["cobertura_hidraulica"])
+    validation_df["sin_soporte_hidraulico"] = validation_df["capacidad_hidraulica_total"].fillna(0).eq(0)
+    validation_df["sin_cobertura_hidraulica"] = validation_df["total_activos_hidraulicos"].fillna(0).eq(0)
+    validation_df["consistencia_territorial_ok"] = (
+        (validation_df["indice_prioridad_territorial"] <= 0.33)
+        | (validation_df["criterio_demanda"] >= 0.10)
+        | (validation_df["criterio_crecimiento_ev"] >= 0.10)
+    )
+    columns = [
+        "departamento",
+        "anio_escenario",
+        "escenario_energetico_base",
+        "ranking_prioridad",
+        "categoria_prioridad",
+        "indice_prioridad_territorial",
+        "demanda_futura",
+        "consumo_energetico",
+        "cantidad_ev_modelada",
+        "capacidad_hidraulica_total",
+        "total_activos_hidraulicos",
+        "criterio_demanda",
+        "criterio_crecimiento_ev",
+        "criterio_soporte_hidraulico",
+        "criterio_cobertura_hidraulica",
+        "criterio_brecha_soporte_hidraulico",
+        "criterio_brecha_cobertura_hidraulica",
+        "peso_demanda",
+        "peso_crecimiento_ev",
+        "peso_brecha_soporte_hidraulico",
+        "peso_brecha_cobertura_hidraulica",
+        "sin_soporte_hidraulico",
+        "sin_cobertura_hidraulica",
+        "consistencia_territorial_ok",
+        "observacion_prioridad",
+    ]
+    return validation_df[columns]
+
+
 def save_temporal_outputs(temporal_df: pd.DataFrame) -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     temporal_df.to_csv(PROCESSED_DIR / "etapa1_temporal.csv", index=False)
     temporal_df.to_csv(PROCESSED_DIR / "temporal_model_input.csv", index=False)
 
 
-def save_outputs(temporal_df: pd.DataFrame, energy_df: pd.DataFrame, gis_df: pd.DataFrame) -> None:
+def save_outputs(
+    temporal_df: pd.DataFrame,
+    energy_df: pd.DataFrame,
+    energy_sensitivity_df: pd.DataFrame,
+    gis_validation_df: pd.DataFrame,
+    gis_df: pd.DataFrame,
+) -> None:
     save_temporal_outputs(temporal_df)
     energy_df.to_csv(PROCESSED_DIR / "etapa2_energetico.csv", index=False)
     energy_df.to_csv(PROCESSED_DIR / "demanda_energetica.csv", index=False)
+    if not energy_sensitivity_df.empty:
+        energy_sensitivity_df.to_csv(PROCESSED_DIR / "demanda_energetica_escenarios.csv", index=False)
     gis_df.to_csv(PROCESSED_DIR / "etapa3_gis.csv", index=False)
     gis_df.to_csv(PROCESSED_DIR / "priorizacion_territorial.csv", index=False)
+    if not gis_validation_df.empty:
+        gis_validation_df.to_csv(PROCESSED_DIR / "validacion_etapa3.csv", index=False)
 
     geo_df = gis_df.dropna(subset=["latitud", "longitud"]).copy()
     if not geo_df.empty:
@@ -262,9 +386,15 @@ def run_pipeline(
     save_temporal_outputs(temporal_df)
     run_baseline(forecast_horizons=get_forecast_horizons(forecast_horizons))
     energy_df = build_energy_table(temporal_df, simultaneidad=simultaneidad)
+    energy_sensitivity_df = build_energy_sensitivity_table(
+        energy_df,
+        simultaneidad_scenarios=get_simultaneidad_scenarios(),
+    )
     hydraulic_df = load_hydraulic_layer()
-    gis_df = build_gis_table(energy_df, hydraulic_df, weights=get_weights())
-    save_outputs(temporal_df, energy_df, gis_df)
+    weights = get_weights()
+    gis_df = build_gis_table(energy_df, hydraulic_df, weights=weights)
+    gis_validation_df = build_gis_validation_table(gis_df, weights=weights)
+    save_outputs(temporal_df, energy_df, energy_sensitivity_df, gis_validation_df, gis_df)
 
 
 def main() -> None:

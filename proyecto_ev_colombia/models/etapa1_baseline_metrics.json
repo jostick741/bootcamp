@@ -21,6 +21,7 @@
     2052
   ],
   "selected_model": "modelo_hibrido_energetico",
+  "future_forecast_method": "proyeccion_tendencial_grupo",
   "selected_features": [
     "anio",
     "departamento",

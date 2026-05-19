@@ -9,11 +9,15 @@ CONFIG_DIR = PROJECT_ROOT / "config"
 SCENARIOS_PATH = CONFIG_DIR / "scenarios.yaml"
 WEIGHTS_PATH = CONFIG_DIR / "weights.yaml"
 DEFAULT_SIMULTANEIDAD = 0.3
+DEFAULT_SIMULTANEIDAD_SCENARIOS = {
+    "bajo": 0.2,
+    "medio": 0.3,
+    "alto": 0.5,
+}
 DEFAULT_FORECAST_HORIZONS = [5, 10, 15, 20, 30]
 DEFAULT_WEIGHTS = {
     "demanda": 0.40,
     "crecimiento_ev": 0.30,
-    "soporte_generacion": 0.10,
     "soporte_hidraulico": 0.15,
     "cobertura_hidraulica": 0.05,
 }
@@ -47,6 +51,19 @@ def get_forecast_horizons(override: list[int] | None = None) -> list[int]:
 
     cleaned_horizons = sorted({int(value) for value in horizons if int(value) > 0})
     return cleaned_horizons or DEFAULT_FORECAST_HORIZONS
+
+
+def get_simultaneidad_scenarios() -> dict[str, float]:
+    config = load_yaml_config(SCENARIOS_PATH)
+    simultaneidad_config = config.get("simultaneidad", {})
+
+    if not simultaneidad_config:
+        simultaneidad_config = DEFAULT_SIMULTANEIDAD_SCENARIOS
+
+    return {
+        str(key): float(value)
+        for key, value in simultaneidad_config.items()
+    }
 
 
 

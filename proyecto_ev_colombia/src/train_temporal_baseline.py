@@ -140,6 +140,57 @@ def prepare_future_feature_frame(dataframe: pd.DataFrame, forecast_horizons: lis
     return future_df, base_year
 
 
+def build_group_trend_lookup(dataframe: pd.DataFrame) -> dict[tuple[str, str], dict[str, float]]:
+    grouped_df = (
+        dataframe.groupby(["departamento", "tipo_vehiculo", "anio"], dropna=False)["cantidad_ev"]
+        .sum()
+        .reset_index()
+        .sort_values(["departamento", "tipo_vehiculo", "anio"])
+    )
+
+    trend_lookup: dict[tuple[str, str], dict[str, float]] = {}
+    for (departamento, tipo_vehiculo), group_df in grouped_df.groupby(
+        ["departamento", "tipo_vehiculo"],
+        dropna=False,
+    ):
+        years = pd.to_numeric(group_df["anio"], errors="coerce").to_numpy(dtype=float)
+        values = pd.to_numeric(group_df["cantidad_ev"], errors="coerce").fillna(0).to_numpy(dtype=float)
+        valid_mask = ~np.isnan(years)
+        years = years[valid_mask]
+        values = values[valid_mask]
+
+        if len(years) >= 2 and len(np.unique(years)) >= 2:
+            slope, intercept = np.polyfit(years, values, 1)
+        elif len(values) >= 1:
+            slope = 0.0
+            intercept = float(values[-1])
+        else:
+            slope = 0.0
+            intercept = 0.0
+
+        trend_lookup[(departamento, tipo_vehiculo)] = {
+            "slope": float(slope),
+            "intercept": float(intercept),
+        }
+    return trend_lookup
+
+
+def predict_group_trend(history_df: pd.DataFrame, target_df: pd.DataFrame) -> np.ndarray:
+    trend_lookup = build_group_trend_lookup(history_df)
+    predictions: list[float] = []
+
+    for row in target_df[["departamento", "tipo_vehiculo", "anio"]].itertuples(index=False):
+        trend = trend_lookup.get((row.departamento, row.tipo_vehiculo))
+        if trend is None:
+            predictions.append(0.0)
+            continue
+
+        prediction = trend["intercept"] + trend["slope"] * float(row.anio)
+        predictions.append(max(prediction, 0.0))
+
+    return np.asarray(predictions, dtype=float)
+
+
 def evaluate_model(
     model_name: str,
     train_df: pd.DataFrame,
@@ -161,6 +212,24 @@ def evaluate_model(
     }
     print(f"{model_name}: MAE={metrics['mae']:.4f}, RMSE={metrics['rmse']:.4f}, R2={metrics['r2']:.4f}")
     return model, predictions, metrics
+
+
+def evaluate_group_trend_model(
+    train_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    target_column: str,
+) -> tuple[np.ndarray, dict[str, float]]:
+    predictions = predict_group_trend(train_df, test_df)
+    metrics = {
+        "mae": float(mean_absolute_error(test_df[target_column], predictions)),
+        "rmse": float(np.sqrt(mean_squared_error(test_df[target_column], predictions))),
+        "r2": float(r2_score(test_df[target_column], predictions)),
+    }
+    print(
+        "proyeccion_tendencial_grupo: "
+        f"MAE={metrics['mae']:.4f}, RMSE={metrics['rmse']:.4f}, R2={metrics['r2']:.4f}"
+    )
+    return predictions, metrics
 
 
 
@@ -199,6 +268,11 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
         feature_columns=hybrid_feature_columns,
         target_column=target_column,
     )
+    trend_predictions, trend_metrics = evaluate_group_trend_model(
+        train_df=train_df,
+        test_df=test_df,
+        target_column=target_column,
+    )
 
     if temporal_metrics["rmse"] <= hybrid_metrics["rmse"]:
         selected_model_name = "modelo_temporal_puro"
@@ -213,12 +287,20 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
         selected_metrics = hybrid_metrics
         selected_features = hybrid_feature_columns
 
+    if trend_metrics["rmse"] < selected_metrics["rmse"]:
+        selected_model_name = "proyeccion_tendencial_grupo"
+        selected_model = None
+        selected_predictions = trend_predictions
+        selected_metrics = trend_metrics
+        selected_features = ["anio", "departamento", "tipo_vehiculo"]
+
     prediction_df = test_df.copy()
     prediction_df["tipo_prediccion"] = "backtest"
     prediction_df["anio_base"] = pd.NA
     prediction_df["horizonte_anios"] = pd.NA
     prediction_df["cantidad_ev_pred_modelo_a"] = temporal_predictions
     prediction_df["cantidad_ev_pred_modelo_b"] = hybrid_predictions
+    prediction_df["cantidad_ev_pred_tendencia"] = trend_predictions
     prediction_df["cantidad_ev_pred"] = selected_predictions
     prediction_df["modelo_seleccionado"] = selected_model_name
     prediction_df["error_absoluto"] = (prediction_df[target_column] - prediction_df["cantidad_ev_pred"]).abs()
@@ -234,15 +316,20 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
     future_prediction_df["cantidad_ev_pred_modelo_b"] = hybrid_model.predict(
         future_feature_df[hybrid_feature_columns]
     )
-    future_prediction_df["cantidad_ev_pred"] = selected_model.predict(future_feature_df[selected_features])
-    future_prediction_df["cantidad_ev_pred"] = future_prediction_df["cantidad_ev_pred"].clip(lower=0)
+    future_prediction_df["cantidad_ev_pred_tendencia"] = predict_group_trend(dataframe, future_feature_df)
+    future_prediction_df["cantidad_ev_pred"] = (
+        future_prediction_df["cantidad_ev_pred_tendencia"].clip(lower=0).round().astype(float)
+    )
     future_prediction_df["cantidad_ev_pred_modelo_a"] = future_prediction_df[
         "cantidad_ev_pred_modelo_a"
     ].clip(lower=0)
     future_prediction_df["cantidad_ev_pred_modelo_b"] = future_prediction_df[
         "cantidad_ev_pred_modelo_b"
     ].clip(lower=0)
-    future_prediction_df["modelo_seleccionado"] = selected_model_name
+    future_prediction_df["cantidad_ev_pred_tendencia"] = future_prediction_df[
+        "cantidad_ev_pred_tendencia"
+    ].clip(lower=0)
+    future_prediction_df["modelo_seleccionado"] = "proyeccion_tendencial_grupo"
     future_prediction_df["error_absoluto"] = pd.NA
     future_prediction_df.to_csv(FORECAST_OUTPUT_PATH, index=False)
 
@@ -255,6 +342,7 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
         "forecast_horizons_anios": forecast_horizons,
         "forecast_years": sorted(int(year) for year in future_prediction_df["anio"].unique()),
         "selected_model": selected_model_name,
+        "future_forecast_method": "proyeccion_tendencial_grupo",
         "selected_features": selected_features,
         "mae": selected_metrics["mae"],
         "rmse": selected_metrics["rmse"],
@@ -267,7 +355,9 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
             {
                 "modelo_temporal_puro": temporal_metrics,
                 "modelo_hibrido_energetico": hybrid_metrics,
+                "proyeccion_tendencial_grupo": trend_metrics,
                 "selected_model": selected_model_name,
+                "future_forecast_method": "proyeccion_tendencial_grupo",
             },
             indent=2,
         ),

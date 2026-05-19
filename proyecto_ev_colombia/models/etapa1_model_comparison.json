@@ -9,5 +9,11 @@
     "rmse": 59.421713136390565,
     "r2": 0.5257843648989666
   },
-  "selected_model": "modelo_hibrido_energetico"
+  "proyeccion_tendencial_grupo": {
+    "mae": 29.172177264922723,
+    "rmse": 64.63657396345715,
+    "r2": 0.4388975184222422
+  },
+  "selected_model": "modelo_hibrido_energetico",
+  "future_forecast_method": "proyeccion_tendencial_grupo"
 }
