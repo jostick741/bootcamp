@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 
@@ -20,14 +21,11 @@ from src.gis.loaders import (
     load_priority_geodataframe,
 )
 from src.maps.folium_builders import (
-    add_map_context_panel,
     add_demand_heatmap,
     add_hydraulic_cluster,
     add_metric_choropleth,
-    add_pressure_layer,
     add_priority_choropleth,
     add_priority_markers,
-    add_symbol_legend_panel,
     add_year_slider_choropleth,
     make_base_map,
 )
@@ -37,148 +35,390 @@ MAPS_DIR = PROJECT_ROOT / "maps"
 
 def _save_maps_index(outputs: dict[str, Path]) -> Path:
     index_path = MAPS_DIR / "index.html"
-    map_catalog = [
+    view_catalog = [
         {
             "key": "future_demand_choropleth",
-            "title": "1. Mapa de demanda futura",
-            "description": "Empieza por este mapa si quieres ver los anos proyectados. Es el unico mapa temporal del atlas.",
-            "purpose": "Responde como cambia la demanda EV entre historico y proyeccion.",
-            "look_for": "Busca los botones 2027, 2032, 2037, 2042 y 2052 y cambia entre anos.",
-            "badge": "Mapa temporal",
+            "tab": "Demanda futura",
+            "title": "Demanda futura por anio",
+            "description": "Vista principal para recorrer historico y proyeccion de la demanda EV departamental.",
+            "purpose": "Comparar anos y detectar donde se concentra la demanda futura.",
+            "controls": "year",
+            "default_year": 2052,
+            "projected_years": [2027, 2032, 2037, 2042, 2052],
         },
         {
             "key": "pressure_choropleth",
-            "title": "2. Mapa de presion energetica",
-            "description": "Sirve para ver donde se concentra el consumo energetico agregado del parque EV modelado.",
-            "purpose": "Responde que departamentos cargan mas presion energetica.",
-            "look_for": "Rojo intenso = consumo energetico mas alto.",
-            "badge": "Energia",
+            "tab": "Presion energetica",
+            "title": "Presion energetica",
+            "description": "Coropletico departamental del consumo energetico agregado del parque EV modelado.",
+            "purpose": "Ver que departamentos concentran mayor carga energetica.",
+            "controls": "none",
         },
         {
             "key": "territorial_priority_choropleth",
-            "title": "3. Mapa de prioridad territorial",
-            "description": "Es el mapa final del ranking multicriterio y combina demanda, crecimiento y brecha hidraulica.",
-            "purpose": "Responde que territorios deberian priorizarse primero.",
-            "look_for": "Rojo = mayor prioridad territorial.",
-            "badge": "Decision",
+            "tab": "Prioridad territorial",
+            "title": "Prioridad territorial final",
+            "description": "Ranking multicriterio final con demanda, crecimiento EV y brecha hidraulica.",
+            "purpose": "Identificar que territorios deberian priorizarse primero.",
+            "controls": "none",
         },
         {
             "key": "hydraulic",
-            "title": "4. Mapa de activos hidraulicos",
-            "description": "Ubica el soporte hidraulico observado para contrastarlo con la priorizacion territorial.",
-            "purpose": "Responde donde ya hay activos hidraulicos observados.",
-            "look_for": "Marcadores verdes = activos hidraulicos.",
-            "badge": "Soporte",
-        },
-        {
-            "key": "priority",
-            "title": "5. Mapa general de prioridad",
-            "description": "Vista combinada del ranking territorial con apoyo de activos y capas auxiliares.",
-            "purpose": "Responde la foto general del sistema en una sola vista.",
-            "look_for": "Usalo solo despues de entender los mapas 1, 2 y 3.",
-            "badge": "Resumen",
-        },
-        {
-            "key": "demand",
-            "title": "6. Mapa de calor de demanda",
-            "description": "Mapa exploratorio para ver concentraciones espaciales; no es el mejor mapa para empezar.",
-            "purpose": "Responde donde se acumula visualmente la demanda proyectada.",
-            "look_for": "Nucleos rojos = concentraciones relativas mayores.",
-            "badge": "Exploratorio",
+            "tab": "Soporte hidraulico",
+            "title": "Soporte hidraulico observado",
+            "description": "Capa de consulta para ubicar activos hidraulicos observados.",
+            "purpose": "Contrastar la prioridad final con la infraestructura hidraulica existente.",
+            "controls": "none",
         },
     ]
 
-    cards_html = []
-    for item in map_catalog:
+    secondary_catalog = [
+        {
+            "key": "priority",
+            "title": "Vista combinada",
+            "description": "Cruza el ranking territorial con activos hidraulicos como apoyo exploratorio.",
+        },
+        {
+            "key": "demand",
+            "title": "Concentracion espacial de demanda",
+            "description": "Heatmap exploratorio para ver nucleos relativos de demanda proyectada.",
+        },
+    ]
+
+    resolved_views = []
+    for item in view_catalog:
         output_path = outputs.get(item["key"])
         if not output_path:
             continue
-        relative_path = output_path.name
-        cards_html.append(
+        view_data = dict(item)
+        view_data["path"] = output_path.name
+        resolved_views.append(view_data)
+
+    secondary_cards = []
+    for item in secondary_catalog:
+        output_path = outputs.get(item["key"])
+        if not output_path:
+            continue
+        secondary_cards.append(
             f"""
-            <article class="map-card">
-                <div class="map-header-row">
-                <span class="map-badge">{item['badge']}</span>
-                <h2>{item['title']}</h2>
-                </div>
-                <p class="map-description">{item['description']}</p>
-                <div class="map-meta-block">
-                <div><strong>Para que sirve:</strong> {item['purpose']}</div>
-                <div><strong>Que mirar:</strong> {item['look_for']}</div>
-                </div>
-                <div class="map-actions">
-                <a class="map-link" href="{relative_path}" target="_blank" rel="noreferrer">Abrir mapa</a>
-                </div>
+            <article class="secondary-card">
+                <h3>{item['title']}</h3>
+                <p>{item['description']}</p>
+                <a class="secondary-link" href="{output_path.name}" target="_blank" rel="noreferrer">Abrir mapa</a>
             </article>
             """.strip()
         )
 
-        index_html = f"""
+    views_json = json.dumps(resolved_views, ensure_ascii=True)
+
+    index_html = f"""
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atlas EV Colombia</title>
+    <title>Visor EV Colombia</title>
     <style>
         :root {{
-            --bg: #f2efe8;
-            --panel: rgba(255,255,255,0.88);
-            --ink: #1d2a33;
-            --muted: #56636b;
-            --accent: #b6541f;
-            --accent-dark: #7f3510;
-            --border: rgba(29, 42, 51, 0.12);
-            --shadow: 0 20px 45px rgba(37, 47, 56, 0.12);
+            --bg: #ebe6d8;
+            --panel: rgba(255,255,255,0.92);
+            --panel-strong: rgba(248, 244, 236, 0.98);
+            --ink: #1e2a31;
+            --muted: #5c676d;
+            --accent: #a64b1a;
+            --accent-dark: #733111;
+            --accent-soft: #f7e5d8;
+            --border: rgba(30, 42, 49, 0.13);
+            --shadow: 0 18px 40px rgba(32, 42, 49, 0.14);
         }}
 
         * {{ box-sizing: border-box; }}
-        html, body {{ margin: 0; padding: 0; background: radial-gradient(circle at top, #f8f3e8 0%, var(--bg) 55%, #e7e1d4 100%); color: var(--ink); font-family: Georgia, 'Times New Roman', serif; }}
-        body {{ padding: 32px 20px 56px; }}
-        .shell {{ max-width: 1400px; margin: 0 auto; }}
-        .hero {{ background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,245,238,0.78)); border: 1px solid var(--border); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); margin-bottom: 24px; }}
-        .eyebrow {{ font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 10px; }}
-        h1 {{ margin: 0 0 10px; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.02; }}
-        .lead {{ margin: 0; max-width: 980px; color: var(--muted); font-size: 1.06rem; line-height: 1.6; }}
+        html, body {{ margin: 0; padding: 0; background: linear-gradient(180deg, #f6f0e3 0%, var(--bg) 100%); color: var(--ink); font-family: 'Avenir Next', 'Segoe UI', sans-serif; }}
+        body {{ min-height: 100vh; }}
+        .shell {{ width: min(1560px, calc(100vw - 28px)); margin: 14px auto; display: grid; gap: 14px; }}
+        .hero {{ background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(249,239,228,0.88)); border: 1px solid var(--border); border-radius: 26px; padding: 22px 24px; box-shadow: var(--shadow); }}
+        .eyebrow {{ font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 8px; font-weight: 700; }}
+        h1 {{ margin: 0 0 10px; font-size: clamp(2rem, 3vw, 3.2rem); line-height: 1.02; font-family: Georgia, 'Times New Roman', serif; }}
+        .lead {{ margin: 0; max-width: 1080px; color: var(--muted); font-size: 1rem; line-height: 1.55; }}
         .meta {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }}
-        .chip {{ border: 1px solid rgba(182,84,31,0.18); background: rgba(255,248,242,0.95); color: var(--accent-dark); border-radius: 999px; padding: 7px 12px; font-size: 13px; }}
-        .callout {{ margin-top: 18px; background: rgba(29,42,51,0.92); color: #fff9f3; border-radius: 18px; padding: 16px 18px; line-height: 1.6; }}
-        .grid {{ display: grid; gap: 18px; }}
-        .map-card {{ background: var(--panel); border: 1px solid var(--border); border-radius: 24px; padding: 20px; box-shadow: var(--shadow); }}
-        .map-header-row {{ display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }}
-        .map-header-row h2 {{ margin: 0; font-size: 1.4rem; }}
-        .map-badge {{ display: inline-flex; align-items: center; border-radius: 999px; background: #fff2e9; color: var(--accent-dark); border: 1px solid rgba(182,84,31,0.18); padding: 6px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }}
-        .map-description {{ margin: 0 0 14px; color: var(--muted); line-height: 1.6; font-size: 1rem; }}
-        .map-meta-block {{ display: grid; gap: 8px; margin-bottom: 16px; color: #33414a; line-height: 1.55; }}
-        .map-actions {{ display: flex; flex-wrap: wrap; gap: 10px; }}
-        .map-link {{ align-self: flex-start; text-decoration: none; background: var(--accent); color: #fff; padding: 10px 14px; border-radius: 999px; font-size: 14px; }}
-        .map-link:hover {{ background: var(--accent-dark); }}
+        .chip {{ border: 1px solid rgba(166, 75, 26, 0.16); background: rgba(255, 248, 242, 0.98); color: var(--accent-dark); border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 600; }}
+        .layout {{ display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(300px, 0.72fr); gap: 14px; align-items: start; }}
+        .viewer-panel, .info-panel, .secondary-panel {{ background: var(--panel); border: 1px solid var(--border); border-radius: 26px; box-shadow: var(--shadow); }}
+        .viewer-panel {{ overflow: hidden; }}
+        .tabs {{ display: flex; flex-wrap: wrap; gap: 10px; padding: 16px 18px 12px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.62); }}
+        .tab-button {{ border: 1px solid rgba(166,75,26,0.16); background: #fff; color: var(--ink); border-radius: 999px; padding: 10px 14px; cursor: pointer; font-size: 14px; font-weight: 700; transition: 0.18s ease; }}
+        .tab-button:hover {{ border-color: rgba(166,75,26,0.45); color: var(--accent-dark); }}
+        .tab-button.active {{ background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }}
+        .toolbar {{ padding: 14px 18px; background: var(--panel-strong); border-bottom: 1px solid var(--border); display: grid; gap: 12px; }}
+        .toolbar-row {{ display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }}
+        .toolbar-label {{ font-size: 12px; font-weight: 800; color: var(--accent-dark); text-transform: uppercase; letter-spacing: 0.08em; }}
+        .toolbar-note {{ font-size: 13px; color: var(--muted); }}
+        .year-select {{ border: 1px solid rgba(30,42,49,0.18); background: #fff; border-radius: 12px; padding: 10px 12px; font-size: 14px; color: var(--ink); min-width: 140px; }}
+        .pill-button {{ border: 1px solid rgba(166,75,26,0.18); background: #fff9f5; color: var(--accent-dark); border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 13px; font-weight: 700; transition: 0.18s ease; }}
+        .pill-button:hover {{ border-color: rgba(166,75,26,0.5); }}
+        .pill-button.active {{ background: var(--accent); color: #fff; border-color: var(--accent); }}
+        .open-link {{ text-decoration: none; color: #fff; background: var(--accent-dark); border-radius: 999px; padding: 10px 14px; font-size: 13px; font-weight: 700; }}
+        .map-frame {{ width: 100%; height: min(74vh, 920px); border: 0; display: block; background: #d9e2e8; }}
+        .info-panel {{ padding: 20px; position: sticky; top: 14px; }}
+        .info-panel h2 {{ margin: 0 0 8px; font-size: 1.35rem; font-family: Georgia, 'Times New Roman', serif; }}
+        .info-panel p {{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; font-size: 0.97rem; }}
+        .info-kicker {{ font-size: 12px; font-weight: 800; color: var(--accent-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }}
+        .info-block {{ padding: 14px; border: 1px solid rgba(30,42,49,0.1); border-radius: 18px; background: rgba(255,255,255,0.7); margin-top: 14px; }}
+        .info-block strong {{ display: block; margin-bottom: 6px; font-size: 13px; color: var(--ink); }}
+        .secondary-panel {{ padding: 18px 20px; }}
+        .secondary-panel h3 {{ margin: 0 0 6px; font-size: 1.05rem; }}
+        .secondary-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 14px; }}
+        .secondary-card {{ padding: 16px; border-radius: 18px; border: 1px solid rgba(30,42,49,0.1); background: rgba(255,255,255,0.72); }}
+        .secondary-card p {{ margin: 0 0 12px; color: var(--muted); line-height: 1.55; font-size: 0.95rem; }}
+        .secondary-link {{ text-decoration: none; color: var(--accent-dark); font-weight: 700; }}
+        .status-inline {{ font-size: 12px; color: var(--muted); padding: 8px 10px; background: rgba(255,255,255,0.72); border: 1px dashed rgba(30,42,49,0.14); border-radius: 12px; }}
+        @media (max-width: 1180px) {{ .layout {{ grid-template-columns: 1fr; }} .info-panel {{ position: static; }} }}
+        @media (max-width: 760px) {{ .shell {{ width: min(100vw - 14px, 100%); margin: 7px auto; }} .hero, .info-panel, .secondary-panel {{ border-radius: 20px; }} .viewer-panel {{ border-radius: 22px; }} .map-frame {{ height: 66vh; }} }}
     </style>
 </head>
 <body>
     <div class="shell">
         <section class="hero">
             <div class="eyebrow">Pipeline EV + PARATEC</div>
-            <h1>Atlas operativo de mapas</h1>
-            <p class="lead">Esta portada organiza la salida cartografica del pipeline base para que no tengas que abrir archivos HTML sueltos uno por uno. Desde aqui puedes revisar presion energetica, demanda futura por anio, activos hidraulicos y el ranking territorial final.</p>
+            <h1>Visor Operativo EV Colombia</h1>
+            <p class="lead">La vista principal corresponde a un mapa coropletico construido para visualizar la evolucion territorial de la movilidad electrica y su impacto energetico en Colombia. El desarrollo del visor se estructuro en tres fases analiticas integradas dentro del pipeline del proyecto. En la primera fase se realizo la recoleccion y consolidacion de datos abiertos relacionados con vehiculos electricos registrados en el pais. Posteriormente, los datos fueron enriquecidos con variables tecnicas asociadas a baterias, autonomia, consumo energetico y sistemas de carga. Finalmente, se implementaron modelos predictivos y analisis geoespacial para estimar demanda futura, identificar posibles zonas de presion sobre la red electrica y priorizar territorios estrategicos para infraestructura de carga. Cada departamento se representa mediante una escala de color que permite interpretar rapidamente la magnitud de la demanda proyectada y explorar los resultados generados por los modelos de inteligencia artificial, analisis energetico y cartografia GIS desarrollados durante el proyecto.</p>
             <div class="meta">
                 <span class="chip">Fuente operativa: MySQL local</span>
                 <span class="chip">Horizontes proyectados: 2027, 2032, 2037, 2042, 2052</span>
                 <span class="chip">Entregable base: ETAPA 1 + ETAPA 2 + ETAPA 3</span>
             </div>
-            <div class="callout">
-                <strong>Ruta recomendada:</strong> abre primero <em>Mapa de demanda futura</em> para ver los anos proyectados. Luego abre <em>Mapa de presion energetica</em> y termina con <em>Mapa de prioridad territorial</em>. Los otros mapas son de apoyo y exploracion.
+        </section>
+
+        <section class="layout">
+            <div class="viewer-panel">
+                <div id="tab-bar" class="tabs"></div>
+                <div id="toolbar" class="toolbar"></div>
+                <iframe id="map-frame" class="map-frame" title="Visor EV Colombia"></iframe>
+            </div>
+
+            <aside class="info-panel">
+                <div class="info-kicker">Vista activa</div>
+                <h2 id="view-title"></h2>
+                <p id="view-description"></p>
+                <div class="info-block">
+                    <strong>Para que sirve</strong>
+                    <p id="view-purpose"></p>
+                </div>
+                <div class="info-block">
+                    <strong>Lectura operativa</strong>
+                    <p id="view-reading"></p>
+                </div>
+                <div class="info-block">
+                    <strong>Acceso directo</strong>
+                    <a id="open-standalone" class="open-link" href="#" target="_blank" rel="noreferrer">Abrir mapa completo</a>
+                </div>
+            </aside>
+        </section>
+
+        <section class="secondary-panel">
+            <h3>Capas exploratorias</h3>
+            <p class="toolbar-note">Estas vistas siguen disponibles, pero ya no dominan la entrada al producto. Quedan como apoyo analitico.</p>
+            <div class="secondary-grid">
+                {chr(10).join(secondary_cards)}
             </div>
         </section>
-        <section class="grid">
-            {chr(10).join(cards_html)}
-        </section>
     </div>
+
+    <script>
+        (function() {{
+            var views = {views_json};
+            if (!views.length) {{
+                return;
+            }}
+
+            var readingByView = {{
+                future_demand_choropleth: 'Usa esta vista para recorrer historico y proyeccion. El control de ano de este visor sincroniza la apertura del mapa principal.',
+                pressure_choropleth: 'Usa esta vista para leer carga energetica agregada por departamento y comparar territorios de mayor presion.',
+                territorial_priority_choropleth: 'Usa esta vista para la decision final de priorizacion territorial, no para explorar capas auxiliares.',
+                hydraulic: 'Usa esta vista como contraste espacial de soporte hidraulico observado.'
+            }};
+
+            var tabBar = document.getElementById('tab-bar');
+            var toolbar = document.getElementById('toolbar');
+            var frame = document.getElementById('map-frame');
+            var titleEl = document.getElementById('view-title');
+            var descriptionEl = document.getElementById('view-description');
+            var purposeEl = document.getElementById('view-purpose');
+            var readingEl = document.getElementById('view-reading');
+            var openStandalone = document.getElementById('open-standalone');
+            var activeViewKey = views[0].key;
+            var selectedYear = views[0].default_year || 2052;
+            var loadedViewKey = null;
+            var loadedFrameUrl = null;
+
+            function getViewByKey(viewKey) {{
+                return views.find(function(view) {{ return view.key === viewKey; }}) || views[0];
+            }}
+
+            function buildViewUrl(view) {{
+                if (view.key === 'future_demand_choropleth') {{
+                    return view.path + '?year=' + encodeURIComponent(String(selectedYear));
+                }}
+                return view.path;
+            }}
+
+            function renderTabs() {{
+                tabBar.innerHTML = '';
+                views.forEach(function(view) {{
+                    var button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'tab-button' + (view.key === activeViewKey ? ' active' : '');
+                    button.textContent = view.tab;
+                    button.addEventListener('click', function() {{
+                        activeViewKey = view.key;
+                        render();
+                    }});
+                    tabBar.appendChild(button);
+                }});
+            }}
+
+            function buildYearToolbar(view) {{
+                var wrap = document.createElement('div');
+                var labelRow = document.createElement('div');
+                labelRow.className = 'toolbar-row';
+                labelRow.innerHTML = '<span class="toolbar-label">Ano</span><span class="status-inline">Aplica a la vista de demanda futura.</span>';
+                wrap.appendChild(labelRow);
+
+                var controlRow = document.createElement('div');
+                controlRow.className = 'toolbar-row';
+                var select = document.createElement('select');
+                select.className = 'year-select';
+                [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2027, 2032, 2037, 2042, 2052].forEach(function(year) {{
+                    var option = document.createElement('option');
+                    option.value = String(year);
+                    option.textContent = String(year);
+                    option.selected = Number(year) === Number(selectedYear);
+                    select.appendChild(option);
+                }});
+                select.addEventListener('change', function(event) {{
+                    selectedYear = Number(event.target.value);
+                    syncActiveView();
+                    syncToolbarState();
+                }});
+                controlRow.appendChild(select);
+
+                (view.projected_years || []).forEach(function(year) {{
+                    var button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'pill-button' + (Number(year) === Number(selectedYear) ? ' active' : '');
+                    button.textContent = String(year);
+                    button.dataset.year = String(year);
+                    button.addEventListener('click', function() {{
+                        selectedYear = Number(year);
+                        syncActiveView();
+                        syncToolbarState();
+                    }});
+                    controlRow.appendChild(button);
+                }});
+                wrap.appendChild(controlRow);
+                return wrap;
+            }}
+
+            function buildDefaultToolbar() {{
+                var note = document.createElement('div');
+                note.className = 'toolbar-row';
+                note.innerHTML = '<span class="toolbar-label">Vista activa</span><span class="status-inline">En esta iteracion el filtro sincronizado queda implementado primero para demanda futura. Las demas vistas ya entran por tabs y acceso unificado.</span>';
+                return note;
+            }}
+
+            function renderToolbar(view) {{
+                toolbar.innerHTML = '';
+                if (view.controls === 'year') {{
+                    toolbar.appendChild(buildYearToolbar(view));
+                    return;
+                }}
+                toolbar.appendChild(buildDefaultToolbar());
+            }}
+
+            function setFrameSource(view) {{
+                var nextUrl = buildViewUrl(view);
+                frame.src = nextUrl;
+                openStandalone.href = nextUrl;
+                loadedViewKey = view.key;
+                loadedFrameUrl = nextUrl;
+            }}
+
+            function syncFutureDemandYear() {{
+                if (activeViewKey !== 'future_demand_choropleth') {{
+                    return false;
+                }}
+                try {{
+                    if (frame.contentWindow && typeof frame.contentWindow.setDemandMapYear === 'function') {{
+                        return frame.contentWindow.setDemandMapYear(selectedYear) === true;
+                    }}
+                }} catch (error) {{
+                    return false;
+                }}
+                return false;
+            }}
+
+            function syncActiveView() {{
+                var activeView = getViewByKey(activeViewKey);
+                var nextUrl = buildViewUrl(activeView);
+                openStandalone.href = nextUrl;
+
+                if (activeView.key === 'future_demand_choropleth' && loadedViewKey === activeView.key && syncFutureDemandYear()) {{
+                    loadedFrameUrl = nextUrl;
+                    return;
+                }}
+
+                if (loadedViewKey !== activeView.key) {{
+                    setFrameSource(activeView);
+                    return;
+                }}
+
+                if (loadedFrameUrl !== nextUrl) {{
+                    setFrameSource(activeView);
+                }}
+            }}
+
+            function syncToolbarState() {{
+                var select = toolbar.querySelector('.year-select');
+                if (select) {{
+                    select.value = String(selectedYear);
+                }}
+                toolbar.querySelectorAll('.pill-button').forEach(function(button) {{
+                    button.classList.toggle('active', Number(button.dataset.year) === Number(selectedYear));
+                }});
+            }}
+
+            function renderInfo(view) {{
+                titleEl.textContent = view.title;
+                descriptionEl.textContent = view.description;
+                purposeEl.textContent = view.purpose;
+                readingEl.textContent = readingByView[view.key] || 'Vista de apoyo analitico del proyecto.';
+            }}
+
+            function render() {{
+                var activeView = getViewByKey(activeViewKey);
+                renderTabs();
+                renderToolbar(activeView);
+                renderInfo(activeView);
+                syncActiveView();
+                syncToolbarState();
+            }}
+
+            frame.addEventListener('load', function() {{
+                loadedViewKey = activeViewKey;
+                loadedFrameUrl = buildViewUrl(getViewByKey(activeViewKey));
+                if (activeViewKey === 'future_demand_choropleth') {{
+                    syncFutureDemandYear();
+                }}
+            }});
+
+            render();
+        }})();
+    </script>
 </body>
 </html>
         """.strip()
-        index_path.write_text(index_html, encoding="utf-8")
-        return index_path
+    index_path.write_text(index_html, encoding="utf-8")
+    return index_path
 
 
 
@@ -198,26 +438,10 @@ def build_priority_map():
     hydraulic_gdf = load_hydraulic_points()
 
     priority_map = make_base_map()
-    add_map_context_panel(
-        priority_map,
-        title="Mapa general de prioridad",
-        subtitle="Usa este mapa como vista de arranque: el color del departamento resume prioridad y las capas adicionales muestran activos y puntos de prioridad.",
-        unit_label="indice territorial + apoyo visual de activos",
-        color_meaning="amarillo = menor prioridad, rojo = mayor prioridad",
-    )
     add_priority_choropleth(priority_map, boundaries_gdf, priority_df)
     add_priority_markers(priority_map, priority_gdf)
     if not hydraulic_gdf.empty:
-        add_hydraulic_cluster(priority_map, hydraulic_gdf)
-    add_symbol_legend_panel(
-        priority_map,
-        title="Como leer este mapa",
-        items=[
-            ("Rojo oscuro: territorio mas prioritario", "#d73027"),
-            ("Amarillo: prioridad intermedia o baja", "#fee08b"),
-            ("Verde: referencia de activos hidraulicos", "#3c9d3c"),
-        ],
-    )
+        add_hydraulic_cluster(priority_map, hydraulic_gdf, show=False)
     folium.LayerControl(collapsed=False).add_to(priority_map)
     return _save_map(priority_map, config.get("outputs", {}).get("priority_map", "mapa_prioridad.html"))
 
@@ -226,13 +450,6 @@ def build_pressure_choropleth_map():
     config = get_maps_config()
     merged_gdf = load_department_metrics_geodataframe()
     pressure_map = make_base_map()
-    add_map_context_panel(
-        pressure_map,
-        title="Mapa departamental de presion energetica",
-        subtitle="Cada departamento se colorea por su consumo energetico agregado asociado al parque EV modelado.",
-        unit_label="kWh agregados",
-        color_meaning="amarillo = menor consumo, rojo = mayor consumo",
-    )
     add_metric_choropleth(
         pressure_map,
         merged_gdf,
@@ -254,13 +471,6 @@ def build_future_demand_choropleth_map():
     boundaries_gdf = load_department_boundaries()
     yearly_demand_df = load_department_yearly_demand_data()
     demand_map = make_base_map()
-    add_map_context_panel(
-        demand_map,
-        title="Mapa departamental de demanda futura",
-        subtitle="El slider cambia el anio y recolorea cada departamento con la demanda simultanea estimada por adopcion EV.",
-        unit_label="kW simultaneos",
-        color_meaning="amarillo = menor demanda, rojo = mayor demanda",
-    )
     add_year_slider_choropleth(
         demand_map,
         boundaries_gdf,
@@ -280,13 +490,6 @@ def build_territorial_priority_choropleth_map():
     config = get_maps_config()
     merged_gdf = load_department_metrics_geodataframe()
     priority_map = make_base_map()
-    add_map_context_panel(
-        priority_map,
-        title="Mapa departamental de prioridad territorial",
-        subtitle="Indice multicriterio para priorizar territorios con mayor presion y menor soporte relativo de infraestructura.",
-        unit_label="indice compuesto de 0 a 1",
-        color_meaning="amarillo = menor prioridad, rojo = mayor prioridad",
-    )
     add_metric_choropleth(
         priority_map,
         merged_gdf,
@@ -309,25 +512,8 @@ def build_demand_map():
     demand_gdf = load_demand_points()
 
     demand_map = make_base_map()
-    add_map_context_panel(
-        demand_map,
-        title="Mapa de calor de demanda",
-        subtitle="Muestra concentraciones territoriales de demanda futura. Sirve para detectar donde se acumula la presion, no para leer un ranking departamental exacto.",
-        unit_label="intensidad relativa de demanda proyectada",
-        color_meaning="azul = menor concentracion, rojo = nucleo de mayor demanda",
-    )
     if not demand_gdf.empty:
         add_demand_heatmap(demand_map, demand_gdf)
-        add_pressure_layer(demand_map, demand_gdf)
-    add_symbol_legend_panel(
-        demand_map,
-        title="Como leer este mapa",
-        items=[
-            ("Rojo del heatmap: concentracion alta de demanda", "#e31a1c"),
-            ("Azul del heatmap: concentracion baja de demanda", "#6a5cff"),
-            ("Circulos naranjas: huella aproximada de presion", "#ff7f00"),
-        ],
-    )
     folium.LayerControl(collapsed=False).add_to(demand_map)
     return _save_map(demand_map, config.get("outputs", {}).get("demand_map", "mapa_demanda.html"))
 
@@ -339,25 +525,10 @@ def build_hydraulic_map():
     priority_gdf = load_priority_geodataframe()
 
     hydraulic_map = make_base_map()
-    add_map_context_panel(
-        hydraulic_map,
-        title="Mapa de activos hidraulicos",
-        subtitle="Este mapa sirve para ubicar el soporte hidraulico observado. No muestra demanda por color de fondo, solo activos y puntos complementarios de prioridad.",
-        unit_label="ubicacion de activos y puntos de referencia",
-        color_meaning="verde = activo hidraulico, otros puntos = apoyo de priorizacion",
-    )
     if not hydraulic_gdf.empty:
         add_hydraulic_cluster(hydraulic_map, hydraulic_gdf)
     if not priority_gdf.empty:
         add_priority_markers(hydraulic_map, priority_gdf)
-    add_symbol_legend_panel(
-        hydraulic_map,
-        title="Como leer este mapa",
-        items=[
-            ("Verde: activo hidraulico observado", "#3c9d3c"),
-            ("Amarillo/rojo: punto de prioridad territorial", "#f1b82d"),
-        ],
-    )
     folium.LayerControl(collapsed=False).add_to(hydraulic_map)
     return _save_map(hydraulic_map, config.get("outputs", {}).get("hydraulic_map", "mapa_hidraulicas.html"))
 

@@ -15,8 +15,10 @@ from sklearn.preprocessing import OneHotEncoder
 
 try:
     from .project_config import get_forecast_horizons
+    from .load_data import refresh_sql_result_table
 except ImportError:
     from project_config import get_forecast_horizons
+    from load_data import refresh_sql_result_table
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
@@ -27,6 +29,8 @@ FORECAST_OUTPUT_PATH = PROCESSED_DIR / "forecast_ev.csv"
 METRICS_PATH = MODELS_DIR / "etapa1_baseline_metrics.json"
 FEATURE_IMPORTANCE_PATH = MODELS_DIR / "etapa1_baseline_feature_summary.csv"
 COMPARISON_PATH = MODELS_DIR / "etapa1_model_comparison.json"
+PREDICTIONS_TABLE = "etapa1_temporal_predicciones"
+FORECAST_TABLE = "forecast_ev"
 
 
 def parse_args() -> argparse.Namespace:
@@ -305,6 +309,7 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
     prediction_df["modelo_seleccionado"] = selected_model_name
     prediction_df["error_absoluto"] = (prediction_df[target_column] - prediction_df["cantidad_ev_pred"]).abs()
     prediction_df.to_csv(PREDICTIONS_PATH, index=False)
+    refresh_sql_result_table(prediction_df, PREDICTIONS_TABLE)
 
     future_feature_df, base_year = prepare_future_feature_frame(dataframe, forecast_horizons)
     future_prediction_df = future_feature_df.copy()
@@ -332,6 +337,7 @@ def run_baseline(forecast_horizons: list[int] | None = None) -> None:
     future_prediction_df["modelo_seleccionado"] = "proyeccion_tendencial_grupo"
     future_prediction_df["error_absoluto"] = pd.NA
     future_prediction_df.to_csv(FORECAST_OUTPUT_PATH, index=False)
+    refresh_sql_result_table(future_prediction_df, FORECAST_TABLE)
 
     metrics = {
         "train_rows": int(len(train_df)),

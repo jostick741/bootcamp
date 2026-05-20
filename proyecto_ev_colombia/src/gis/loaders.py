@@ -6,7 +6,7 @@ import geopandas as gpd
 import pandas as pd
 
 from src.generation_locations import apply_generation_location_overrides
-from src.load_data import read_sql_source_table
+from src.load_data import read_sql_source_table, read_sql_table_if_exists
 from src.project_config import load_yaml_config
 from src.territorial import normalize_department_series
 
@@ -21,6 +21,17 @@ DEMAND_PATH = PROCESSED_DIR / "demanda_energetica.csv"
 HYDRAULIC_GEOCODED_PATH = PROCESSED_DIR / "activos_hidraulicos_geocoded.csv"
 GENERATION_RAW_PATH = RAW_DIR / "infraestructura_generacion_86_registros.xlsx"
 PARATEC_RAW_PATH = RAW_DIR / "PARATEC_Phidráulica_18-05-2026.xlsx"
+PRIORITY_TABLE = "priorizacion_territorial"
+DEMAND_TABLE = "demanda_energetica"
+
+
+def _require_sql_result_table(table_name: str) -> pd.DataFrame:
+    dataframe = read_sql_table_if_exists(table_name)
+    if dataframe is None:
+        raise RuntimeError(
+            f"La tabla SQL '{table_name}' no existe o no está disponible. Ejecuta el pipeline para materializar resultados en MySQL antes de renderizar mapas."
+        )
+    return dataframe
 
 
 
@@ -48,7 +59,7 @@ def build_geodataframe_from_coords(
 
 
 def load_priority_data() -> pd.DataFrame:
-    dataframe = pd.read_csv(PRIORITY_PATH)
+    dataframe = _require_sql_result_table(PRIORITY_TABLE)
     dataframe["departamento"] = normalize_department_series(dataframe["departamento"])
     return dataframe
 
@@ -61,7 +72,7 @@ def load_priority_geodataframe() -> gpd.GeoDataFrame:
 
 
 def load_demand_points() -> gpd.GeoDataFrame:
-    demand_df = pd.read_csv(DEMAND_PATH)
+    demand_df = _require_sql_result_table(DEMAND_TABLE)
     demand_df["departamento"] = normalize_department_series(demand_df["departamento"])
     demand_df["anio"] = pd.to_numeric(demand_df["anio"], errors="coerce")
     latest_year = demand_df["anio"].max()
@@ -73,7 +84,7 @@ def load_demand_points() -> gpd.GeoDataFrame:
 
 
 def load_department_yearly_demand_data() -> pd.DataFrame:
-    demand_df = pd.read_csv(DEMAND_PATH)
+    demand_df = _require_sql_result_table(DEMAND_TABLE)
     demand_df["departamento"] = normalize_department_series(demand_df["departamento"])
     demand_df["anio"] = pd.to_numeric(demand_df["anio"], errors="coerce")
 

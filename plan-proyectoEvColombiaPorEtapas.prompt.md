@@ -167,6 +167,7 @@ Priorizacion territorial
 
 1. Mantener sincronizados los dos archivos de plan (`plan-proyectoEvColombiaPorEtapas.prompt.md` y `planProyectoEvColombiaPorEtapas.prompt.md`) si el segundo vuelve a existir o se restaura.
 2. Si se quiere ampliar el alcance, el siguiente paso ya no es cerrar etapas base sino extender el modelo con capas adicionales o dashboard.
+3. El rediseño del entregable cartografico como visor unico ya tiene un plan dedicado en `plan-visorMapasEVColombia.prompt.md`.
 
 **Siguiente accion recomendada**
 

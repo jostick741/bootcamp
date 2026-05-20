@@ -6,11 +6,12 @@ import re
 import unicodedata
 
 import pandas as pd
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.engine import make_url
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
+SCHEMA_PATH = PROJECT_ROOT / "sql" / "schema.sql"
 DEFAULT_DATABASE_URL = "mysql+pymysql://root@127.0.0.1/proyecto_ev_colombia"
 
 DATASETS = {
@@ -55,11 +56,31 @@ DATASETS = {
 }
 
 SQL_LOAD_TABLES = ["vehiculos_ev", "activos_hidraulicos"]
+RESULT_TABLES = {
+    "etapa1_temporal",
+    "temporal_model_input",
+    "etapa1_temporal_predicciones",
+    "forecast_ev",
+    "etapa2_energetico",
+    "demanda_energetica",
+    "demanda_energetica_escenarios",
+    "etapa3_gis",
+    "priorizacion_territorial",
+    "validacion_etapa3",
+}
 
 
 def get_engine():
     database_url = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
     return create_engine(database_url)
+
+
+def _quote_identifier(engine, identifier: str) -> str:
+    if engine.dialect.name == "mysql":
+        return f"`{identifier}`"
+    if engine.dialect.name == "postgresql":
+        return f'"{identifier}"'
+    return identifier
 
 
 def ensure_database_exists() -> None:
@@ -88,9 +109,59 @@ def ensure_database_exists() -> None:
         server_engine.dispose()
 
 
+def ensure_result_tables_exist() -> None:
+    if not SCHEMA_PATH.exists():
+        raise FileNotFoundError(f"No se encontró el esquema SQL: {SCHEMA_PATH}")
+
+    schema_sql = SCHEMA_PATH.read_text(encoding="utf-8")
+    statements = [statement.strip() for statement in schema_sql.split(";") if statement.strip()]
+    result_statements = [
+        statement for statement in statements
+        if any(f"CREATE TABLE IF NOT EXISTS {table_name}" in statement for table_name in RESULT_TABLES)
+    ]
+
+    engine = get_engine()
+    with engine.begin() as connection:
+        for statement in result_statements:
+            connection.exec_driver_sql(statement)
+
+
 def read_sql_source_table(table_name: str) -> pd.DataFrame:
     engine = get_engine()
     return pd.read_sql_table(table_name, engine)
+
+
+def sql_table_exists(table_name: str) -> bool:
+    engine = get_engine()
+    inspector = inspect(engine)
+    return inspector.has_table(table_name)
+
+
+def read_sql_table_if_exists(table_name: str) -> pd.DataFrame | None:
+    if not sql_table_exists(table_name):
+        return None
+    return read_sql_source_table(table_name)
+
+
+def write_sql_table(dataframe: pd.DataFrame, table_name: str, if_exists: str = "replace") -> None:
+    engine = get_engine()
+    dataframe.to_sql(table_name, engine, if_exists=if_exists, index=False)
+
+
+def refresh_sql_result_table(dataframe: pd.DataFrame, table_name: str) -> None:
+    if table_name not in RESULT_TABLES:
+        raise ValueError(f"La tabla '{table_name}' no está registrada como tabla de resultados.")
+
+    ensure_database_exists()
+    ensure_result_tables_exist()
+
+    engine = get_engine()
+    quoted_table = _quote_identifier(engine, table_name)
+    with engine.begin() as connection:
+        connection.exec_driver_sql(f"DELETE FROM {quoted_table}")
+
+    if not dataframe.empty:
+        dataframe.to_sql(table_name, engine, if_exists="append", index=False)
 
 
 def normalize_columns(dataframe: pd.DataFrame) -> pd.DataFrame:

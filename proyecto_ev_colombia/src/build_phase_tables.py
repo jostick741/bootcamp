@@ -7,7 +7,7 @@ import geopandas as gpd
 import pandas as pd
 
 try:
-    from .load_data import read_sql_source_table
+    from .load_data import read_sql_source_table, read_sql_table_if_exists, refresh_sql_result_table
     from .project_config import (
         get_forecast_horizons,
         get_simultaneidad,
@@ -17,7 +17,7 @@ try:
     from .territorial import normalize_department_series
     from .train_temporal_baseline import run_baseline
 except ImportError:
-    from load_data import read_sql_source_table
+    from load_data import read_sql_source_table, read_sql_table_if_exists, refresh_sql_result_table
     from project_config import (
         get_forecast_horizons,
         get_simultaneidad,
@@ -33,6 +33,16 @@ GEOCODED_PARATEC_PATH = PROCESSED_DIR / "activos_hidraulicos_geocoded.csv"
 TEMPORAL_PREDICTIONS_PATH = PROCESSED_DIR / "etapa1_temporal_predicciones.csv"
 FORECAST_OUTPUT_PATH = PROCESSED_DIR / "forecast_ev.csv"
 DEFAULT_SIMULTANEIDAD = 0.3
+TEMPORAL_TABLE = "etapa1_temporal"
+TEMPORAL_INPUT_TABLE = "temporal_model_input"
+PREDICTIONS_TABLE = "etapa1_temporal_predicciones"
+FORECAST_TABLE = "forecast_ev"
+ENERGY_TABLE = "etapa2_energetico"
+DEMAND_TABLE = "demanda_energetica"
+ENERGY_SCENARIOS_TABLE = "demanda_energetica_escenarios"
+GIS_TABLE = "etapa3_gis"
+PRIORITY_TABLE = "priorizacion_territorial"
+GIS_VALIDATION_TABLE = "validacion_etapa3"
 
 
 def parse_args() -> argparse.Namespace:
@@ -113,8 +123,10 @@ def build_energy_table(temporal_df: pd.DataFrame, simultaneidad: float) -> pd.Da
     energy_df = temporal_df.copy()
     energy_df["anio_base"] = pd.NA
     energy_df["horizonte_anios"] = pd.NA
-    if TEMPORAL_PREDICTIONS_PATH.exists():
+    predictions_df = read_sql_table_if_exists(PREDICTIONS_TABLE)
+    if predictions_df is None and TEMPORAL_PREDICTIONS_PATH.exists():
         predictions_df = pd.read_csv(TEMPORAL_PREDICTIONS_PATH)
+    if predictions_df is not None:
         join_columns = ["anio", "departamento", "tipo_vehiculo"]
         prediction_columns = join_columns + ["cantidad_ev_pred"]
         predictions_df = predictions_df[prediction_columns].drop_duplicates()
@@ -127,8 +139,10 @@ def build_energy_table(temporal_df: pd.DataFrame, simultaneidad: float) -> pd.Da
         energy_df["cantidad_ev_modelada"] = energy_df["cantidad_ev"]
         energy_df["fuente_cantidad_ev"] = "historico"
 
-    if FORECAST_OUTPUT_PATH.exists():
+    forecast_df = read_sql_table_if_exists(FORECAST_TABLE)
+    if forecast_df is None and FORECAST_OUTPUT_PATH.exists():
         forecast_df = pd.read_csv(FORECAST_OUTPUT_PATH)
+    if forecast_df is not None:
         future_columns = [
             "anio",
             "departamento",
@@ -348,6 +362,8 @@ def save_temporal_outputs(temporal_df: pd.DataFrame) -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     temporal_df.to_csv(PROCESSED_DIR / "etapa1_temporal.csv", index=False)
     temporal_df.to_csv(PROCESSED_DIR / "temporal_model_input.csv", index=False)
+    refresh_sql_result_table(temporal_df, TEMPORAL_TABLE)
+    refresh_sql_result_table(temporal_df, TEMPORAL_INPUT_TABLE)
 
 
 def save_outputs(
@@ -360,12 +376,18 @@ def save_outputs(
     save_temporal_outputs(temporal_df)
     energy_df.to_csv(PROCESSED_DIR / "etapa2_energetico.csv", index=False)
     energy_df.to_csv(PROCESSED_DIR / "demanda_energetica.csv", index=False)
+    refresh_sql_result_table(energy_df, ENERGY_TABLE)
+    refresh_sql_result_table(energy_df, DEMAND_TABLE)
     if not energy_sensitivity_df.empty:
         energy_sensitivity_df.to_csv(PROCESSED_DIR / "demanda_energetica_escenarios.csv", index=False)
+        refresh_sql_result_table(energy_sensitivity_df, ENERGY_SCENARIOS_TABLE)
     gis_df.to_csv(PROCESSED_DIR / "etapa3_gis.csv", index=False)
     gis_df.to_csv(PROCESSED_DIR / "priorizacion_territorial.csv", index=False)
+    refresh_sql_result_table(gis_df, GIS_TABLE)
+    refresh_sql_result_table(gis_df, PRIORITY_TABLE)
     if not gis_validation_df.empty:
         gis_validation_df.to_csv(PROCESSED_DIR / "validacion_etapa3.csv", index=False)
+        refresh_sql_result_table(gis_validation_df, GIS_VALIDATION_TABLE)
 
     geo_df = gis_df.dropna(subset=["latitud", "longitud"]).copy()
     if not geo_df.empty:

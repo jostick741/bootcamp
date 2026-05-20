@@ -47,3 +47,205 @@ CREATE TABLE IF NOT EXISTS activos_hidraulicos (
     latitud DOUBLE,
     longitud DOUBLE
 );
+
+CREATE TABLE IF NOT EXISTS etapa1_temporal (
+    anio INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS temporal_model_input (
+    anio INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS etapa1_temporal_predicciones (
+    anio INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE,
+    tipo_prediccion VARCHAR(50),
+    anio_base INT,
+    horizonte_anios INT,
+    cantidad_ev_pred_modelo_a DOUBLE,
+    cantidad_ev_pred_modelo_b DOUBLE,
+    cantidad_ev_pred_tendencia DOUBLE,
+    cantidad_ev_pred DOUBLE,
+    modelo_seleccionado VARCHAR(150),
+    error_absoluto DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS forecast_ev (
+    anio INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE,
+    anio_base INT,
+    horizonte_anios INT,
+    tipo_prediccion VARCHAR(50),
+    cantidad_ev_pred_modelo_a DOUBLE,
+    cantidad_ev_pred_modelo_b DOUBLE,
+    cantidad_ev_pred_tendencia DOUBLE,
+    cantidad_ev_pred DOUBLE,
+    modelo_seleccionado VARCHAR(150),
+    error_absoluto DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS etapa2_energetico (
+    anio INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE,
+    anio_base INT,
+    horizonte_anios INT,
+    cantidad_ev_pred DOUBLE,
+    cantidad_ev_modelada DOUBLE,
+    fuente_cantidad_ev VARCHAR(50),
+    simultaneidad DOUBLE,
+    consumo_energetico DOUBLE,
+    demanda_futura DOUBLE,
+    consumo_energetico_kwh DOUBLE,
+    demanda_futura_kw DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS demanda_energetica (
+    anio INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE,
+    anio_base INT,
+    horizonte_anios INT,
+    cantidad_ev_pred DOUBLE,
+    cantidad_ev_modelada DOUBLE,
+    fuente_cantidad_ev VARCHAR(50),
+    simultaneidad DOUBLE,
+    consumo_energetico DOUBLE,
+    demanda_futura DOUBLE,
+    consumo_energetico_kwh DOUBLE,
+    demanda_futura_kw DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS demanda_energetica_escenarios (
+    anio INT,
+    anio_base INT,
+    horizonte_anios INT,
+    departamento VARCHAR(150),
+    tipo_vehiculo VARCHAR(150),
+    cantidad_ev DOUBLE,
+    cantidad_ev_modelada DOUBLE,
+    fuente_cantidad_ev VARCHAR(50),
+    kwh_promedio DOUBLE,
+    potencia_carga DOUBLE,
+    consumo_wh_km DOUBLE,
+    consumo_energetico DOUBLE,
+    consumo_energetico_kwh DOUBLE,
+    escenario_simultaneidad VARCHAR(50),
+    simultaneidad DOUBLE,
+    demanda_futura DOUBLE,
+    demanda_futura_kw DOUBLE
+);
+
+CREATE TABLE IF NOT EXISTS etapa3_gis (
+    departamento VARCHAR(150),
+    anio_min INT,
+    anio_max INT,
+    cantidad_ev DOUBLE,
+    cantidad_ev_modelada DOUBLE,
+    consumo_energetico DOUBLE,
+    demanda_futura DOUBLE,
+    total_activos_hidraulicos DOUBLE,
+    capacidad_hidraulica_total DOUBLE,
+    latitud_hidraulica_promedio DOUBLE,
+    longitud_hidraulica_promedio DOUBLE,
+    latitud DOUBLE,
+    longitud DOUBLE,
+    criterio_demanda DOUBLE,
+    criterio_crecimiento_ev DOUBLE,
+    criterio_soporte_hidraulico DOUBLE,
+    criterio_cobertura_hidraulica DOUBLE,
+    criterio_brecha_soporte_hidraulico DOUBLE,
+    criterio_brecha_cobertura_hidraulica DOUBLE,
+    indice_prioridad_territorial DOUBLE,
+    ranking_prioridad INT,
+    categoria_prioridad VARCHAR(50),
+    anio_escenario INT,
+    escenario_energetico_base VARCHAR(50),
+    observacion_prioridad VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS priorizacion_territorial (
+    departamento VARCHAR(150),
+    anio_min INT,
+    anio_max INT,
+    cantidad_ev DOUBLE,
+    cantidad_ev_modelada DOUBLE,
+    consumo_energetico DOUBLE,
+    demanda_futura DOUBLE,
+    total_activos_hidraulicos DOUBLE,
+    capacidad_hidraulica_total DOUBLE,
+    latitud_hidraulica_promedio DOUBLE,
+    longitud_hidraulica_promedio DOUBLE,
+    latitud DOUBLE,
+    longitud DOUBLE,
+    criterio_demanda DOUBLE,
+    criterio_crecimiento_ev DOUBLE,
+    criterio_soporte_hidraulico DOUBLE,
+    criterio_cobertura_hidraulica DOUBLE,
+    criterio_brecha_soporte_hidraulico DOUBLE,
+    criterio_brecha_cobertura_hidraulica DOUBLE,
+    indice_prioridad_territorial DOUBLE,
+    ranking_prioridad INT,
+    categoria_prioridad VARCHAR(50),
+    anio_escenario INT,
+    escenario_energetico_base VARCHAR(50),
+    observacion_prioridad VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS validacion_etapa3 (
+    departamento VARCHAR(150),
+    anio_escenario INT,
+    escenario_energetico_base VARCHAR(50),
+    ranking_prioridad INT,
+    categoria_prioridad VARCHAR(50),
+    indice_prioridad_territorial DOUBLE,
+    demanda_futura DOUBLE,
+    consumo_energetico DOUBLE,
+    cantidad_ev_modelada DOUBLE,
+    capacidad_hidraulica_total DOUBLE,
+    total_activos_hidraulicos DOUBLE,
+    criterio_demanda DOUBLE,
+    criterio_crecimiento_ev DOUBLE,
+    criterio_soporte_hidraulico DOUBLE,
+    criterio_cobertura_hidraulica DOUBLE,
+    criterio_brecha_soporte_hidraulico DOUBLE,
+    criterio_brecha_cobertura_hidraulica DOUBLE,
+    peso_demanda DOUBLE,
+    peso_crecimiento_ev DOUBLE,
+    peso_brecha_soporte_hidraulico DOUBLE,
+    peso_brecha_cobertura_hidraulica DOUBLE,
+    sin_soporte_hidraulico BOOLEAN,
+    sin_cobertura_hidraulica BOOLEAN,
+    consistencia_territorial_ok BOOLEAN,
+    observacion_prioridad VARCHAR(255)
+);
